@@ -2,7 +2,9 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../screens/loginnew';
-import Home from '../screens/home';
+
+import Home from '../screens/dashboard/home';
+
 import MyTabs from './tabnavigation';
 import OnlineVerifications from '../screens/forms/onlineVerifications';
 import SignUp from '../screens/forms/signUp';

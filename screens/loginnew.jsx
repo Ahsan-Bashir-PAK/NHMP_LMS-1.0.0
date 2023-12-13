@@ -48,7 +48,7 @@ clearStorage()
     const [userpwd, setPwd] = useState("")
     const [data, setData] = useState("")
 
-    const [modalVisible, setModalVisible] = useState(false);
+   
 
 //-----------Signin & get User 
         const signIn =async()=>{                  

@@ -4,7 +4,7 @@ import { UserPlus,  BadgePlus, BusFront,  UserCog2,  BookCopy, LogOutIcon, Arrow
 
 import EncryptedStorage from 'react-native-encrypted-storage';
 import axios from 'axios';
-import { retrieveUserSession,storeDriverSession,storeVehicleSession } from '../config/functions';
+import { retrieveUserSession,storeDriverSession,storeVehicleSession } from '../../config/functions';
 
 
 import {
@@ -25,7 +25,7 @@ import {
   BackHandler,
 } from 'react-native';
 import { LinearGradient } from 'react-native-svg';
-import SignUp from './forms/signUp';
+// import SignUp from './forms/signUp';
 import { BookOpenCheck } from 'lucide-react-native';
 import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
 import { Building2Icon } from 'lucide-react-native';
@@ -217,121 +217,80 @@ async function checkban (){
      enabled */}
    <ScrollView keyboardShouldPersistTaps='handled'>
    
-    <View className="p-2  w-full bg-white">
+    <View className="p-2  w-full bg-white h-screen">
     
-      <View className="  flex   bg-[#29378a]     w-full rounded-lg   overflow-hidden ">
+      <View className="  flex  border h-1/4 bg-[#151d4b]   justify-center items-center  w-full rounded-lg   overflow-visible ">
       
-      {/* <ImageBackground source={require('../img/bg.png')}  resizeMode="cover" style={{ height:'100%', width:518, opacity:0.9, flex:1, justifyContent:'center'}}  /> */}
-        <View className="  w-full flex justify-between rounded-md  ">
+
+        <View className=" bg-gray-200 rounded-xl w-11/12   h-36 shadow shadow-black  mt-40 items-center">
+       
+          <Text className="text-black mt-4">Welcome: PO Ahsan Bashir</Text>
+          <Text className="text-black">Training College, Shiekhupura</Text>
         
-      
-
-            <View className="  text-center   flex flex-row p-2 py-4  ">
-              <Image
-                        source={require('../img/logo.png')}
-                        style={{width: 60, height: 60}}
-                        className="pl-1"
-                      />
-              <Text className="text-yellow-300 text-center font-extrabold text-2xl ml-8 mt-2  ">
-                PSV-MIS (NHMP)          </Text>
-                
-            </View>
-
-            <View className="  w-full items-end  flex  " >
-                <Text className="text-black bg-yellow-500 px-3 text-right w-full text-sm  font-mono italic ">
-                {`${currentUser.rank}  ${currentUser.name}`}</Text>
-            </View>
+          <TouchableOpacity className=" bg-red-50 p-2  items-center mt-2 border border-gray-300 w-4/12 rounded-md">
+              <Text className="text-black">View Profile</Text>
+          </TouchableOpacity>
+            
         </View>
         
       </View>
-      <View className="mt-3 rounded-m  h-2/8  w-full text-center">
-     
-    
-        {/* View Input Type */}
-        <View className="mt-1 flex-row  justify-center  w-full  ">
-          <TextInput
-            style={{backgroundColor: 'white'}}
-            placeholderTextColor={'grey'}
-            autoCapitalize={'characters'}
-            placeholder="ABCA"
-            maxLength={4}
-            keyboardType="email-address"
-            value={reg}
-            onChangeText={text => setReg(text)}
-            className="border  justify-center pl-4 bg-white border-black  rounded-md w-4/12  text-lg  text-black"
-          />
 
-            
-          <TextInput
-            placeholderTextColor={'grey'}
-            placeholder="Year (2023)"
-            keyboardType="number-pad"
-            maxLength={4}
-            minLength={4}
-            value={year}
-            onChangeText={text => setYear(text)}
-            className=" border  bg-white border-black text-black  rounded-md w-3/12 flex text-lg ml-2 "
-          />
-          <TextInput
-            placeholderTextColor={'grey'}
-            placeholder="[0000]"
-            maxLength={4}
-            keyboardType="number-pad"
-            onChangeText={e => setNumber(e)}
-            value={number}
-            className="  border  bg-white border-black text-black rounded-md  w-4/12 flex text-lg ml-2 "
-          />
-        </View>
 
-        {/* View SearchBox Button */}
-        {/* <View onPress={()=>searchPSV()} className=' flex-row p-1 justify-center  w-full '>
-          <TouchableOpacity className='bg-[#29378a]  justify-center  flex-row w-full rounded-md items-center p-3 '>
-            <Search stroke="white" size={25} />
-            <Text className=' text-center font-bold font-white  text-lg text-white'>Search PSV</Text>
-          </TouchableOpacity>
-        </View> */}
-
-        <View className=" mt-1 flex-row p-2 justify-center  w-full ">
-          <TextInput
-            style={{backgroundColor: 'white'}}
-            placeholderTextColor={'grey'}
-            autoCapitalize={'characters'}
-            placeholder="0000000000000 {Driver CNIC}"
-            maxLength={13}
-            keyboardType="number-pad"
-            value={dvrCnic}
-            onChangeText={e => setDvrCnic(e)}
-            className="border justify-center pl-4 bg-white border-black  rounded-md w-full text-lg text-black"
-          />
-        </View>
-        <View className="flex-row p-1 justify-center  w-full mt-2">
-
-      
+      <View className="mt-3 rounded-m    w-full   justify-evenly flex flex-row ">
+        {/* Approved */}
+        
           <TouchableOpacity
-            // onPress={() => getInspectionreport()}
-            onPress={() => rptSessionProps()}
-            className="bg-[#29378a]  justify-center  flex-row w-full rounded-md items-center p-3 ">
-            <BookCopy stroke="white" size={25} />
-            <Text className=" text-center font-bold font-white  text-lg text-white">
-              Generate Inspection Report
+            className="bg-[#217a38]  justify-center  flex-col rounded-md items-center w-3/12 p-8  ">
+               <Text className=" text-center  font-white  text-3xl text-white">
+             0
+            </Text>
+            <Text className=" text-center font-white  text-lg text-white">
+              Approved
+            </Text>
+            
+          </TouchableOpacity>
+        
+
+         {/* Pending*/}
+       
+          <TouchableOpacity
+            className="bg-[#d6a438]  justify-center  flex-col  rounded-md items-center w-3/12 p-8 ">
+               <Text className=" text-center  font-white  text-3xl text-white">
+             0
+            </Text>
+            <Text className=" text-center  font-white  text-lg text-white">
+              Pending
             </Text>
           </TouchableOpacity>
-        </View>
+       
+
+         {/* Rejected*/}
+       
+          <TouchableOpacity
+            className="bg-[#b63030]  justify-center  flex-col rounded-md items-center w-3/12 p-8 ">
+            <Text className=" text-center  font-white  text-3xl text-white">
+             0
+            </Text>
+            <Text className=" text-center  font-white  text-lg text-white">
+              Rejected
+            </Text>
+          </TouchableOpacity>
+       
       </View>
 
       {/* PSVs TABS */}
-      <View className="rounded-lg   p-2">
+      <View className="rounded-lg mt-4  p-4">
         {/*ADD PSV Button  */}
         <View className="flex-row justify-around">
           <TouchableOpacity
             onPress={() => navigation.navigate('MyTabs', {screen: 'Add Vehicle'})}
-            className="shadow-md shadow-slate-950  w-2/5 flex-row  rounded-lg  flex justify-around items-center border border-slate-400  bg-white">
+            className="shadow-md shadow-slate-950  w-3/12 flex-row  rounded-lg  flex justify-around items-center border border-slate-400  bg-white">
             <View className="  items-center gap-1 justify-center mt-2 p-1 ">
-              <BusFront stroke="orange" size={40} strokeWidth={1}/>
+              <BookCopy stroke="orange" size={40} strokeWidth={1}/>
               <View className="flex justify-center items-center flex-row gap-1">
                 {/* <BadgePlus stroke="black" size={20} /> */}
-                <Text className=" font-bold font-white  text-sm text-black">
-                  Add PSV
+                <Text className="  font-white  text-sm text-black">
+                  Apply Leave
                 </Text>
               </View>
             </View>
@@ -340,185 +299,23 @@ async function checkban (){
           {/*Add driver  */}
           <TouchableOpacity
             onPress={() => navigation.navigate('MyTabs', {screen: 'AddDrivernew'})}
-            className="w-2/5  shadow-md shadow-slate-950 rounded-lg  flex justify-center items-center   border border-slate-400  bg-white">
+            className="w-3/12  shadow-md shadow-slate-950 rounded-lg  flex justify-center items-center   border border-slate-400  bg-white">
             <View className="  items-center  gap-1 justify-center mt-2 p-1 ">
               <UserPlus stroke="green" size={40} strokeWidth={1}/>
               <View className="flex justify-center items-center flex-row gap-1">
                 {/* <BadgePlus stroke="black" size={20} /> */}
-                <Text className=" font-bold font-white  text-sm text-black">
-                  Add Driver
+                <Text className="  font-white  text-sm text-black">
+                  Status
                 </Text>
               </View>
             </View>
           </TouchableOpacity>
 
-        </View>
-        {/* Add Commercial Vehicle TAB */}
-        
-        <View className="flex-row justify-around mt-4">
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Add Commercial Vehcile')}
-            className="shadow-md shadow-slate-950  w-2/5 flex-row  rounded-lg  flex justify-around items-center border border-slate-400  bg-white">
-            <View className="  items-center gap-1 justify-center mt-2 p-1 ">
-              <Truck stroke="red" size={40} strokeWidth={1}/>
-              <View className="flex justify-center items-center flex-row gap-1">
-                {/* <BadgePlus stroke="black" size={20} /> */}
-                <Text className=" font-bold font-white  text-xs text-black">
-                  Add Commercial Vehicle
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          {/*Add driver  */}
-          <TouchableOpacity
-           onPress={() => navigation.navigate('Downloads')}
-            className="  w-2/5 flex-row shadow-md shadow-slate-950  rounded-lg  flex justify-around items-center border border-slate-400  bg-white">
-            <View className="  items-center gap-1 justify-center mt-2 ">
-              <BookOpenCheck stroke="purple" size={40} strokeWidth={1}/>
-              <View className="flex justify-center items-center flex-row gap-1">
-                <Text className=" font-bold font-white  text-sm text-black">
-                  E-Library
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-
-        </View>
-        
-        
-        
-        
-        
-        {/*  */}
-        <View className=" flex-row justify-around mt-4">
-        <TouchableOpacity
-            onPress={() => navigation.navigate('OnlineVerifications')}
-            className="w-2/5  shadow-md shadow-slate-950 rounded-lg  flex justify-center items-center   border border-slate-400  bg-white">
-            <View className="  items-center  gap-1 justify-center mt-2 ">
-              <Link stroke="grey" size={40} strokeWidth={1}/>
-              <View className="flex justify-center items-center flex-row gap-1">
-                <Text className=" font-bold font-white  text-sm text-black">
-                  Verifications
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          {/* Generate Progress  */}
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Daily Progress')}
-            className="w-2/5  shadow-md shadow-slate-950 rounded-lg  flex justify-center items-center   border border-slate-400  bg-white">
-            <View className="  items-center  gap-1 justify-center mt-2 ">
-              <BarChart4 stroke="brown" size={40} strokeWidth={1}/>
-              <View className="flex justify-center items-center flex-row gap-1">
-                <Text className=" font-bold font-white  text-sm text-black">
-                  Generate Progress
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          
-        </View>
-
-{/*  Companies*/}
-<View className=" flex-row justify-around mt-4">
-        <TouchableOpacity
-            onPress={() => navigation.navigate('Addcompany', {params:"company"})}
-            
-            className="w-2/5  shadow-md shadow-slate-950 rounded-lg  flex justify-center items-center   border border-slate-400  bg-white">
-            <View className="  items-center  gap-1 justify-center mt-2 ">
-              <Building2 stroke="green" size={40} strokeWidth={1}/>
-              <View className="flex justify-center items-center flex-row gap-1">
-                <Text className=" font-bold font-white  text-sm text-black">
-                  Add Company
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          {/* Generate Progress  */}
-          <TouchableOpacity
-            onPress={()=>navigation.navigate('Addcompany',{params:"terminal"})}
-            className="w-2/5  shadow-md shadow-slate-950 rounded-lg  flex justify-center items-center   border border-slate-400  bg-white">
-            <View className=" items-center  gap-1 justify-center mt-2 ">
-              <Building stroke="brown" size={40} strokeWidth={1}/>
-              <View className="flex justify-center items-center flex-row gap-1">
-                <Text className=" font-bold font-white  text-sm text-black">
-                  Add Terminal
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          
         </View>
         
       </View>
 
-      
-              
-
-      {/* Add New User */}
-
-      <View
-        className={`${currentUser.role == 'Admin' ? 'block' : 'hidden'} mt-4`}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('SignUp')}
-          className="w-full   flex rounded-lg  justify-center items-center bg-[#2e3d94] ">
-          <View className="justify-center flex flex-row items-center p-1 w-full gap-2">
-            <Plus stroke="white" size={25} strokeWidth={1} />
-            <Text className="  font-white  text-lg text-white">
-              Add New User
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-      {/* Generate Report */}
-      {/* <View
-        className= "mt-2">
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Daily Progress')}
-          className="w-full   h-10 rounded-lg  justify-center items-center bg-[#2e3d94] ">
-          <View className="justify-center flex flex-row items-center p-1 w-full gap-2">
-            
-            <Text className=" font-bold font-white  text-lg text-white">
-              Generate Progress Report 
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </View> */}
-
-      {/* User Profile*/}
-
-      <View className=" mt-2 flex flex-row p-1 ">
-        <View className="p-1 w-2/4">
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Profile')}
-          className=" h-10 rounded-lg  justify-center items-center bg-[#258f3c] ">
-          <View className="justify-center flex flex-row items-center  w-full ">
-            <KeySquare stroke="white" size={20} strokeWidth={1} />
-            <Text className="font-white pl-1  text-md text-white">
-              Change Password
-            </Text>
-          </View>
-        </TouchableOpacity>
-        </View>
-
-        <View className="  p-1 w-2/4">
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Feed Back')}
-            className="  h-10 rounded-lg  justify-center items-center bg-[#40b63c] ">
-            <View className="justify-center flex flex-row items-center  w-full ">
-              <PenSquare  strokeWidth={1} stroke="white" size={20} />
-              <Text className="font-white pl-1  text-md text-white">
-              Feedback
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
+   
 
       {/* Update Logout */}
 

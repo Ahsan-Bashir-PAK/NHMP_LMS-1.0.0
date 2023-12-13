@@ -14,7 +14,7 @@ import { verifyDuplicateUser } from '../../config/functions';
 
 
 
-let ranks = ["CPO" ,"SPO" ,"PO", "APO", "JPO", "ACP","UDC","LDC","PG"];  
+// let ranks = ["CPO" ,"SPO" ,"PO", "APO", "JPO", "ACP","UDC","LDC","PG"];  
 
 
  
@@ -46,14 +46,19 @@ const [officerRegion, setOfcrRegion] = useState("");
 const [officerzone, setOfcrzone] = useState("");
 const [officersector, setOfcrsector] = useState("");
 const [officerbeat, setOfcrbeat] = useState("");
+const [userOfficeId, setOfficeId] = useState("");
 
 //=================overall offices
 const[offices,setOffices] = useState("")
 const[ranks,setRanks] = useState("")
 
-  // Appointment DAte
+  // birth DAte
   const [dobopen, setdobOpen] = useState(false)
   const [dobdate, setdobDate] = useState(new Date())
+
+  //  // Appointment DAte
+  const [doaopen, setdoaOpen] = useState(false)
+  const [doadate, setdoaDate] = useState(new Date())
 //============================================================
 // const [officerrole, setOfcrrole] = useState("");
 //================================================================ function to get offices data 
@@ -81,8 +86,74 @@ const getRanks = async () => {
 };
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
+const getOfficeId =(type,region ,zone,sector,beat)=>{
+let result
+  switch (posting) {
+    case 'Beat':
+      const office =
+        offices &&
+        offices.filter(
+          item =>
+            item.officeType == type &&
+            item.region == region &&
+            item.zone == zone &&
+            item.sector == sector &&
+            item.beat == beat,
+        );
+        result = office[0].officeId;
+     
+      break;
+    case 'Lines HQs':
+    case 'Sector Office': 
+      const office2 =
+        offices &&
+        offices.filter(
+          item =>
+            item.officeType == type &&
+            item.region == region &&
+            item.zone == zone &&
+            item.sector == sector,
+        );
+        result = office2[0].officeId;
+      break;
+    case 'Zonal Office':
+      const office3 =
+        offices &&
+        offices.filter(
+          item =>
+            item.officeType == type &&
+            item.region == region &&
+            item.zone == zone,
+        );
+        result = office3[0].officeId;
+      break;
+      case  'Head Quarter': 
+    case 'Training College':
+      const office5 =
+        offices &&
+        offices.filter(
+          item =>
+            item.officeType == type 
+        );
+        result = office5[0].officeId;
+      break;
+    case 'Regional Office':
+      const office4 =
+        offices &&
+        offices.filter(
+          item => item.officeType == type && item.region == region,
+        );
+        result = office4[0].officeId;
+      break;
 
+    default:
+      break;
+  }
+  
+return result
+}
 
+ 
 
 
 
@@ -115,51 +186,43 @@ function  clearAll (){
 }
 
 
-const user ={
-  userCnic:officercnic,
-  userName:officername,
-  userPwd:officerpwd,
-  cellNo :officercell ,
-  rank:officerrank,
-  beltNo:officerbelt,
-  // role:officerrole,
-  status:"Active",
-  beatId :officerbeat ,
-  sectorId: officersector,
-  zoneId:officerzone,
-  region:officerRegion
 
-}
 
 //------------------------save user
 const saveUser = async () => {
-  if(officercnic && officerbelt && officercell && officername && officerpwd && officerrank && officersector &&  officerRegion && officerzone && officerbeat ) {
-      await fetch(`${global.BASE_URL}/users/addUser`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      }) 
-        .then(response => {
-          if (response.ok) {
-            Alert.alert('User created successfully');
-            clearAll();
-          } else {
-            Alert.alert('User already Exists');
-          }
-  
-        })
-  
-        .catch(error => {
-          Alert.alert(error);
-        });
+  if(officercnic && officerbelt && officercell && officername && officerpwd && officerrank &&  doadate && dobdate && posting && officerbps) {
+
+ 
+  const user = {
+    id:officercnic,
+    role:"User",
+    name:officername,
+    pwd:officerpwd,
+    cellNo :officercell ,
+    rank:officerrank,
+    beltNo:officerbelt,
+    bps:officerbps,
+    officeId : getOfficeId(posting,officerRegion,officerzone,officersector,officerbeat),
+    appointmentDate:doadate,
+    dob:dobdate,
+    status:"Approval Pending"
+  }
+
+    axios.post(`${global.BASE_URL}/sign/saveRequest`,user).then( response =>{
+      Alert.alert("Request Submitted",'Your Request has been forwarded to concerned office for acount activation ')
+
+    }
+    )
       } else { Alert.alert("Note: Please Fill All Fields");}
       }
+
+
 useEffect(()=>{
   getOffices()
   getRanks()
 },[])
+
+
 return (
     <ScrollView className=" ">
     <View className=" relative flex flex-col p-6 pt-1 bg-slate-100   ">
@@ -322,9 +385,9 @@ return (
           </View>
         </View>
 
-          {/* Appointment Date*/}
+          {/* birth Date*/}
       <View className={styles.outerview}>
-          <View className={styles.labelstyle}><Text className="text-black font-bold">Appointment Date*</Text></View>
+          <View className={styles.labelstyle}><Text className="text-black font-bold">Date of Birth*</Text></View>
           <View className="w-4/6 items-center ">
             <View className="flex flex-row gap-1">
             
@@ -346,6 +409,36 @@ return (
               {dobdate.toLocaleDateString()}
             </Text>
             <TouchableOpacity onPress={() => setdobOpen(true)}>
+              <Calendar stroke="black" fill="white" size={30}></Calendar>
+            </TouchableOpacity>
+          </View>
+            </View>
+        </View>
+
+                {/* Appointment Date*/}
+                <View className={styles.outerview}>
+          <View className={styles.labelstyle}><Text className="text-black text-center font-bold">Appointment Date*</Text></View>
+          <View className="w-4/6 items-center ">
+            <View className="flex flex-row gap-1">
+            
+            <DatePicker
+              modal
+              mode="date"
+              open={doaopen}
+              date={doadate}
+              onConfirm={value => {
+                setdoaOpen(false);
+                setdoaDate(value);
+              }}
+              onCancel={() => {
+                setdoaOpen(false);
+              }}
+            />
+
+            <Text className="rounded-md  w-4/6   text-black text-center font-bold p-2">
+              {doadate.toLocaleDateString()}
+            </Text>
+            <TouchableOpacity onPress={() => setdoaOpen(true)}>
               <Calendar stroke="black" fill="white" size={30}></Calendar>
             </TouchableOpacity>
           </View>
@@ -496,7 +589,7 @@ return (
                 </TouchableOpacity>
               </View>
               <View className="">
-                <TouchableOpacity onPress={()=>console.log(region)} className="bg-[#a54932] px-8 py-2 rounded-md m-2">
+                <TouchableOpacity onPress={()=>console.log(getOfficeId(posting,officerRegion,officerzone,officersector,officerbeat))} className="bg-[#a54932] px-8 py-2 rounded-md m-2">
                   <Text className="text-white text-lg">getOffices</Text>
                 </TouchableOpacity>
               </View>

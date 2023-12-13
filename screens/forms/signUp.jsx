@@ -15,6 +15,8 @@ import { verifyDuplicateUser } from '../../config/functions';
 
 
 let ranks = ["CPO" ,"SPO" ,"PO", "APO", "JPO", "ACP","UDC","LDC","PG"];  
+
+
  
 
 
@@ -36,6 +38,7 @@ const [officerCpwd, setOfcrCpwd] = useState("");
 const [officerrank, setOfcrrank] = useState("");
 const [officerbelt, setOfcrbelt] = useState("");
 const [officerbps, setOfcrbps] = useState("");
+const [posting, setPosting] = useState("");
 // const [officerappt, setOfcrappt] = useState("");
 
 //=======================================================office satates 
@@ -45,11 +48,8 @@ const [officersector, setOfcrsector] = useState("");
 const [officerbeat, setOfcrbeat] = useState("");
 
 //=================overall offices
-const[regions,setRegions] = useState("")
-const[zones,setZones] = useState("")
-const[sectors,setSectors] = useState("")
-const[beats,setbeats] = useState("")
-
+const[offices,setOffices] = useState("")
+const[ranks,setRanks] = useState("")
 
   // Appointment DAte
   const [dobopen, setdobOpen] = useState(false)
@@ -57,68 +57,37 @@ const[beats,setbeats] = useState("")
 //============================================================
 // const [officerrole, setOfcrrole] = useState("");
 //================================================================ function to get offices data 
-const getRegion = async () => {
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+const getOffices = async () => {
   
-  await axios.get(`${global.BASE_URL}/ofc/region`).then(async response => {
-    const region = response.data;
-    const regions = []
-    if (region) {
-      region.map( item=>{
-        regions.push(item.region)
-      }) 
-      setRegions(regions)
-     
+  await axios.get(`${global.BASE_URL}/ofc/getoffices`).then(async response => {
+    const offices = response.data;
+    if (offices) {
+      setOffices(offices)
     }
   });
 };
-const Zones =[]
-//=============================================================get zone 
-const getZone = async (region) => {
+
+const getRanks = async () => {
   
-  await axios.get(`${global.BASE_URL}/ofc/zone/${region}`).then(async response => {
-    const zone = response.data;
-   const data =[]
-    if (zone) {
-      zone.map( item=>{
-        data.push(item.zone)
-      }) 
-      setZones(data)
+  await axios.get(`${global.BASE_URL}/gen/getRanks`).then(async response => {
+    const ranks = response.data;
+    if (ranks) {
+      setRanks(ranks)
     }
-   
   });
 };
-//=============================================================get sectors
-const getSector = async (zone) => {
- 
-  await axios.get(`${global.BASE_URL}/ofc/sector/${zone}`).then(async response => {
-    const sector = response.data;
-   const data =[]
-    if (sector) {
-      
-      sector.map( item=>{
-        data.push(item.sector)
-      }) 
-      setSectors(data)
-     
-    }
-   
-  });
-};
-//=============================================================get sectors
-const getBeat = async (sector) => {
-  
-  await axios.get(`${global.BASE_URL}/ofc/beat/${sector}`).then(async response => {
-    const beat = response.data;
-   const data =[]
-    if (beat) {
-      beat.map( item=>{
-        data.push(item.beat)
-      }) 
-      setbeats(data)
-    }
-   
-  });
-};
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+
+
+
+
+
+
 
 //
 //==============================================================================================/>
@@ -139,6 +108,7 @@ function  clearAll (){
   setOfcrzone("")
   setOfcrsector("")
   setOfcrbeat("")
+  setPosting("")
   // setOfcrrole("")
   
   
@@ -187,8 +157,9 @@ const saveUser = async () => {
       } else { Alert.alert("Note: Please Fill All Fields");}
       }
 useEffect(()=>{
-  getRegion()
-},[regions])
+  getOffices()
+  getRanks()
+},[])
 return (
     <ScrollView className=" ">
     <View className=" relative flex flex-col p-6 pt-1 bg-slate-100   ">
@@ -303,7 +274,7 @@ return (
           <View className="w-4/6 items-center ">
           <View className="   z-50">
               <SelectDropdown
-                data= {ranks}
+                data = {[...new Set(ranks && ranks.map(x=>x.bps < 17?x.title:""))].filter(x=>x!="")}
                 value={officerrank}
                 onSelect={(selectedItem, index) => {
                   setOfcrrank(selectedItem);
@@ -381,18 +352,45 @@ return (
             </View>
         </View>
 
+      {/* posted at========================================$$$$$ */}
+      
+       <View className={styles.outerview}>
+          <View className={styles.labelstyle}><Text className="text-black font-bold">Place of Posting*</Text></View>
+          <View className="w-4/6 items-center ">
+          <View className="   z-50">
+              <SelectDropdown
+                // data= {postingPlaces}
+                data = {[...new Set(offices && offices.map(x=>x.officeType))].filter(x=>x!="")}
+                value={posting}
+                onSelect={(selectedItem, index) => {
+                  setPosting(selectedItem);
+                }}
+                // defaultButtonText={posting}
+                buttonStyle={{
+                  backgroundColor:'white',
+                    
+                }}                
+                />
+              
+            </View>
+
+          </View>
+        </View>
+
         {/* Region */}
-        <View className={styles.outerview}>
+        <View className={`${styles.outerview} ${posting == 'Head Quarter' || posting == 'Training College'? 'hidden':'block'} `}>
           <View className={styles.labelstyle}><Text className="text-black font-bold">Region*</Text></View>
           <View className="w-4/6 items-center">
           <View className="  z-50">
               <SelectDropdown
-                data= {regions}
+                // data= {regions}
+
+                data = {[...new Set(offices && offices.map(x=>x.region))].filter(x=>x!="")}
+                
+                
                 value={officerRegion}
                 onSelect={ (selectedItem, index) => {
-                  
                   setOfcrRegion(selectedItem);
-                 getZone(selectedItem)
                 }}
                 defaultButtonText={officerRegion}
                 buttonStyle={{
@@ -407,17 +405,16 @@ return (
           </View>
         </View>
         {/* Zone */}
-        <View className={styles.outerview}>
+        <View className={`${styles.outerview} ${posting == 'Regional Office'|| posting == 'Head Quarter' || posting == 'Training College'? 'hidden':'block'} `}>
           
           <View className={styles.labelstyle}><Text className="text-black font-bold">Zone*</Text></View>
           <View className="w-4/6 items-center">
           <View className="  z-50">
               <SelectDropdown
-                data= {zones}
+                data = {[...new Set(offices && offices.map(x=>x.region == officerRegion?x.zone:""))].filter(x=>x!="")}
                 value={officerzone}
                 onSelect={(selectedItem, index) => {
                   setOfcrzone(selectedItem);
-                  getSector(selectedItem)
                 }}
                 defaultButtonText={officerzone}
                 buttonStyle={{
@@ -433,18 +430,15 @@ return (
         </View>
 
         {/* Sector */}
-        <View className={styles.outerview}>
+        <View className={`${styles.outerview} ${posting == 'Sector Office'|| posting == 'Lines HQs' || posting == 'Beat'? 'block':'hidden'} `}>
           <View className={styles.labelstyle}><Text className="text-black font-bold">Sector*</Text></View>
           <View className="w-4/6 items-center">
           <View className=" z-50">
               <SelectDropdown
-                data= {sectors}
+                data = {[...new Set(offices && offices.map(x=>x.zone == officerzone?x.sector:""))].filter(x=>x!="")}
                 value={officersector}
                 onSelect={(selectedItem, index) => {
-                  setOfcrsector(selectedItem);
-                  getBeat(selectedItem)
-                 
-
+                  setOfcrsector(selectedItem);              
                 }}
                 defaultButtonText={officersector}
                 buttonStyle={{
@@ -458,12 +452,12 @@ return (
         </View>
 
         {/* Beat */}
-        <View className={styles.outerview}>
+      <View className={`${styles.outerview} ${posting !='Beat'? 'hidden':'block'} `}>
           <View className={styles.labelstyle}><Text className="text-black font-bold">Beat*</Text></View>
           <View className="w-4/6 items-center">
           <View className=" m-1  z-50">
               <SelectDropdown
-                data= {beats}
+                data = {[...new Set(offices && offices.map(x=>x.sector == officersector?x.beat:""))].filter(x=>x!="")}
                 value={officerbeat}
                 onSelect={(selectedItem, index) => {
                   setOfcrbeat(selectedItem);
@@ -499,6 +493,11 @@ return (
               <View className="">
                 <TouchableOpacity onPress={()=>clearAll()} className="bg-[#a54932] px-8 py-2 rounded-md m-2">
                   <Text className="text-white text-lg">Clear</Text>
+                </TouchableOpacity>
+              </View>
+              <View className="">
+                <TouchableOpacity onPress={()=>console.log(region)} className="bg-[#a54932] px-8 py-2 rounded-md m-2">
+                  <Text className="text-white text-lg">getOffices</Text>
                 </TouchableOpacity>
               </View>
 

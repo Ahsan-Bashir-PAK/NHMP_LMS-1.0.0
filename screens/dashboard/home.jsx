@@ -236,11 +236,11 @@ async function checkban (){
       </View>
 
 
-      <View className="mt-3 rounded-m    w-full   justify-evenly flex flex-row ">
+      <View className="mt-14 rounded-m    w-full   justify-evenly flex flex-row ">
         {/* Approved */}
         
           <TouchableOpacity
-            className="bg-[#217a38]  justify-center  flex-col rounded-md items-center w-3/12 p-8  ">
+            className="bg-[#217a38]  justify-center  flex-col rounded-md items-center w-3/12 p-4  ">
                <Text className=" text-center  font-white  text-3xl text-white">
              0
             </Text>
@@ -254,7 +254,7 @@ async function checkban (){
          {/* Pending*/}
        
           <TouchableOpacity
-            className="bg-[#d6a438]  justify-center  flex-col  rounded-md items-center w-3/12 p-8 ">
+            className="bg-[#d6a438]  justify-center  flex-col  rounded-md items-center w-3/12 p-4 ">
                <Text className=" text-center  font-white  text-3xl text-white">
              0
             </Text>
@@ -267,7 +267,7 @@ async function checkban (){
          {/* Rejected*/}
        
           <TouchableOpacity
-            className="bg-[#b63030]  justify-center  flex-col rounded-md items-center w-3/12 p-8 ">
+            className="bg-[#b63030]  justify-center  flex-col rounded-md items-center w-3/12 p-4 ">
             <Text className=" text-center  font-white  text-3xl text-white">
              0
             </Text>
@@ -278,12 +278,12 @@ async function checkban (){
        
       </View>
 
-      {/* PSVs TABS */}
+      {/* Leave TABS */}
       <View className="rounded-lg mt-4  p-4">
-        {/*ADD PSV Button  */}
+        {/* Apply Leave */}
         <View className="flex-row justify-around">
           <TouchableOpacity
-            onPress={() => navigation.navigate('MyTabs', {screen: 'Add Vehicle'})}
+            onPress={() => navigation.navigate('Daily Progress')}
             className="shadow-md shadow-slate-950  w-3/12 flex-row  rounded-lg  flex justify-around items-center border border-slate-400  bg-white">
             <View className="  items-center gap-1 justify-center mt-2 p-1 ">
               <BookCopy stroke="orange" size={40} strokeWidth={1}/>

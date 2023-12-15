@@ -1,6 +1,6 @@
 import React, { useEffect, useState,useCallback, } from 'react';
 import { useNavigation,useIsFocused,useFocusEffect } from '@react-navigation/native';
-import { UserPlus,  BadgePlus, BusFront,  UserCog2,  BookCopy, LogOutIcon, ArrowDownToLine, Link, UserCog2Icon, Plus, User, PenSquare, KeySquare, Truck, BarChart4, Navigation, Building, Building2  } from 'lucide-react-native';
+import { UserPlus, BookCopy, LogOutIcon} from 'lucide-react-native';
 
 import EncryptedStorage from 'react-native-encrypted-storage';
 import axios from 'axios';
@@ -8,6 +8,8 @@ import { retrieveUserSession,storeDriverSession,storeVehicleSession } from '../.
 
 
 import {
+  Modal,
+  FlatList,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -23,6 +25,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   BackHandler,
+  
 } from 'react-native';
 import { LinearGradient } from 'react-native-svg';
 // import SignUp from './forms/signUp';
@@ -34,6 +37,41 @@ import { Building2Icon } from 'lucide-react-native';
 
 
 function Home() {
+
+  const DATA = [
+    {
+      rank: 'PO',
+      name: 'Ahsan',
+      Beltno: 'P-3166',
+    },
+    {
+      rank: 'UDC',
+      name: 'Shoaib',
+      Beltno: '',
+    },
+    {
+      rank: 'PO',
+      name: 'Attique',
+      Beltno: 'P-2261',
+    },
+    {
+      rank: 'CO',
+      name: 'Ahsan',
+      Beltno: '',
+    },
+    {
+      rank: 'APO',
+      name: 'waqas',
+      Beltno: '',
+    },
+    {
+      rank: 'jpo',
+      name: 'nida',
+      Beltno: '',
+    },
+  ];
+  
+  const [modalVisible, setModalVisible] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
 
   const isFocused = useIsFocused() 
@@ -215,7 +253,8 @@ async function checkban (){
     >
 {/* behavior={Platform.OS === 'android' ? 'Padding' : null}
      enabled */}
-   <ScrollView keyboardShouldPersistTaps='handled'>
+
+   {/* <ScrollView keyboardShouldPersistTaps='handled'> */}
    
     <View className="p-2  w-full bg-white h-screen">
     
@@ -314,8 +353,92 @@ async function checkban (){
         </View>
         
       </View>
+{/* Admin Panel */}
 
-   
+      <View className="mt-2 ">
+        <TouchableOpacity
+          
+          className="w-full   h-10 rounded-lg  justify-center items-center bg-[#257c25] ">
+          <View className="justify-center flex flex-row items-center  w-full gap-2">
+       
+            <Text className="  font-white  text-lg text-white">
+              Accounts Approval Requests 
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View className=" bg-gray-100 justify-start items-start w-full">
+      <FlatList className="p-2 overflow-scroll h-1/5 w-full"
+        data={DATA}
+            renderItem={({ item, index }) => (
+              
+              
+              <View className="flex   flex-row  items-center">
+                 {/* Modal */}
+                 <View className=" bg-[#e6ecf1ee]  flex-1 justify-center items-center ">
+                    <Modal
+                      animationType="slide"
+                      transparent={true}
+                      visible={modalVisible}
+                      onRequestClose={() => {
+                        setModalVisible(!modalVisible);
+                      }}>
+                    
+                    
+                    <View className="bg-[#ecf2f7ee]  h-full w-full justify-center items-center flex">    
+                    
+                    <View className=" w-full h-full rounded-md justify-center items-center align-middle shadow-black ">
+                            
+                              <Text className="text-black text-lg p-4"> Please confirm are you employee of NHMP</Text>
+                                <Text>Officer </Text>
+                                <Text>{item.rank}</Text>
+                              
+                              <View className=" flex flex-row gap-2 p-4 mt-5 ">
+                              <TouchableOpacity
+                                      onPress={()=>setModalVisible(!modalVisible)}
+                                      className="bg-red-600 p-2 rounded-md w-32 justify-center items-center">
+                                              <Text className="text-white">Cancel</Text>
+                                      </TouchableOpacity>
+                                      <TouchableOpacity 
+                                      
+                                      onPress={()=>verifyUser()}
+                                      className="bg-green-600 p-2 rounded-md w-32 justify-center items-center">
+                                              <Text className="text-white">Confirm</Text>
+                                      </TouchableOpacity>
+
+                                      </View>        
+                              </View>
+                    
+                    </View>
+                    </Modal>  
+                  </View>
+                 {/*end of modal  */}
+                <View className="flex p-2 w-10/12 border-b flex-row align-middle items-start">
+                  <Text className="text-black ">{item.rank}</Text>
+                   <Text className="text-black ml-4">{item.name}</Text>
+                   <Text className="text-black ml-4">{item.Beltno}</Text>
+                </View>  
+                
+                <View className="flex p-2 w-4/12  flex-row  items-center">
+                  <TouchableOpacity
+                  onPress={()=>setModalVisible(true)}
+                  className="p-2 bg-green-800 rounded-md justify-between items-center"
+                  >
+                  <Text className="text-white">Verify User</Text>    
+                  </TouchableOpacity>
+                  
+                </View> 
+
+               
+
+              </View>  
+                  
+              
+           
+           )}
+
+      />
+      </View>
 
       {/* Update Logout */}
 
@@ -331,8 +454,11 @@ async function checkban (){
           </View>
         </TouchableOpacity>
       </View>
+
+
+   
     </View>
-    </ScrollView>
+    
     </KeyboardAvoidingView> 
   );
 }

@@ -145,108 +145,21 @@ function Home() {
 
   }  
 
+// ===========Verify Modal Box============
 
-
-//========================================================check ban 
-
-async function checkban (){
-  try {
-    if(reg && year && number 
-      
-      // && dvrCnic
-      
-      ){
-
-  axios.get(`${BASE_URL}/web/ban/checkban/${reg+year+number}`).then(
-    response=>{
-        const result = response.data[0]
-      if (result){
-      if(result.banStatus =='ban'){
-        if(result.banArea == 'sector'){
-            if(result.banoffice == currentUser.sector){
-                Alert.alert('Vehicle Ban Alert ⚠️',`Vehicle # ${reg}-${year}-${number} \n  \n Chasis # ${result.chasisNo} \n  is Banned in Sector : ${currentUser.sector}  \n From:  ${result.startDate} \n To: ${result.endDate}` )
-            }
-        }
-        else if (result.banArea == 'zone'){
-            if(result.banoffice == currentUser.zone){
-              Alert.alert('Vehicle Ban Alert ⚠️',`Vehicle # ${reg}-${year}-${number} \n \n Chasis # ${result.chasisNo} \n Zone : ${currentUser.sector}  \n From: ${result.startDate} \n To: ${result.endDate}` )
-            }
-        }
-        else if (result.banArea == 'region'){
-            if(result.banoffice == currentUser.region){
-              Alert.alert('Vehicle Ban Alert ⚠️',`Vehicle # ${reg}-${year}-${number} \n  \n Chasis # ${result.chasisNo} \n Region : ${currentUser.sector}  \n From: ${result.startDate} \n To: ${result.endDate}` )
-            }
-        }
-        else if(result.banArea == 'hq'){
-            
-          Alert.alert('Vehicle Ban Alert ⚠️',`Vehicle # ${reg}-${year}-${number} \n  \n Chasis # ${result.chasisNo} \n  \n From: ${result.startDate} \n To: ${result.endDate} \n Vehicle banned in AOR of NHMP` )
-        }
-      }}
-
-
-    }
-)}
-} catch (error) {
-  
-}
-}
-
-
-  //============================================saving report Session
-
-  async function  getInspectionreport() {
-    try {
-      if(reg && year && number && dvrCnic){
-       checkban()   
-       await storeVehicleSession(reg,year,number)
-       await storeDriverSession(dvrCnic)
-       
-        navigation.navigate("Trip Report")
-      }
-      else{
-        Alert.alert("Please fill All Fields")
-      }
-      
-    } catch (error) {
-      console.log(error)
-    }
+function verifyUser(result){
+  if(result) {
+    setModalVisible(true)
+   
+  } else {
+    Alert.alert("Not Working")
    
   }
-
-  //============================================================checking
-  async function rptSessionProps() {
-  try {
-    await axios
-      .get(
-        `${global.BASE_URL}/psv/getPsv/${reg}/${year}/${number}`
-      )
-      .then(async response => {
-        const psvDetail = response.data[0];
-        if (psvDetail) {
-          
-          //------------------------getting driver data
-          await axios
-            .get(`${global.BASE_URL}/dvr/getDriver/${dvrCnic}`)
-            .then(async response => {
-              const driverDetail = response.data[0];
-              if (driverDetail) {
-                getInspectionreport()
-              } else {
-              
-                Alert.alert('Driver not in record');
-              }
-            });
-        } else {
-        
-          Alert.alert('PSV not in record');
-         
-        }
-      });
-  } catch (error) {
-    console.log(error);
-  }
 }
-  
+
+
+
+
 
   return (
     <KeyboardAvoidingView
@@ -256,7 +169,7 @@ async function checkban (){
 
    {/* <ScrollView keyboardShouldPersistTaps='handled'> */}
    
-    <View className="p-2  w-full bg-white h-screen">
+    <View className="p-2  w-full bg-white h-5/6 ">
     
       <View className="  flex  border h-1/4 bg-[#151d4b]   justify-center items-center  w-full rounded-lg   overflow-visible ">
       
@@ -353,7 +266,7 @@ async function checkban (){
         </View>
         
       </View>
-{/* Admin Panel */}
+{/* ==================Account Aprpoval Requests for Sector OSI=============*/}
 
       <View className="mt-2 ">
         <TouchableOpacity
@@ -374,45 +287,7 @@ async function checkban (){
               
               
               <View className="flex   flex-row  items-center">
-                 {/* Modal */}
-                 <View className=" bg-[#e6ecf1ee]  flex-1 justify-center items-center ">
-                    <Modal
-                      animationType="slide"
-                      transparent={true}
-                      visible={modalVisible}
-                      onRequestClose={() => {
-                        setModalVisible(!modalVisible);
-                      }}>
-                    
-                    
-                    <View className="bg-[#ecf2f7ee]  h-full w-full justify-center items-center flex">    
-                    
-                    <View className=" w-full h-full rounded-md justify-center items-center align-middle shadow-black ">
-                            
-                              <Text className="text-black text-lg p-4"> Please confirm are you employee of NHMP</Text>
-                                <Text>Officer </Text>
-                                <Text>{item.rank}</Text>
-                              
-                              <View className=" flex flex-row gap-2 p-4 mt-5 ">
-                              <TouchableOpacity
-                                      onPress={()=>setModalVisible(!modalVisible)}
-                                      className="bg-red-600 p-2 rounded-md w-32 justify-center items-center">
-                                              <Text className="text-white">Cancel</Text>
-                                      </TouchableOpacity>
-                                      <TouchableOpacity 
-                                      
-                                      onPress={()=>verifyUser()}
-                                      className="bg-green-600 p-2 rounded-md w-32 justify-center items-center">
-                                              <Text className="text-white">Confirm</Text>
-                                      </TouchableOpacity>
-
-                                      </View>        
-                              </View>
-                    
-                    </View>
-                    </Modal>  
-                  </View>
-                 {/*end of modal  */}
+               
                 <View className="flex p-2 w-10/12 border-b flex-row align-middle items-start">
                   <Text className="text-black ">{item.rank}</Text>
                    <Text className="text-black ml-4">{item.name}</Text>
@@ -421,12 +296,61 @@ async function checkban (){
                 
                 <View className="flex p-2 w-4/12  flex-row  items-center">
                   <TouchableOpacity
-                  onPress={()=>setModalVisible(true)}
+                  onPress={()=>verifyUser(item.name)}
                   className="p-2 bg-green-800 rounded-md justify-between items-center"
                   >
                   <Text className="text-white">Verify User</Text>    
                   </TouchableOpacity>
                   
+                </View> 
+
+               
+
+              </View>  
+                  
+              
+           
+           )}
+
+      />
+      </View>
+
+{/* ==================Leave Approval Request for CPO===========*/}
+
+<View className="mt-2 ">
+        <TouchableOpacity
+          
+          className="w-full   h-10 rounded-lg  justify-center items-center bg-[#257c25] ">
+          <View className="justify-center flex flex-row items-center  w-full gap-2">
+       
+            <Text className="  font-white  text-lg text-white">
+              Leave Approval
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View className=" bg-gray-100 justify-start items-start w-full">
+      <FlatList className="p-2 overflow-scroll h-1/5 w-full"
+        data={DATA}
+            renderItem={({ item, index }) => (
+              
+              
+              <View className="flex   flex-row  items-center">
+               
+                <View className="flex p-2 w-9/12 border-b flex-row align-middle items-start">
+                  <Text className="text-black ">{item.rank}</Text>
+                   <Text className="text-black ml-4">{item.name}</Text>
+                   <Text className="text-black ml-4">{item.Beltno}</Text>
+                </View>  
+                
+                <View className="flex p-2 w-4/12  flex-row  items-center">
+                  <TouchableOpacity
+                  onPress={()=>verifyUser(item.name)}
+                  className="p-2 bg-green-800 rounded-md justify-between items-center"
+                  >
+                  <Text className="text-white">Forward</Text>  
+                  </TouchableOpacity>
+                 
                 </View> 
 
                
@@ -454,7 +378,48 @@ async function checkban (){
           </View>
         </TouchableOpacity>
       </View>
+                {/* Modal */}
+                <View className=" bg-[#e6ecf1ee]  flex-1 justify-center items-center ">
+                    <Modal
+                      animationType="slide"
+                      transparent={true}
+                      visible={modalVisible}
+                      onRequestClose={() => {
+                        setModalVisible(!modalVisible);
+                      }}>
+                    
+                    
+                    <View className="bg-[#ecf2f7ee]  h-full w-full justify-center items-center flex">    
+                    
+                    <View className=" w-full h-full rounded-md justify-center items-center align-middle shadow-black ">
+                            
+                      <Text className="text-black text-lg p-4"> Please Verify credentials of Employee </Text>
+                                <Text>Name: Ahsan</Text>
+                                <Text>CNIC: 1111111111111</Text>
+                                <Text>Beat: Nil</Text>
+                                <Text>Sector:Nil</Text>
+                                <Text>Zone:Training College</Text>
+                                
+                              <View className=" flex flex-row gap-2 p-4 mt-5 ">
+                              <TouchableOpacity
+                                      onPress={()=>setModalVisible(!modalVisible)}
+                                      className="bg-red-600 p-2 rounded-md w-32 justify-center items-center">
+                                              <Text className="text-white">Cancel</Text>
+                                      </TouchableOpacity>
+                                      <TouchableOpacity 
+                                      
+                                      onPress={()=>verifyUser()}
+                                      className="bg-green-600 p-2 rounded-md w-32 justify-center items-center">
+                                              <Text className="text-white">Confirm</Text>
+                                      </TouchableOpacity>
 
+                                      </View>        
+                              </View>
+                    
+                    </View>
+                    </Modal>  
+                  </View>
+                 {/*end of modal  */}
 
    
     </View>

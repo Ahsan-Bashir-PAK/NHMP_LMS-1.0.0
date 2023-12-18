@@ -1,69 +1,10 @@
 import React, { useEffect, useState,useCallback, } from 'react';
-import { useNavigation,useIsFocused,useFocusEffect } from '@react-navigation/native';
-import { UserPlus, BookCopy, LogOutIcon} from 'lucide-react-native';
-
-import EncryptedStorage from 'react-native-encrypted-storage';
-import axios from 'axios';
-import { retrieveUserSession,storeDriverSession,storeVehicleSession } from '../../config/functions';
-
-
-import {
-  Modal,
-  FlatList,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  useColorScheme,
-  View,
-  Image,
-  Button,
-  ImageBackground,
-  Alert,
-  KeyboardAvoidingView,
-  BackHandler,
-  
-} from 'react-native';
+import {Modal} from 'react-native';
 
 
 
-function ComponetModal({name}) {
-Alert.alert(name)
-  const DATA = [
-    {
-      rank: 'PO',
-      name: 'Ahsan',
-      Beltno: 'P-3166',
-    },
-    {
-      rank: 'UDC',
-      name: 'Shoaib',
-      Beltno: '',
-    },
-    {
-      rank: 'PO',
-      name: 'Attique',
-      Beltno: 'P-2261',
-    },
-    {
-      rank: 'CO',
-      name: 'Ahsan',
-      Beltno: '',
-    },
-    {
-      rank: 'APO',
-      name: 'waqas',
-      Beltno: '',
-    },
-    {
-      rank: 'jpo',
-      name: 'nida',
-      Beltno: '',
-    },
-  ];
+function ComponentModal() {
+// console.log(props)
   
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -109,8 +50,8 @@ function verifyUser(result){
                     <View className=" w-full h-full rounded-md justify-center items-center align-middle shadow-black ">
                             
                       <Text className="text-black text-lg p-4"> Please Verify credentials of Employee </Text>
-                                <Text>Name: Ahsan</Text>
-                                <Text>CNIC: 1111111111111</Text>
+                                <Text>{props.item.rank}</Text>
+                                <Text>{props.item.name}</Text>
                                 <Text>Beat: Nil</Text>
                                 <Text>Sector:Nil</Text>
                                 <Text>Zone:Training College</Text>
@@ -143,4 +84,4 @@ function verifyUser(result){
   );
 }
 
-export default ComponetModal;
+export default ComponentModal;

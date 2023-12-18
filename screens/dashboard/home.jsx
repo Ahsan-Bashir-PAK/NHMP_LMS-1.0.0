@@ -5,7 +5,7 @@ import { UserPlus, BookCopy, LogOutIcon} from 'lucide-react-native';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import axios from 'axios';
 import { retrieveUserSession,storeDriverSession,storeVehicleSession } from '../../config/functions';
-import ComponetModal from '../../components/modal';
+import ComponentModal from '../../components/modal';
 
 import {
   Modal,
@@ -27,11 +27,7 @@ import {
   BackHandler,
   
 } from 'react-native';
-import { LinearGradient } from 'react-native-svg';
-// import SignUp from './forms/signUp';
-import { BookOpenCheck } from 'lucide-react-native';
-import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
-import { Building2Icon } from 'lucide-react-native';
+
 
 
 
@@ -296,7 +292,10 @@ function verifyUser(result){
                 
                 <View className="flex p-2 w-4/12  flex-row  items-center">
                   <TouchableOpacity
-                  onPress={()=>ComponetModal({"Name":item.name})}
+                  
+                  
+                 
+
                   className="p-2 bg-green-800 rounded-md justify-between items-center"
                   >
                   <Text className="text-white">Verify User</Text>    
@@ -345,7 +344,8 @@ function verifyUser(result){
                 
                 <View className="flex p-2 w-4/12  flex-row  items-center">
                   <TouchableOpacity
-                  onPress={()=>ComponetModal()}
+                   onPress={()=>{return (<ComponentModal/>)}}
+                  
                   className="p-2 bg-green-800 rounded-md justify-between items-center"
                   >
                   <Text className="text-white">Forward</Text>  

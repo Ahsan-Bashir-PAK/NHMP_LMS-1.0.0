@@ -89,12 +89,18 @@ function Home() {
     setDvrCnic("")
   }
 
+const getAccountRequests = ()=>{
+  
+}
+
+
+
 
 
  useEffect(() => {
   retrieveUserSession(setCurrentUser);
+ 
   clearAll()
-
 
   const backAction = () => {
     if(navigation.isFocused()){
@@ -114,9 +120,6 @@ function Home() {
         backAction,
       );
       return () => backHandler.remove();
-
-
-
   
 }, []);
 
@@ -131,15 +134,8 @@ function Home() {
   // logout clear all sessions
 
  async function logoutSesion () {
-  
- 
     try{  
-  
-          await EncryptedStorage.removeItem('psv_session');
           await EncryptedStorage.removeItem('currentUser');
-          
-          
-       
    navigation.navigate('Login');
   } catch (error) {}
 
@@ -161,6 +157,7 @@ function verifyUser(result){
 
 
 
+
   return (
     <KeyboardAvoidingView
     >
@@ -174,16 +171,18 @@ function verifyUser(result){
       <View className="  flex  border h-1/6 bg-[#151d4b]   justify-center items-center  w-full rounded-lg   overflow-visible ">
       
 
-        <View className=" bg-gray-200 rounded-xl w-11/12   h-36 shadow shadow-black  mt-32 items-center">
-       
-          <Text className="text-black mt-4">Welcome: PO Ahsan Bashir</Text>
-          <Text className="text-black">Training College, Shiekhupura</Text>
+          { currentUser && 
+          
+        <View className=" bg-white rounded-xl w-11/12  border-x h-36 shadow-md shadow-black   mt-32 items-center">
+          <Text className="text-black font-bold mt-4">{currentUser.rank} {currentUser.name} ({currentUser.beltNo})</Text>
+          {/* <Text className="text-black">{currentUser.zone} {currentUser.sector} {currentUser.sector} {currentUser.beat}</Text> */}
         
-          <TouchableOpacity className=" bg-red-50 p-2  items-center mt-2 border border-gray-300 w-4/12 rounded-md">
-              <Text className="text-black">View Profile</Text>
+          <TouchableOpacity className=" bg-slate-200 p-2  items-center mt-2 border border-slate-400 shadow-md shadow-black w-4/12 rounded-md">
+              <Text className="text-black font-semibold">View Profile</Text>
           </TouchableOpacity>
             
         </View>
+          }
         
       </View>
 

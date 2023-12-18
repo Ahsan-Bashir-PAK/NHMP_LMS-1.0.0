@@ -64,7 +64,7 @@ const[ranks,setRanks] = useState("")
 //================================================================ function to get offices data 
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////
+/////==================================getofficer
 const getOffices = async () => {
   
   await axios.get(`${global.BASE_URL}/ofc/getoffices`).then(async response => {
@@ -74,7 +74,7 @@ const getOffices = async () => {
     }
   });
 };
-
+//============================================get rank
 const getRanks = async () => {
   
   await axios.get(`${global.BASE_URL}/gen/getRanks`).then(async response => {
@@ -85,7 +85,7 @@ const getRanks = async () => {
   });
 };
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
+//==========================================get office id 
 const getOfficeId =(type,region ,zone,sector,beat)=>{
 let result
   switch (posting) {
@@ -153,6 +153,35 @@ let result
 return result
 }
 
+
+//------------------------save user
+const saveUser = async () => {
+  if(officercnic && officerbelt && officercell && officername && officerpwd && officerrank &&  doadate && dobdate && posting && officerbps) {
+
+ 
+  const user = {
+    id:officercnic,
+    role:"User",
+    name:officername,
+    pwd:officerpwd,
+    cellNo :officercell ,
+    rank:officerrank,
+    beltNo:officerbelt,
+    bps:officerbps,
+    officeId : getOfficeId(posting,officerRegion,officerzone,officersector,officerbeat),
+    appointmentDate:doadate,
+    dob:dobdate,
+    status:"Approval Pending"
+  }
+
+    axios.post(`${global.BASE_URL}/sign/saveRequest`,user).then( response =>{
+      Alert.alert("Request Submitted",'Your Request has been forwarded to concerned office for acount activation ')
+
+    }
+    )
+      } else { Alert.alert("Note: Please Fill All Fields");}
+      }
+
  
 
 
@@ -188,34 +217,15 @@ function  clearAll (){
 
 
 
-//------------------------save user
-const saveUser = async () => {
-  if(officercnic && officerbelt && officercell && officername && officerpwd && officerrank &&  doadate && dobdate && posting && officerbps) {
+//------------------------------------------confirm password 
 
- 
-  const user = {
-    id:officercnic,
-    role:"User",
-    name:officername,
-    pwd:officerpwd,
-    cellNo :officercell ,
-    rank:officerrank,
-    beltNo:officerbelt,
-    bps:officerbps,
-    officeId : getOfficeId(posting,officerRegion,officerzone,officersector,officerbeat),
-    appointmentDate:doadate,
-    dob:dobdate,
-    status:"Approval Pending"
-  }
-
-    axios.post(`${global.BASE_URL}/sign/saveRequest`,user).then( response =>{
-      Alert.alert("Request Submitted",'Your Request has been forwarded to concerned office for acount activation ')
-
-    }
-    )
-      } else { Alert.alert("Note: Please Fill All Fields");}
-      }
-
+const confirmPwd =()=>{
+if(officerpwd != officerCpwd){
+  Alert.alert("⚠️Password does not match")
+  setOfcrCpwd("")
+  setOfcrpwd("")
+}
+}
 
 useEffect(()=>{
   getOffices()
@@ -326,6 +336,7 @@ return (
               secureTextEntry={true}
               value={officerCpwd}
               onChangeText={e=>setOfcrCpwd(e)}
+              onBlur={confirmPwd}
               className='   w-8/12 bg-white border-black text-black rounded-md  text-lg text-center' />
 
           </View>

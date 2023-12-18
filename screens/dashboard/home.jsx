@@ -192,11 +192,11 @@ function verifyUser(result){
         {/* Approved */}
         
           <TouchableOpacity
-            className="bg-[#217a38]  justify-center  flex-col rounded-md items-center w-3/12 p-4  ">
-               <Text className=" text-center  font-white  text-3xl text-white">
+            className="bg-[#217a38]  justify-center  flex-col rounded-md items-center w-3/12 p-1  ">
+               <Text className=" text-center  font-bold  text-3xl text-white">
              0
             </Text>
-            <Text className=" text-center font-white  text-lg text-white">
+            <Text className=" text-center font-white  text-sm text-white">
               Approved
             </Text>
             
@@ -206,11 +206,11 @@ function verifyUser(result){
          {/* Pending*/}
        
           <TouchableOpacity
-            className="bg-[#d6a438]  justify-center  flex-col  rounded-md items-center w-3/12 p-4 ">
-               <Text className=" text-center  font-white  text-3xl text-white">
+            className="bg-[#d6a438]  justify-center  flex-col  rounded-md items-center w-3/12 p-1 ">
+               <Text className=" text-center  font-bold  text-3xl text-white">
              0
             </Text>
-            <Text className=" text-center  font-white  text-lg text-white">
+            <Text className=" text-center  font-white  text-sm text-white">
               Pending
             </Text>
           </TouchableOpacity>
@@ -219,11 +219,11 @@ function verifyUser(result){
          {/* Rejected*/}
        
           <TouchableOpacity
-            className="bg-[#b63030]  justify-center  flex-col rounded-md items-center w-3/12 p-4 ">
-            <Text className=" text-center  font-white  text-3xl text-white">
+            className="bg-[#b63030]  justify-center  flex-col rounded-md items-center w-3/12 p-1">
+            <Text className=" text-center  font-bold text-2xl text-white">
              0
             </Text>
-            <Text className=" text-center  font-white  text-lg text-white">
+            <Text className=" text-center  font-white  text-sm text-white">
               Rejected
             </Text>
           </TouchableOpacity>
@@ -233,15 +233,17 @@ function verifyUser(result){
       {/* Leave TABS */}
       <View className="rounded-lg  p-4">
         {/* Apply Leave */}
-        <View className="flex-row justify-around">
+        <View className="flex-row justify-center gap-3">
           <TouchableOpacity
             onPress={() => navigation.navigate('Daily Progress')}
-            className="shadow-md shadow-slate-950  w-3/12 flex-row  rounded-lg  flex justify-around items-center border border-slate-400  bg-white">
-            <View className="  items-center gap-1 justify-center mt-2 p-1 ">
-              <BookCopy stroke="orange" size={40} strokeWidth={1}/>
-              <View className="flex justify-center items-center flex-row gap-1">
+            className="shadow-md shadow-slate-950  w-2/6 flex-row  rounded-md  flex justify-center items-center pt-2 bg-green-600 ">
+            <View className=" gap-1 w-full  flex items-center ">
+              <View className='bg-white p-2 rounded-full w-8 h-8  '>
+              <BookCopy stroke="green" size={16} strokeWidth={2}  />
+              </View>
+              <View className="flex justify-center items-center flex-row ">
                 {/* <BadgePlus stroke="black" size={20} /> */}
-                <Text className="  font-white  text-sm text-black">
+                <Text className="  font-semibold  text-base text-white">
                   Apply Leave
                 </Text>
               </View>
@@ -251,12 +253,14 @@ function verifyUser(result){
           {/*Add driver  */}
           <TouchableOpacity
             onPress={() => navigation.navigate('MyTabs', {screen: 'AddDrivernew'})}
-            className="w-3/12  shadow-md shadow-slate-950 rounded-lg  flex justify-center items-center   border border-slate-400  bg-white">
-            <View className="  items-center  gap-1 justify-center mt-2 p-1 ">
-              <UserPlus stroke="green" size={40} strokeWidth={1}/>
-              <View className="flex justify-center items-center flex-row gap-1">
+            className="shadow-md shadow-slate-950  w-4/12 flex-row  rounded-md  flex justify-center  pt-2  bg-indigo-500">
+            <View className=" gap-1 w-full items-center flex">
+              <View className='bg-white p-2 rounded-full w-8 h-8 '>
+              <UserPlus stroke="indigo" size={16} strokeWidth={2} />
+              </View>
+              <View className="flex justify-center items-center flex-row gap-1 ">
                 {/* <BadgePlus stroke="black" size={20} /> */}
-                <Text className="  font-white  text-sm text-black">
+                <Text className=" font-semibold text-base text-white">
                   Status
                 </Text>
               </View>
@@ -288,7 +292,7 @@ function verifyUser(result){
               
               <View className="flex   flex-row  items-center">
                
-                <View className="flex p-2 w-10/12 border-b flex-row align-middle items-start">
+                <View className="flex p-2 w-9/12 border-b flex-row align-middle items-start">
                   <Text className="text-black ">{item.rank}</Text>
                    <Text className="text-black ml-4">{item.name}</Text>
                    <Text className="text-black ml-4">{item.Beltno}</Text>
@@ -337,7 +341,7 @@ function verifyUser(result){
               
               <View className="flex   flex-row  items-center">
                
-                <View className="flex p-2 w-10/12 border-b flex-row align-middle items-start">
+                <View className="flex p-2 w-9/12 border-b flex-row align-middle items-start">
                   <Text className="text-black ">{item.rank}</Text>
                    <Text className="text-black ml-4">{item.name}</Text>
                    <Text className="text-black ml-4">{item.Beltno}</Text>

@@ -5,7 +5,7 @@ import { UserPlus, BookCopy, LogOutIcon} from 'lucide-react-native';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import axios from 'axios';
 import { retrieveUserSession,storeDriverSession,storeVehicleSession } from '../../config/functions';
-
+import ComponetModal from '../../components/modal';
 
 import {
   Modal,
@@ -192,7 +192,7 @@ function verifyUser(result){
         {/* Approved */}
         
           <TouchableOpacity
-            className="bg-[#217a38]  justify-center  flex-col rounded-md items-center w-3/12 p-4  ">
+            className="bg-[#217a38]  justify-center  flex-col rounded-md items-center w-3/12 p-2  ">
                <Text className=" text-center  font-white  text-3xl text-white">
              0
             </Text>
@@ -206,7 +206,7 @@ function verifyUser(result){
          {/* Pending*/}
        
           <TouchableOpacity
-            className="bg-[#d6a438]  justify-center  flex-col  rounded-md items-center w-3/12 p-4 ">
+            className="bg-[#d6a438]  justify-center  flex-col  rounded-md items-center w-3/12 p-2 ">
                <Text className=" text-center  font-white  text-3xl text-white">
              0
             </Text>
@@ -219,7 +219,7 @@ function verifyUser(result){
          {/* Rejected*/}
        
           <TouchableOpacity
-            className="bg-[#b63030]  justify-center  flex-col rounded-md items-center w-3/12 p-4 ">
+            className="bg-[#b63030]  justify-center  flex-col rounded-md items-center w-3/12 p-2 ">
             <Text className=" text-center  font-white  text-3xl text-white">
              0
             </Text>
@@ -296,7 +296,7 @@ function verifyUser(result){
                 
                 <View className="flex p-2 w-4/12  flex-row  items-center">
                   <TouchableOpacity
-                  onPress={()=>verifyUser(item.name)}
+                  onPress={()=>ComponetModal({"Name":item.name})}
                   className="p-2 bg-green-800 rounded-md justify-between items-center"
                   >
                   <Text className="text-white">Verify User</Text>    
@@ -345,7 +345,7 @@ function verifyUser(result){
                 
                 <View className="flex p-2 w-4/12  flex-row  items-center">
                   <TouchableOpacity
-                  onPress={()=>verifyUser(item.name)}
+                  onPress={()=>ComponetModal()}
                   className="p-2 bg-green-800 rounded-md justify-between items-center"
                   >
                   <Text className="text-white">Forward</Text>  
@@ -378,49 +378,7 @@ function verifyUser(result){
           </View>
         </TouchableOpacity>
       </View>
-                {/* Modal */}
-                <View className=" bg-[#e6ecf1ee]  flex-1 justify-center items-center ">
-                    <Modal
-                      animationType="slide"
-                      transparent={true}
-                      visible={modalVisible}
-                      onRequestClose={() => {
-                        setModalVisible(!modalVisible);
-                      }}>
-                    
-                    
-                    <View className="bg-[#ecf2f7ee]  h-full w-full justify-center items-center flex">    
-                    
-                    <View className=" w-full h-full rounded-md justify-center items-center align-middle shadow-black ">
-                            
-                      <Text className="text-black text-lg p-4"> Please Verify credentials of Employee </Text>
-                                <Text>Name: Ahsan</Text>
-                                <Text>CNIC: 1111111111111</Text>
-                                <Text>Beat: Nil</Text>
-                                <Text>Sector:Nil</Text>
-                                <Text>Zone:Training College</Text>
-                                
-                              <View className=" flex flex-row gap-2 p-4 mt-5 ">
-                              <TouchableOpacity
-                                      onPress={()=>setModalVisible(!modalVisible)}
-                                      className="bg-red-600 p-2 rounded-md w-32 justify-center items-center">
-                                              <Text className="text-white">Cancel</Text>
-                                      </TouchableOpacity>
-                                      <TouchableOpacity 
-                                      
-                                      onPress={()=>verifyUser()}
-                                      className="bg-green-600 p-2 rounded-md w-32 justify-center items-center">
-                                              <Text className="text-white">Confirm</Text>
-                                      </TouchableOpacity>
-
-                                      </View>        
-                              </View>
-                    
-                    </View>
-                    </Modal>  
-                  </View>
-                 {/*end of modal  */}
-
+                
    
     </View>
     

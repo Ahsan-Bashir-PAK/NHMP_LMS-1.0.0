@@ -169,12 +169,12 @@ function verifyUser(result){
 
    {/* <ScrollView keyboardShouldPersistTaps='handled'> */}
    
-    <View className="p-2  w-full bg-white h-5/6 ">
+    <View className="p-2  w-full bg-white ">
     
-      <View className="  flex  border h-1/4 bg-[#151d4b]   justify-center items-center  w-full rounded-lg   overflow-visible ">
+      <View className="  flex  border h-1/6 bg-[#151d4b]   justify-center items-center  w-full rounded-lg   overflow-visible ">
       
 
-        <View className=" bg-gray-200 rounded-xl w-11/12   h-36 shadow shadow-black  mt-40 items-center">
+        <View className=" bg-gray-200 rounded-xl w-11/12   h-36 shadow shadow-black  mt-32 items-center">
        
           <Text className="text-black mt-4">Welcome: PO Ahsan Bashir</Text>
           <Text className="text-black">Training College, Shiekhupura</Text>
@@ -188,7 +188,7 @@ function verifyUser(result){
       </View>
 
 
-      <View className="mt-14 rounded-m    w-full   justify-evenly flex flex-row ">
+      <View className="mt-10 rounded-m    w-full   justify-evenly flex flex-row ">
         {/* Approved */}
         
           <TouchableOpacity
@@ -231,7 +231,7 @@ function verifyUser(result){
       </View>
 
       {/* Leave TABS */}
-      <View className="rounded-lg mt-4  p-4">
+      <View className="rounded-lg  p-4">
         {/* Apply Leave */}
         <View className="flex-row justify-around">
           <TouchableOpacity
@@ -317,7 +317,7 @@ function verifyUser(result){
 
 {/* ==================Leave Approval Request for CPO===========*/}
 
-<View className="mt-2 ">
+<View className="mt-2  ">
         <TouchableOpacity
           
           className="w-full   h-10 rounded-lg  justify-center items-center bg-[#257c25] ">
@@ -329,7 +329,7 @@ function verifyUser(result){
           </View>
         </TouchableOpacity>
       </View>
-      <View className=" bg-gray-100 justify-start items-start w-full">
+      <View className=" bg-gray-100 justify-startitems-start w-full">
       <FlatList className="p-2 overflow-scroll h-1/5 w-full"
         data={DATA}
             renderItem={({ item, index }) => (
@@ -337,7 +337,7 @@ function verifyUser(result){
               
               <View className="flex   flex-row  items-center">
                
-                <View className="flex p-2 w-9/12 border-b flex-row align-middle items-start">
+                <View className="flex p-2 w-10/12 border-b flex-row align-middle items-start">
                   <Text className="text-black ">{item.rank}</Text>
                    <Text className="text-black ml-4">{item.name}</Text>
                    <Text className="text-black ml-4">{item.Beltno}</Text>

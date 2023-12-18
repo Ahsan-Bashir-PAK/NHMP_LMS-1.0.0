@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {View, Text} from 'react-native';
 
-import AddVehicle from '../screens/forms/addVehicle';
+// import AddVehicle from '../screens/forms/addVehicle';
 import { getTabBarHeight } from '@react-navigation/bottom-tabs/lib/typescript/src/views/BottomTabBar';
 import {  User, PlusCircle, FilePlus, BadgeInfo, ShieldQuestion, PlusSquare, HomeIcon, Navigation  } from 'lucide-react-native';
 
@@ -37,16 +37,7 @@ const MyTabs = () => {
     }}
   
       />
-        <Tab.Screen name="Add Vehicle"  component={AddVehicle} 
-        options={{
-          headerShown:false,
-          unmountOnBlur:true,
-          tabBarIcon:()=>(
-            <PlusCircle  stroke="#0332BB" size={25} fill='white' />
-          )
-      }}
-        
-        />
+      
         <Tab.Screen name="Add Documentation"  component={AddDocumentation}
         options={{
           headerShown:false,

@@ -48,7 +48,7 @@ clearStorage()
     const [userpwd, setPwd] = useState("")
     const [data, setData] = useState("")
 
-    const [modalVisible, setModalVisible] = useState(false);
+   
 
 //-----------Signin & get User 
         const signIn =async()=>{                  
@@ -211,6 +211,12 @@ function clearAll(){
                     onPress={() => navigation.navigate('SignUp')}
                     className='p-3 bg-blue-900 text-center ml-3 w-4/12  border-yellow-300' >
                     <Text className='text-white text-center font-bold text-lg'>Sign Up</Text>
+
+                    </TouchableOpacity>
+                    <TouchableOpacity  
+                    onPress={() => navigation.navigate('Home')}
+                    className='p-3 bg-blue-900 text-center ml-3 w-4/12  border-yellow-300' >
+                    <Text className='text-white text-center font-bold text-lg'>Home</Text>
 
                     </TouchableOpacity>
                     </View>    

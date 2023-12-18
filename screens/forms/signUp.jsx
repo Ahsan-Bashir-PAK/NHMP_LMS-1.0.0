@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, Switch, Alert, Modal } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-import { User, Calendar } from 'lucide-react-native';
+import { User, Calendar, Navigation } from 'lucide-react-native';
 import '../../config'
-
+import { useNavigation } from '@react-navigation/native';
 
 
 import SelectDropdown from 'react-native-select-dropdown';
@@ -25,7 +25,7 @@ import { verifyDuplicateUser } from '../../config/functions';
 
 const SignUp = () => {
 
- 
+  const navigation = useNavigation();
 
   const [modalVisible, setModalVisible] = useState(true);
 
@@ -59,6 +59,21 @@ const[ranks,setRanks] = useState("")
   //  // Appointment DAte
   const [doaopen, setdoaOpen] = useState(false)
   const [doadate, setdoaDate] = useState(new Date())
+
+// ===========Verify Modal Box============
+
+function verifyUser(){
+    if(officercnic == "" || officercnic.length != 13 ) {
+      // console.log(officercnic.length + "------")
+        Alert.alert("Please enter CNIC to continue")
+    } else {
+      
+      navigation.navigate('SignUp');
+      setModalVisible(!modalVisible)
+    }
+}
+
+
 //============================================================
 // const [officerrole, setOfcrrole] = useState("");
 //================================================================ function to get offices data 
@@ -583,7 +598,7 @@ return (
          {/* Buttons Save - Clear -Update */}
          <View className="flex-row items-center justify-center ">
               <View className=" ">
-                <TouchableOpacity onPress= {()=>saveUser()} className="bg-[#227935]  px-8 py-2 rounded-md m-2">
+                <TouchableOpacity onPress= {()=>navigation.navigate('Home')} className="bg-[#227935]  px-8 py-2 rounded-md m-2">
                   <Text className="text-white  text-lg">Save</Text>
                 </TouchableOpacity>
               </View>
@@ -609,7 +624,7 @@ return (
             </View>
 
          {/* Modal */}
-        {/* <View style={styles.centeredView} className="bg-white w-full h-screen  flex-1 justify-center items-center absolute">
+   <View className=" bg-[#e6ecf1ee]  flex-1 justify-center items-center ">
       <Modal
         animationType="slide"
         transparent={true}
@@ -618,35 +633,42 @@ return (
           setModalVisible(!modalVisible);
         }}>
       
-      </Modal>
-      <View className="bg-blue-300 border h-full w-full justify-center items-center flex">    
       
+      <View className="bg-[#1c5685ee]  h-full w-full justify-center items-center flex">    
+       
+       <View className="bg-white  w-8/12 h-2/6 rounded-md justify-center items-center align-middle shadow-black ">
               
-                <Text className="font-bold text-lg"> Please Confirm Are you employee of NHMP</Text>
+                <Text className="text-black text-lg p-4"> Please confirm are you employee of NHMP</Text>
                 <TextInput
-                    secureTextEntry={true}
-                    placeholder=' Entery your CNIC'
-                    value=""
-                    onChangeText={e => setPwd(e)}
-                    placeholderTextColor='grey'
                     
-                    className='  text-lg  w-8/12 rounded-md  bg-white border-blue-400 text-black   ' />
+                    placeholder=' Entery your CNIC'
+                    value={officercnic}
+                    onChangeText={e => setOfcrcnic(e)}
+                    placeholderTextColor='grey'
+                    keyboardType='numeric'
+                    maxLength={13}
+                    
+                    className='  text-lg  border-b w-8/12 rounded-md   border-blue-400 text-black   ' />
                 
-                <View className=" flex flex-row p-4 mt-5 ">
+                <View className=" flex flex-row gap-2 p-4 mt-5 ">
+                <TouchableOpacity
+                        onPress={()=>navigation.navigate('Login')}
+                        className="bg-red-600 p-2 rounded-md w-32 justify-center items-center">
+                                <Text className="text-white">Cancel</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity 
-                        onPress={()=>setModalVisible(true)}
+                        // onPress={()=>setModalVisible(!modalVisible)}
+                        onPress={()=>verifyUser()}
                         className="bg-green-600 p-2 rounded-md w-32 justify-center items-center">
                                 <Text className="text-white">Confirm</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity
-                        onPress={()=>setModalVisible(!modalVisible)}
-                        className="bg-red-600 p-2 rounded-md w-32 justify-center items-center">
-                                <Text className="text-white">Cancel</Text>
-                        </TouchableOpacity>
+                        </View>        
                 </View>
-        </View>
-    </View>      */}
+      
+      </View>
+      </Modal>  
+    </View>      
 
       </KeyboardAvoidingView>
     </View>

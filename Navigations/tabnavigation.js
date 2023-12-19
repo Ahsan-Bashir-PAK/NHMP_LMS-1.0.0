@@ -6,14 +6,11 @@ import {View, Text} from 'react-native';
 
 // import AddVehicle from '../screens/forms/addVehicle';
 import { getTabBarHeight } from '@react-navigation/bottom-tabs/lib/typescript/src/views/BottomTabBar';
-import {  User, PlusCircle, FilePlus, BadgeInfo, ShieldQuestion, PlusSquare, HomeIcon, Navigation  } from 'lucide-react-native';
+import {   BadgeInfo } from 'lucide-react-native';
 
-import AddDocumentation from '../screens/forms/addDocumentation';
-import AddCondition from '../screens/forms/addCondition';
-import AddOtherInfo from '../screens/forms/addOtherinfo';
-import TripReport from '../screens/forms/tripReport';
-import AddDrivernew from '../screens/forms/addDrivernew';
-import AddCompany from '../screens/forms/addCompany';
+
+import StatusLeave from '../screens/forms/statusLeave';
+
 import { useNavigation } from '@react-navigation/native';
 
 import Home from '../screens/home';
@@ -27,40 +24,12 @@ const MyTabs = () => {
   return (
     // <NavigationContainer>
     <Tab.Navigator>
-      <Tab.Screen name="Add Driver " component={AddDrivernew} 
-      options={{  
-        headerShown:false,
-        unmountOnBlur:true,
-        tabBarIcon:()=>(
-          <User  stroke="#0332BB" size={25} fill='white'/>
-        )
-    }}
   
-      />
       
-        <Tab.Screen name="Add Documentation"  component={AddDocumentation}
-        options={{
-          headerShown:false,
-          unmountOnBlur:true,
-          tabBarIcon:()=>(
-            <FilePlus  stroke="#0332BB" size={25} fill='white' />
-          )
-      }}
-        
-        />
-         <Tab.Screen name="Add Condition"  component={AddCondition}
-        options={{
-          headerShown:false,
-          unmountOnBlur:true,
-         
-          tabBarIcon:()=>(
-            <ShieldQuestion stroke="#0332BB" size={25} fill='white' />
-          )
-      }}
-        
-        />
+  
+   
 
-<Tab.Screen name="Other Info"  component={AddOtherInfo}
+<Tab.Screen name="statusLeave"  component={StatusLeave}
         options={{
           headerShown:false,
           unmountOnBlur:true,
@@ -70,27 +39,7 @@ const MyTabs = () => {
       }}
         
         />
-{/* <Tab.Screen name="AddCompany"  component={AddCompany}
-        options={{
-          unmountOnBlur:true,
-          tabBarIcon:()=>(
-            <PlusSquare  stroke="#0332BB" size={25} fill='white' />
-          )
-      }}
-        
-        /> */}
-      {/* <Tab.Screen  name="Home"  component={Home}
-        options={{
-          headershown:false,
-          unmountOnBlur:true,
-          
-          tabBarIcon:()=>(
-            <HomeIcon  stroke="#123456" size={30} fill='#c0c0c0' onProgress={()=>navigation.navigate('Home')}  />
-          )
-          
-      }}
-        
-        />  */}
+
         
       </Tab.Navigator>
       // </NavigationContainer>

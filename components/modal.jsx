@@ -25,12 +25,8 @@ function verifyUser(result){
 
 
   return (
-    <KeyboardAvoidingView
-    >
-{/* behavior={Platform.OS === 'android' ? 'Padding' : null}
-     enabled */}
-
-   {/* <ScrollView keyboardShouldPersistTaps='handled'> */}
+    
+  <>
    
     <View className="p-2  w-full bg-white ">
 
@@ -80,7 +76,8 @@ function verifyUser(result){
    
     </View>
     
-    </KeyboardAvoidingView> 
+    {/* // </KeyboardAvoidingView>  */}
+  </>
   );
 }
 

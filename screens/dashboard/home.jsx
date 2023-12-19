@@ -344,7 +344,9 @@ function verifyUser(result){
                 
                 <View className="flex p-2 w-4/12  flex-row  items-center">
                   <TouchableOpacity
-                   onPress={()=>{return (<ComponentModal/>)}}
+                   onPress={()=>
+                    <ComponentModal/>
+                  }
                   
                   className="p-2 bg-green-800 rounded-md justify-between items-center"
                   >

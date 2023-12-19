@@ -32,6 +32,7 @@ import { LinearGradient } from 'react-native-svg';
 import { BookOpenCheck } from 'lucide-react-native';
 import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
 import { Building2Icon } from 'lucide-react-native';
+import ComponentModal from '../../components/modal';
 
 
 
@@ -46,18 +47,9 @@ function Home() {
 
   const isFocused = useIsFocused() 
 
-  const [reg, setReg] = useState("");
-  const [year, setYear] = useState("");
-  const [number, setNumber] = useState("");
-  const [dvrCnic, setDvrCnic] = useState("");
+
   const navigation = useNavigation("");
 
-  function clearAll(){
-    setReg("")
-    setYear("")
-    setNumber("")
-    setDvrCnic("")
-  }
 //---------------------------------------------getting account request 
 const  getSectorAccountRequests = async ()=>{
   const session = await EncryptedStorage.getItem('user_session');
@@ -114,7 +106,7 @@ const  getSectorWiseLeaveRequests = async ()=>{
   retrieveUserSession(setCurrentUser);
   getSectorAccountRequests()
   getSectorWiseLeaveRequests()
-  clearAll()
+
 
   const backAction = () => {
     if(navigation.isFocused()){
@@ -157,12 +149,12 @@ const  getSectorWiseLeaveRequests = async ()=>{
 
 // ===========Verify Modal Box============
 
-function verifyUser(result){
-  if(result) {
+function showModal(x){
+  if(x) {
     setModalVisible(true)
    
   } else {
-    Alert.alert("Not Working")
+    Alert.alert("Not Working dsadsads")
    
   }
 }
@@ -315,19 +307,19 @@ function verifyUser(result){
                    <Text className="text-black ml-2">({item.beltNo})</Text>
                 </View>  
                 
-                <View className="flex p-2 w-4/12  flex-row  items-center">
+                <View className="flex p-2 w-4/12 flex-row  items-center">             
                   <TouchableOpacity
-                  onPress={()=>verifyUser(item.name)}
+                  onPress={()=>setModalVisible(true)}
                   className="p-2 bg-green-800 rounded-md justify-between items-center"
                   >
                   <Text className="text-white">Verify User</Text>    
                   </TouchableOpacity>
                   
-                </View> 
-
+                </View>
                
-
-              </View>  
+                <ComponentModal  data = {} visibility ={modalVisible} visibilitySetter ={setModalVisible} />
+                </View>  
+            
                   
               
            
@@ -366,7 +358,7 @@ function verifyUser(result){
                 
                 <View className="flex p-2 w-4/12  flex-row  items-center">
                   <TouchableOpacity
-                  onPress={()=>verifyUser(item.name)}
+                   onPress={()=>showModal(leaveRequests)}
                   className="p-2 bg-green-800 rounded-md justify-between items-center"
                   >
                   <Text className="text-white">Forward</Text>  
@@ -399,48 +391,7 @@ function verifyUser(result){
           </View>
         </TouchableOpacity>
       </View>
-                {/* Modal */}
-                <View className=" bg-[#e6ecf1ee]  flex-1 justify-center items-center ">
-                    <Modal
-                      animationType="slide"
-                      transparent={true}
-                      visible={modalVisible}
-                      onRequestClose={() => {
-                        setModalVisible(!modalVisible);
-                      }}>
-                    
-                    
-                    <View className="bg-[#ecf2f7ee]  h-full w-full justify-center items-center flex">    
-                    
-                    <View className=" w-full h-full rounded-md justify-center items-center align-middle shadow-black ">
-                            
-                      <Text className="text-black text-lg p-4"> Please Verify credentials of Employee </Text>
-                                <Text>Name: Ahsan</Text>
-                                <Text>CNIC: 1111111111111</Text>
-                                <Text>Beat: Nil</Text>
-                                <Text>Sector:Nil</Text>
-                                <Text>Zone:Training College</Text>
-                                
-                              <View className=" flex flex-row gap-2 p-4 mt-5 ">
-                              <TouchableOpacity
-                                      onPress={()=>setModalVisible(!modalVisible)}
-                                      className="bg-red-600 p-2 rounded-md w-32 justify-center items-center">
-                                              <Text className="text-white">Cancel</Text>
-                                      </TouchableOpacity>
-                                      <TouchableOpacity 
-                                      
-                                      onPress={()=>verifyUser()}
-                                      className="bg-green-600 p-2 rounded-md w-32 justify-center items-center">
-                                              <Text className="text-white">Confirm</Text>
-                                      </TouchableOpacity>
 
-                                      </View>        
-                              </View>
-                    
-                    </View>
-                    </Modal>  
-                  </View>
-                 {/*end of modal  */}
 
    
     </View>

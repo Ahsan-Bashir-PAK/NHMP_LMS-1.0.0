@@ -1,24 +1,24 @@
 import React, { useEffect, useState,useCallback, } from 'react';
-import {Modal} from 'react-native';
+import {Modal,View,Text,TouchableOpacity} from 'react-native';
 
 
 
-function ComponentModal() {
+function ComponentModal(props) {
 // console.log(props)
   
-  const [modalVisible, setModalVisible] = useState(false);
+
 
 // ===========Verify Modal Box============
 
-function verifyUser(result){
-  if(result) {
-    setModalVisible(true)
+// function verifyUser(result){
+//   if(result) {
+//     setModalVisible(true)
    
-  } else {
-    Alert.alert("Not Working")
+//   } else {
+//     Alert.alert("Not Working")
    
-  }
-}
+//   }
+// }
 
 
 
@@ -27,40 +27,37 @@ function verifyUser(result){
   return (
     
   <>
-   
-    <View className="p-2  w-full bg-white ">
 
-                {/* Modal */}
-                <View className=" bg-[#e6ecf1ee]  flex-1 justify-center items-center ">
                     <Modal
                       animationType="slide"
                       transparent={true}
-                      visible={modalVisible}
+                      visible={props.visibility}
                       onRequestClose={() => {
-                        setModalVisible(!modalVisible);
+                        props.visibilitySetter(!props.visibility);
                       }}>
                     
                     
-                    <View className="bg-[#ecf2f7ee]  h-full w-full justify-center items-center flex">    
+                    <View className="bg-[#fcfbfb83]  h-full w-full justify-center items-center flex">    
                     
-                    <View className=" w-full h-full rounded-md justify-center items-center align-middle shadow-black ">
+                    <View className=" w-11/12  bg-white border shadow  rounded-lg justify-center items-center align-middle shadow-black ">
                             
                       <Text className="text-black text-lg p-4"> Please Verify credentials of Employee </Text>
-                                <Text>{props.item.rank}</Text>
-                                <Text>{props.item.name}</Text>
-                                <Text>Beat: Nil</Text>
-                                <Text>Sector:Nil</Text>
-                                <Text>Zone:Training College</Text>
+                                <Text>Rank: {props.data.rank}</Text>
+                                <Text>Name: {props.data.name}</Text>
+                                <Text>Belt No.{props.data.beltNo}</Text>
+                                <Text>Beat:{props.data.beat}</Text>
+                                <Text>Sector:{props.data.sector}</Text>
+                                <Text>Zone:{props.data.zone}</Text>
                                 
                               <View className=" flex flex-row gap-2 p-4 mt-5 ">
                               <TouchableOpacity
-                                      onPress={()=>setModalVisible(!modalVisible)}
+                                      onPress={()=>props.visibilitySetter(!props.visibility)}
                                       className="bg-red-600 p-2 rounded-md w-32 justify-center items-center">
                                               <Text className="text-white">Cancel</Text>
                                       </TouchableOpacity>
                                       <TouchableOpacity 
                                       
-                                      onPress={()=>verifyUser()}
+                                      // onPress={()=>verifyUser()}
                                       className="bg-green-600 p-2 rounded-md w-32 justify-center items-center">
                                               <Text className="text-white">Confirm</Text>
                                       </TouchableOpacity>
@@ -70,13 +67,8 @@ function verifyUser(result){
                     
                     </View>
                     </Modal>  
-                  </View>
-                 {/*end of modal  */}
+                
 
-   
-    </View>
-    
-    {/* // </KeyboardAvoidingView>  */}
   </>
   );
 }

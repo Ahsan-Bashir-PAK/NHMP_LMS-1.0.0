@@ -3,6 +3,13 @@ import axios from "axios";
 import { User } from "lucide-react-native";
 import EncryptedStorage from "react-native-encrypted-storage/";
 import { Alert } from "react-native";
+
+
+
+
+//=====================================Verify user token
+
+
 //============================user retriving session
 async function retrieveUserSession(valueSetter) {
    
@@ -10,7 +17,22 @@ async function retrieveUserSession(valueSetter) {
       const session = await EncryptedStorage.getItem('user_session');
 
       if (session !== undefined) {
-        valueSetter(JSON.parse(session));
+        const user =JSON.parse(session)
+
+        axios.post(`${global.BASE_URL}/spy/verifyUser`,
+        user,
+        {
+          headers:{
+            api_key:global.KEY,
+            authorization:user.token
+          }          
+        }
+        ).then(
+          response=>{
+           valueSetter(response.data)
+          }
+        )
+        // valueSetter(JSON.parse(session));
       }
     } catch (error) {
       console.log(error);

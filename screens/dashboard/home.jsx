@@ -101,7 +101,7 @@ const  getSectorWiseLeaveRequests = async ()=>{
       Authorization:user.token
      }
   }).then(
-    // console.log(currentUser.sector)
+    
     response=>setleaveRequests(response.data)
   )
 }

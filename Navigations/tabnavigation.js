@@ -6,10 +6,10 @@ import {View, Text} from 'react-native';
 
 // import AddVehicle from '../screens/forms/addVehicle';
 import { getTabBarHeight } from '@react-navigation/bottom-tabs/lib/typescript/src/views/BottomTabBar';
-import {  User, PlusCircle, FilePlus, BadgeInfo, ShieldQuestion, PlusSquare, HomeIcon, Navigation  } from 'lucide-react-native';
+import {   BadgeInfo } from 'lucide-react-native';
 
 
-import AddOtherInfo from '../screens/forms/addOtherinfo';
+import StatusLeave from '../screens/forms/statusLeave';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -29,7 +29,7 @@ const MyTabs = () => {
   
    
 
-<Tab.Screen name="Other Info"  component={AddOtherInfo}
+<Tab.Screen name="statusLeave"  component={StatusLeave}
         options={{
           headerShown:false,
           unmountOnBlur:true,

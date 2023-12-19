@@ -9,7 +9,7 @@ import MyTabs from './tabnavigation';
 
 import SignUp from '../screens/forms/signUp';
 
-import AddOtherInfo from '../screens/forms/addOtherinfo';
+import StatusLeave from '../screens/forms/statusLeave';
 
 
 import InspectionReport from '../screens/reports/inspectionHistory';

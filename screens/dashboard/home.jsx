@@ -38,39 +38,9 @@ import { Building2Icon } from 'lucide-react-native';
 
 function Home() {
 
-  const DATA = [
-    {
-      rank: 'PO',
-      name: 'Ahsan',
-      Beltno: 'P-3166',
-    },
-    {
-      rank: 'UDC',
-      name: 'Shoaib',
-      Beltno: '',
-    },
-    {
-      rank: 'PO',
-      name: 'Attique',
-      Beltno: 'P-2261',
-    },
-    {
-      rank: 'CO',
-      name: 'Ahsan',
-      Beltno: '',
-    },
-    {
-      rank: 'APO',
-      name: 'waqas',
-      Beltno: '',
-    },
-    {
-      rank: 'jpo',
-      name: 'nida',
-      Beltno: '',
-    },
-  ];
-  
+
+  const [signUpRequests,setsignUpRequests] = useState()
+  const [leaveRequests,setleaveRequests] = useState()
   const [modalVisible, setModalVisible] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
 
@@ -88,18 +58,62 @@ function Home() {
     setNumber("")
     setDvrCnic("")
   }
+//---------------------------------------------getting account request 
+const  getSectorAccountRequests = async ()=>{
+  const session = await EncryptedStorage.getItem('user_session');
 
-const getAccountRequests = ()=>{
-  
+  if (session !== undefined) {
+    const user =JSON.parse(session)
+
+  axios.post(`${global.BASE_URL}/sign/accountRequests`,
+  {
+    "officeType":"sector",
+    "office":currentUser.sector
+  },
+  { 
+    headers:{
+      api_key :global.KEY,
+      Authorization:user.token
+     }
+  }).then(
+    // console.log(currentUser.sector)
+    response=>setsignUpRequests(response.data)
+  )
+}
 }
 
+
+//---------------------------------------------getting account request 
+const  getSectorWiseLeaveRequests = async ()=>{
+  const session = await EncryptedStorage.getItem('user_session');
+
+  if (session !== undefined) {
+    const user =JSON.parse(session)
+
+  axios.post(`${global.BASE_URL}/leave/getLeaveRequests`,
+  {
+    "officeType":"sector",
+    "office":currentUser.sector
+  },
+  { 
+    headers:{
+      api_key :global.KEY,
+      Authorization:user.token
+     }
+  }).then(
+    // console.log(currentUser.sector)
+    response=>setleaveRequests(response.data)
+  )
+}
+}
 
 
 
 
  useEffect(() => {
   retrieveUserSession(setCurrentUser);
- 
+  getSectorAccountRequests()
+  getSectorWiseLeaveRequests()
   clearAll()
 
   const backAction = () => {
@@ -121,7 +135,7 @@ const getAccountRequests = ()=>{
       );
       return () => backHandler.remove();
   
-}, []);
+}, [signUpRequests]);
 
 
 
@@ -283,18 +297,22 @@ function verifyUser(result){
           </View>
         </TouchableOpacity>
       </View>
-      <View className=" bg-gray-100 justify-start items-start w-full">
+          { signUpRequests &&
+
+            
+            <View className=" bg-gray-100 justify-start items-start w-full">
       <FlatList className="p-2 overflow-scroll h-1/5 w-full"
-        data={DATA}
-            renderItem={({ item, index }) => (
+        data={signUpRequests}
+        renderItem={({ item, index }) => (
+            
               
               
               <View className="flex   flex-row  items-center">
                
                 <View className="flex p-2 w-9/12 border-b flex-row align-middle items-start">
                   <Text className="text-black ">{item.rank}</Text>
-                   <Text className="text-black ml-4">{item.name}</Text>
-                   <Text className="text-black ml-4">{item.Beltno}</Text>
+                   <Text className="text-black ml-2">{item.name}</Text>
+                   <Text className="text-black ml-2">({item.beltNo})</Text>
                 </View>  
                 
                 <View className="flex p-2 w-4/12  flex-row  items-center">
@@ -317,7 +335,7 @@ function verifyUser(result){
 
       />
       </View>
-
+}
 {/* ==================Leave Approval Request for CPO===========*/}
 
 <View className="mt-2  ">
@@ -334,7 +352,7 @@ function verifyUser(result){
       </View>
       <View className=" bg-gray-100 justify-startitems-start w-full">
       <FlatList className="p-2 overflow-scroll h-1/5 w-full"
-        data={DATA}
+        data={leaveRequests}
             renderItem={({ item, index }) => (
               
               
@@ -342,8 +360,8 @@ function verifyUser(result){
                
                 <View className="flex p-2 w-9/12 border-b flex-row align-middle items-start">
                   <Text className="text-black ">{item.rank}</Text>
-                   <Text className="text-black ml-4">{item.name}</Text>
-                   <Text className="text-black ml-4">{item.Beltno}</Text>
+                   <Text className="text-black ml-2">{item.name}</Text>
+                   <Text className="text-black ml-2">({item.beltNo})</Text>
                 </View>  
                 
                 <View className="flex p-2 w-4/12  flex-row  items-center">

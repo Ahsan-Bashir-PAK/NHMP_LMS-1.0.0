@@ -33,6 +33,7 @@ import { BookOpenCheck } from 'lucide-react-native';
 import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
 import { Building2Icon } from 'lucide-react-native';
 import ComponentModal from '../../components/modal';
+import LeaveModal from '../../components/leave_modal';
 
 
 
@@ -44,7 +45,10 @@ function Home() {
   const [leaveRequests,setleaveRequests] = useState()
   const [currentUser, setCurrentUser] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalData, setModalData] = useState(false);
+  const [modalData, setModalData] = useState();
+  const [leavemodalVisible, setleaveModalVisible] = useState(false);
+  const [leavemodalData, setleaveModalData] = useState();
+
   const isFocused = useIsFocused() 
 
 
@@ -149,10 +153,10 @@ const  getSectorWiseLeaveRequests = async ()=>{
 
 // ===========Verify Modal Box============
 
-function showModal(x){
+function showModal(x,datasetter,showsetter){
   if(x) {
-    setModalData(x)
-    setModalVisible(true)}
+    datasetter(x)
+    showsetter(true)}
 }
 
 
@@ -305,7 +309,7 @@ function showModal(x){
                 
                 <View className="flex p-2 w-4/12 flex-row  items-center">             
                   <TouchableOpacity
-                  onPress={()=>showModal(item)}
+                  onPress={()=>showModal(item,setModalData,setModalVisible)}
                   className="p-2 bg-green-800 rounded-md justify-between items-center"
                   >
                   <Text className="text-white">Verify User</Text>    
@@ -352,19 +356,18 @@ function showModal(x){
                    <Text className="text-black ml-2">({item.beltNo})</Text>
                 </View>  
                 
-                <View className="flex p-2 w-4/12  flex-row  items-center">
+                <View className="flex p-2 w-4/12 flex-row  items-center">             
                   <TouchableOpacity
-                   onPress={()=>showModal(leaveRequests)}
+                  onPress={()=>showModal(item,setleaveModalData,setleaveModalVisible)}
                   className="p-2 bg-green-800 rounded-md justify-between items-center"
                   >
-                  <Text className="text-white">Forward</Text>  
+                  <Text className="text-white">Detail</Text>    
                   </TouchableOpacity>
-                 
-                </View> 
-
+                  
+                </View>
                
-
-              </View>  
+                <LeaveModal  data = {leavemodalData} visibility ={leavemodalVisible} visibilitySetter ={setleaveModalVisible} />
+                </View>  
                   
               
            

@@ -2,6 +2,24 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {Modal, View, Text, TouchableOpacity,TextInput} from 'react-native';
 
 function LeaveModal(props) {
+let leave_req 
+
+useEffect(()=>{
+  if(props.data){
+    leave_req={
+      date :new Date(),
+      statusId :3,
+      leaveId:4,
+      leaveType :4,
+      startDate :props.data.startDate,
+      endDate :props.data.endDate,
+      reason:props.data.reason,
+      userId :props.data.userId,
+      status:0
+  
+}
+  }
+},[props])
   return (
     <>
       <Modal
@@ -27,7 +45,7 @@ function LeaveModal(props) {
               <Text>Zone:{props.data.zone}</Text>
               <TextInput className='border rounded-lg w-full mt-2 border-gray-400' placeholder ="Recommanded Days" />
               <TextInput
-                className="border rounded-lg w-full text-center mt-2 border-gray-400 text-start"
+                className="border rounded-lg w-full text-center mt-2 border-gray-400 "
                 multiline
                 editable
                 numberOfLines={8}
@@ -46,7 +64,7 @@ function LeaveModal(props) {
                   <Text className="text-white">Cancel</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  // onPress={()=>verifyUser()}
+                  onPress={()=>console.log(leave_req)}
                   className="bg-green-600 p-2 rounded-md w-32 justify-center items-center">
                   <Text className="text-white">Confirm</Text>
                 </TouchableOpacity>

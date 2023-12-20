@@ -1,7 +1,37 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {Modal, View, Text, TouchableOpacity} from 'react-native';
+import { userApproval } from '../config/functions';
 
 function ComponentModal(props) {
+
+const today = new Date()
+let newUser
+
+
+
+useEffect(()=>{
+if(props.data){
+  const userdata = props.data
+newUser = {
+  id: userdata.id,
+  pwd:userdata.hash,
+  role: 1,
+  name: userdata.name,
+  rank: userdata.rank,
+  beltNo: userdata.beltNo,
+  bps: userdata.bps,
+  officeId: userdata.officeId,
+  appointmentDate:userdata.appointmentDate,
+  dob: userdata.dob,
+  cellNo:userdata.cellNo,
+  status: "ACTIVE",
+  createdBy: props.auth,
+  createdDate: today
+}
+}
+},[props])
+
+
   return (
     <>
       <Modal
@@ -33,7 +63,7 @@ function ComponentModal(props) {
                   <Text className="text-white">Cancel</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  // onPress={()=>verifyUser()}
+                  onPress={()=>{userApproval(newUser,props.data.id),props.visibilitySetter(!props.visibility)}}
                   className="bg-green-600 p-2 rounded-md w-32 justify-center items-center">
                   <Text className="text-white">Confirm</Text>
                 </TouchableOpacity>

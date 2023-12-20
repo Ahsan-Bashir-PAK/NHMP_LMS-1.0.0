@@ -317,7 +317,7 @@ function showModal(x,datasetter,showsetter){
                   
                 </View>
                
-                <ComponentModal  data = {modalData} visibility ={modalVisible} visibilitySetter ={setModalVisible} />
+                <ComponentModal  data = {modalData} auth ={currentUser.id} visibility ={modalVisible} visibilitySetter ={setModalVisible} />
                 </View>  
             
                   

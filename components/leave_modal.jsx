@@ -14,9 +14,9 @@ function LeaveModal(props) {
         <View className="bg-[#d9d0f35e]  h-full w-full justify-center items-center flex">
           {props.data && (
             <View className=" w-11/12  bg-white border shadow  rounded-lg justify- items-start px-2 align-middle shadow-black ">
-              <Text className="text-black text-lg p-4">
+              <Text className="text-black text-md p-4">
                 {' '}
-                Please Verify credentials of Employee{' '}
+                Please mentionRecommended Days & Remarks{' '}
               </Text>
            
               <Text>Name: {props.data.name}</Text>
@@ -25,8 +25,19 @@ function LeaveModal(props) {
               <Text>Beat:{props.data.beat}</Text>
               <Text>Sector:{props.data.sector}</Text>
               <Text>Zone:{props.data.zone}</Text>
-              <TextInput className='border' placeholder ="Recommanded Days" />
-              <TextInput className='border' placeholder ="remarks" />
+              <TextInput className='border rounded-lg w-full mt-2 border-gray-400' placeholder ="Recommanded Days" />
+              <TextInput
+                className="border rounded-lg w-full text-center mt-2 border-gray-400 text-start"
+                multiline
+                editable
+                numberOfLines={8}
+                maxLength={500}
+                placeholder='Remarks'
+                // onChangeText={text => setFeedBack(text)}
+                // value={feedback}                            
+                />
+                  
+               
 
               <View className=" flex flex-row gap-2 p-4 mt-5 ">
                 <TouchableOpacity

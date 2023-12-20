@@ -168,6 +168,44 @@ axios.post(`${global.BASE_URL}/spy/verifyUser`,
 
 }
 
+//----------------------------------------------------approve user request 
+async function userApproval(user,id) {
+   
+  try {
+    const session = await EncryptedStorage.getItem('user_session');
+
+    if (session !== undefined) {
+      const usertoken =JSON.parse(session)
+
+      axios.post(`${global.BASE_URL}/users/saveUser`,
+      user,
+      {
+        headers:{
+          api_key:global.KEY,
+          authorization:usertoken.token
+        }          
+      }
+      ).then(
+
+        axios.patch(`${global.BASE_URL}/sign/updateSignup/${id}`,
+       { status :'Approved'},
+        {
+          headers:{
+            api_key:global.KEY,
+            authorization:usertoken.token
+          }          
+        }
+        ).then(
+          Alert.alert("✅Verified","The said user is Active Now")
+          )
+      )
+     
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 
 
@@ -180,5 +218,7 @@ axios.post(`${global.BASE_URL}/spy/verifyUser`,
     retrieveDriverSession,
     verifyDuplicateUser,
     storeUserSession,
-    getData,gettingUser
+    getData,
+    gettingUser,
+    userApproval
   }

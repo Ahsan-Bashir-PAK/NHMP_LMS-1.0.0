@@ -1,37 +1,7 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {Modal, View, Text, TouchableOpacity} from 'react-native';
-import { userApproval } from '../config/functions';
+import {Modal, View, Text, TouchableOpacity,TextInput} from 'react-native';
 
-function ComponentModal(props) {
-
-const today = new Date()
-let newUser
-
-
-
-useEffect(()=>{
-if(props.data){
-  const userdata = props.data
-newUser = {
-  id: userdata.id,
-  pwd:userdata.hash,
-  role: 1,
-  name: userdata.name,
-  rank: userdata.rank,
-  beltNo: userdata.beltNo,
-  bps: userdata.bps,
-  officeId: userdata.officeId,
-  appointmentDate:userdata.appointmentDate,
-  dob: userdata.dob,
-  cellNo:userdata.cellNo,
-  status: "ACTIVE",
-  createdBy: props.auth,
-  createdDate: today
-}
-}
-},[props])
-
-
+function LeaveModal(props) {
   return (
     <>
       <Modal
@@ -44,17 +14,30 @@ newUser = {
         <View className="bg-[#d9d0f35e]  h-full w-full justify-center items-center flex">
           {props.data && (
             <View className=" w-11/12  bg-white border shadow  rounded-lg justify- items-start px-2 align-middle shadow-black ">
-              <Text className="text-black text-lg p-4">
+              <Text className="text-black text-md p-4">
                 {' '}
-                Please Verify credentials of Employee{' '}
+                Please mentionRecommended Days & Remarks{' '}
               </Text>
-              <Text>CNIC: {props.data.id}</Text>
+           
               <Text>Name: {props.data.name}</Text>
               <Text>Rank: {props.data.rank}</Text>
               <Text>Belt No.{props.data.beltNo}</Text>
               <Text>Beat:{props.data.beat}</Text>
               <Text>Sector:{props.data.sector}</Text>
               <Text>Zone:{props.data.zone}</Text>
+              <TextInput className='border rounded-lg w-full mt-2 border-gray-400' placeholder ="Recommanded Days" />
+              <TextInput
+                className="border rounded-lg w-full text-center mt-2 border-gray-400 text-start"
+                multiline
+                editable
+                numberOfLines={8}
+                maxLength={500}
+                placeholder='Remarks'
+                // onChangeText={text => setFeedBack(text)}
+                // value={feedback}                            
+                />
+                  
+               
 
               <View className=" flex flex-row gap-2 p-4 mt-5 ">
                 <TouchableOpacity
@@ -63,7 +46,7 @@ newUser = {
                   <Text className="text-white">Cancel</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={()=>{userApproval(newUser,props.data.id),props.visibilitySetter(!props.visibility)}}
+                  // onPress={()=>verifyUser()}
                   className="bg-green-600 p-2 rounded-md w-32 justify-center items-center">
                   <Text className="text-white">Confirm</Text>
                 </TouchableOpacity>
@@ -76,4 +59,4 @@ newUser = {
   );
 }
 
-export default ComponentModal;
+export default LeaveModal;

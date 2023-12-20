@@ -42,9 +42,9 @@ function Home() {
 
   const [signUpRequests,setsignUpRequests] = useState()
   const [leaveRequests,setleaveRequests] = useState()
-  const [modalVisible, setModalVisible] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalData, setModalData] = useState(false);
   const isFocused = useIsFocused() 
 
 
@@ -151,12 +151,8 @@ const  getSectorWiseLeaveRequests = async ()=>{
 
 function showModal(x){
   if(x) {
-    setModalVisible(true)
-   
-  } else {
-    Alert.alert("Not Working dsadsads")
-   
-  }
+    setModalData(x)
+    setModalVisible(true)}
 }
 
 
@@ -309,7 +305,7 @@ function showModal(x){
                 
                 <View className="flex p-2 w-4/12 flex-row  items-center">             
                   <TouchableOpacity
-                  onPress={()=>setModalVisible(true)}
+                  onPress={()=>showModal(item)}
                   className="p-2 bg-green-800 rounded-md justify-between items-center"
                   >
                   <Text className="text-white">Verify User</Text>    
@@ -317,7 +313,7 @@ function showModal(x){
                   
                 </View>
                
-                <ComponentModal  data = {} visibility ={modalVisible} visibilitySetter ={setModalVisible} />
+                <ComponentModal  data = {modalData} visibility ={modalVisible} visibilitySetter ={setModalVisible} />
                 </View>  
             
                   

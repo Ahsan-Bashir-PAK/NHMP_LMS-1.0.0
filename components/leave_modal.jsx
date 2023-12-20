@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {Modal, View, Text, TouchableOpacity} from 'react-native';
+import {Modal, View, Text, TouchableOpacity, TextInput} from 'react-native';
 
 function ComponentModal(props) {
   return (
@@ -18,13 +18,23 @@ function ComponentModal(props) {
                 {' '}
                 Please Verify credentials of Employee{' '}
               </Text>
-              <Text>CNIC: {props.data.id}</Text>
+             
               <Text>Name: {props.data.name}</Text>
               <Text>Rank: {props.data.rank}</Text>
               <Text>Belt No.{props.data.beltNo}</Text>
               <Text>Beat:{props.data.beat}</Text>
               <Text>Sector:{props.data.sector}</Text>
               <Text>Zone:{props.data.zone}</Text>
+              <TextInput placeholder = "Recommanded Days "/>
+              <TextInput
+                className="border rounded-lg  border-gray-400"
+                multiline
+                editable
+                numberOfLines={15}
+                maxLength={500}                            
+                >
+                  
+                </TextInput>
 
               <View className=" flex flex-row gap-2 p-4 mt-5 ">
                 <TouchableOpacity

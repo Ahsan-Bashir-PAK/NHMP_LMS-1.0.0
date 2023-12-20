@@ -14,7 +14,9 @@ import { verifyDuplicateUser } from '../../config/functions';
 
 
 
-let ranks = ["CPO" ,"SPO" ,"PO", "APO", "JPO", "ACP","UDC","LDC","PG"];  
+// let ranks = ["CPO" ,"SPO" ,"PO", "APO", "JPO", "ACP","UDC","LDC","PG"];  
+
+
  
 
 
@@ -36,6 +38,7 @@ const [officerCpwd, setOfcrCpwd] = useState("");
 const [officerrank, setOfcrrank] = useState("");
 const [officerbelt, setOfcrbelt] = useState("");
 const [officerbps, setOfcrbps] = useState("");
+const [posting, setPosting] = useState("");
 // const [officerappt, setOfcrappt] = useState("");
 
 //=======================================================office satates 
@@ -43,17 +46,19 @@ const [officerRegion, setOfcrRegion] = useState("");
 const [officerzone, setOfcrzone] = useState("");
 const [officersector, setOfcrsector] = useState("");
 const [officerbeat, setOfcrbeat] = useState("");
+const [userOfficeId, setOfficeId] = useState("");
 
 //=================overall offices
-const[regions,setRegions] = useState("")
-const[zones,setZones] = useState("")
-const[sectors,setSectors] = useState("")
-const[beats,setbeats] = useState("")
+const[offices,setOffices] = useState("")
+const[ranks,setRanks] = useState("")
 
-
-  // Appointment DAte
+  // birth DAte
   const [dobopen, setdobOpen] = useState(false)
   const [dobdate, setdobDate] = useState(new Date())
+
+  //  // Appointment DAte
+  const [doaopen, setdoaOpen] = useState(false)
+  const [doadate, setdoaDate] = useState(new Date())
 
 // ===========Verify Modal Box============
 
@@ -72,68 +77,132 @@ function verifyUser(){
 //============================================================
 // const [officerrole, setOfcrrole] = useState("");
 //================================================================ function to get offices data 
-const getRegion = async () => {
+
+
+/////==================================getofficer
+const getOffices = async () => {
   
-  await axios.get(`${global.BASE_URL}/ofc/region`).then(async response => {
-    const region = response.data;
-    const regions = []
-    if (region) {
-      region.map( item=>{
-        regions.push(item.region)
-      }) 
-      setRegions(regions)
+  await axios.get(`${global.BASE_URL}/ofc/getoffices`).then(async response => {
+    const offices = response.data;
+    if (offices) {
+      setOffices(offices)
+    }
+  });
+};
+//============================================get rank
+const getRanks = async () => {
+  
+  await axios.get(`${global.BASE_URL}/gen/getRanks`).then(async response => {
+    const ranks = response.data;
+    if (ranks) {
+      setRanks(ranks)
+    }
+  });
+};
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//==========================================get office id 
+const getOfficeId =(type,region ,zone,sector,beat)=>{
+let result
+  switch (posting) {
+    case 'Beat':
+      const office =
+        offices &&
+        offices.filter(
+          item =>
+            item.officeType == type &&
+            item.region == region &&
+            item.zone == zone &&
+            item.sector == sector &&
+            item.beat == beat,
+        );
+        result = office[0].officeId;
      
-    }
-  });
-};
-const Zones =[]
-//=============================================================get zone 
-const getZone = async (region) => {
+      break;
+    case 'Lines HQs':
+    case 'Sector Office': 
+      const office2 =
+        offices &&
+        offices.filter(
+          item =>
+            item.officeType == type &&
+            item.region == region &&
+            item.zone == zone &&
+            item.sector == sector,
+        );
+        result = office2[0].officeId;
+      break;
+    case 'Zonal Office':
+      const office3 =
+        offices &&
+        offices.filter(
+          item =>
+            item.officeType == type &&
+            item.region == region &&
+            item.zone == zone,
+        );
+        result = office3[0].officeId;
+      break;
+      case  'Head Quarter': 
+    case 'Training College':
+      const office5 =
+        offices &&
+        offices.filter(
+          item =>
+            item.officeType == type 
+        );
+        result = office5[0].officeId;
+      break;
+    case 'Regional Office':
+      const office4 =
+        offices &&
+        offices.filter(
+          item => item.officeType == type && item.region == region,
+        );
+        result = office4[0].officeId;
+      break;
+
+    default:
+      break;
+  }
   
-  await axios.get(`${global.BASE_URL}/ofc/zone/${region}`).then(async response => {
-    const zone = response.data;
-   const data =[]
-    if (zone) {
-      zone.map( item=>{
-        data.push(item.zone)
-      }) 
-      setZones(data)
-    }
-   
-  });
-};
-//=============================================================get sectors
-const getSector = async (zone) => {
+return result
+}
+
+
+//------------------------save user
+const saveUser = async () => {
+  if(officercnic && officerbelt && officercell && officername && officerpwd && officerrank &&  doadate && dobdate && posting && officerbps) {
+
  
-  await axios.get(`${global.BASE_URL}/ofc/sector/${zone}`).then(async response => {
-    const sector = response.data;
-   const data =[]
-    if (sector) {
-      
-      sector.map( item=>{
-        data.push(item.sector)
-      }) 
-      setSectors(data)
-     
+  const user = {
+    id:officercnic,
+    role:"User",
+    name:officername,
+    pwd:officerpwd,
+    cellNo :officercell ,
+    rank:officerrank,
+    beltNo:officerbelt,
+    bps:officerbps,
+    officeId : getOfficeId(posting,officerRegion,officerzone,officersector,officerbeat),
+    appointmentDate:doadate,
+    dob:dobdate,
+    status:"Approval Pending"
+  }
+
+    axios.post(`${global.BASE_URL}/sign/saveRequest`,user).then( response =>{
+      Alert.alert("Request Submitted",'Your Request has been forwarded to concerned office for acount activation ')
+
     }
-   
-  });
-};
-//=============================================================get sectors
-const getBeat = async (sector) => {
-  
-  await axios.get(`${global.BASE_URL}/ofc/beat/${sector}`).then(async response => {
-    const beat = response.data;
-   const data =[]
-    if (beat) {
-      beat.map( item=>{
-        data.push(item.beat)
-      }) 
-      setbeats(data)
-    }
-   
-  });
-};
+    )
+      } else { Alert.alert("Note: Please Fill All Fields");}
+      }
+
+ 
+
+
+
+
+
 
 //
 //==============================================================================================/>
@@ -154,56 +223,31 @@ function  clearAll (){
   setOfcrzone("")
   setOfcrsector("")
   setOfcrbeat("")
+  setPosting("")
   // setOfcrrole("")
   
   
 }
 
 
-const user ={
-  userCnic:officercnic,
-  userName:officername,
-  userPwd:officerpwd,
-  cellNo :officercell ,
-  rank:officerrank,
-  beltNo:officerbelt,
-  // role:officerrole,
-  status:"Active",
-  beatId :officerbeat ,
-  sectorId: officersector,
-  zoneId:officerzone,
-  region:officerRegion
 
+
+//------------------------------------------confirm password 
+
+const confirmPwd =()=>{
+if(officerpwd != officerCpwd){
+  Alert.alert("⚠️Password does not match")
+  setOfcrCpwd("")
+  setOfcrpwd("")
+}
 }
 
-//------------------------save user
-const saveUser = async () => {
-  if(officercnic && officerbelt && officercell && officername && officerpwd && officerrank && officersector &&  officerRegion && officerzone && officerbeat ) {
-      await fetch(`${global.BASE_URL}/users/addUser`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      }) 
-        .then(response => {
-          if (response.ok) {
-            Alert.alert('User created successfully');
-            clearAll();
-          } else {
-            Alert.alert('User already Exists');
-          }
-  
-        })
-  
-        .catch(error => {
-          Alert.alert(error);
-        });
-      } else { Alert.alert("Note: Please Fill All Fields");}
-      }
 useEffect(()=>{
-  getRegion()
-},[regions])
+  getOffices()
+  getRanks()
+},[])
+
+
 return (
     <ScrollView className=" ">
     <View className=" relative flex flex-col p-6 pt-1 bg-slate-100   ">
@@ -307,6 +351,7 @@ return (
               secureTextEntry={true}
               value={officerCpwd}
               onChangeText={e=>setOfcrCpwd(e)}
+              onBlur={confirmPwd}
               className='   w-8/12 bg-white border-black text-black rounded-md  text-lg text-center' />
 
           </View>
@@ -318,7 +363,7 @@ return (
           <View className="w-4/6 items-center ">
           <View className="   z-50">
               <SelectDropdown
-                data= {ranks}
+                data = {[...new Set(ranks && ranks.map(x=>x.bps < 17?x.title:""))].filter(x=>x!="")}
                 value={officerrank}
                 onSelect={(selectedItem, index) => {
                   setOfcrrank(selectedItem);
@@ -366,9 +411,9 @@ return (
           </View>
         </View>
 
-          {/* Appointment Date*/}
+          {/* birth Date*/}
       <View className={styles.outerview}>
-          <View className={styles.labelstyle}><Text className="text-black font-bold">Appointment Date*</Text></View>
+          <View className={styles.labelstyle}><Text className="text-black font-bold">Date of Birth*</Text></View>
           <View className="w-4/6 items-center ">
             <View className="flex flex-row gap-1">
             
@@ -396,18 +441,75 @@ return (
             </View>
         </View>
 
+                {/* Appointment Date*/}
+                <View className={styles.outerview}>
+          <View className={styles.labelstyle}><Text className="text-black text-center font-bold">Appointment Date*</Text></View>
+          <View className="w-4/6 items-center ">
+            <View className="flex flex-row gap-1">
+            
+            <DatePicker
+              modal
+              mode="date"
+              open={doaopen}
+              date={doadate}
+              onConfirm={value => {
+                setdoaOpen(false);
+                setdoaDate(value);
+              }}
+              onCancel={() => {
+                setdoaOpen(false);
+              }}
+            />
+
+            <Text className="rounded-md  w-4/6   text-black text-center font-bold p-2">
+              {doadate.toLocaleDateString()}
+            </Text>
+            <TouchableOpacity onPress={() => setdoaOpen(true)}>
+              <Calendar stroke="black" fill="white" size={30}></Calendar>
+            </TouchableOpacity>
+          </View>
+            </View>
+        </View>
+
+      {/* posted at========================================$$$$$ */}
+      
+       <View className={styles.outerview}>
+          <View className={styles.labelstyle}><Text className="text-black font-bold">Place of Posting*</Text></View>
+          <View className="w-4/6 items-center ">
+          <View className="   z-50">
+              <SelectDropdown
+                // data= {postingPlaces}
+                data = {[...new Set(offices && offices.map(x=>x.officeType))].filter(x=>x!="")}
+                value={posting}
+                onSelect={(selectedItem, index) => {
+                  setPosting(selectedItem);
+                }}
+                // defaultButtonText={posting}
+                buttonStyle={{
+                  backgroundColor:'white',
+                    
+                }}                
+                />
+              
+            </View>
+
+          </View>
+        </View>
+
         {/* Region */}
-        <View className={styles.outerview}>
+        <View className={`${styles.outerview} ${posting == 'Head Quarter' || posting == 'Training College'? 'hidden':'block'} `}>
           <View className={styles.labelstyle}><Text className="text-black font-bold">Region*</Text></View>
           <View className="w-4/6 items-center">
           <View className="  z-50">
               <SelectDropdown
-                data= {regions}
+                // data= {regions}
+
+                data = {[...new Set(offices && offices.map(x=>x.region))].filter(x=>x!="")}
+                
+                
                 value={officerRegion}
                 onSelect={ (selectedItem, index) => {
-                  
                   setOfcrRegion(selectedItem);
-                 getZone(selectedItem)
                 }}
                 defaultButtonText={officerRegion}
                 buttonStyle={{
@@ -422,17 +524,16 @@ return (
           </View>
         </View>
         {/* Zone */}
-        <View className={styles.outerview}>
+        <View className={`${styles.outerview} ${posting == 'Regional Office'|| posting == 'Head Quarter' || posting == 'Training College'? 'hidden':'block'} `}>
           
           <View className={styles.labelstyle}><Text className="text-black font-bold">Zone*</Text></View>
           <View className="w-4/6 items-center">
           <View className="  z-50">
               <SelectDropdown
-                data= {zones}
+                data = {[...new Set(offices && offices.map(x=>x.region == officerRegion?x.zone:""))].filter(x=>x!="")}
                 value={officerzone}
                 onSelect={(selectedItem, index) => {
                   setOfcrzone(selectedItem);
-                  getSector(selectedItem)
                 }}
                 defaultButtonText={officerzone}
                 buttonStyle={{
@@ -448,18 +549,15 @@ return (
         </View>
 
         {/* Sector */}
-        <View className={styles.outerview}>
+        <View className={`${styles.outerview} ${posting == 'Sector Office'|| posting == 'Lines HQs' || posting == 'Beat'? 'block':'hidden'} `}>
           <View className={styles.labelstyle}><Text className="text-black font-bold">Sector*</Text></View>
           <View className="w-4/6 items-center">
           <View className=" z-50">
               <SelectDropdown
-                data= {sectors}
+                data = {[...new Set(offices && offices.map(x=>x.zone == officerzone?x.sector:""))].filter(x=>x!="")}
                 value={officersector}
                 onSelect={(selectedItem, index) => {
-                  setOfcrsector(selectedItem);
-                  getBeat(selectedItem)
-                 
-
+                  setOfcrsector(selectedItem);              
                 }}
                 defaultButtonText={officersector}
                 buttonStyle={{
@@ -473,12 +571,12 @@ return (
         </View>
 
         {/* Beat */}
-        <View className={styles.outerview}>
+      <View className={`${styles.outerview} ${posting !='Beat'? 'hidden':'block'} `}>
           <View className={styles.labelstyle}><Text className="text-black font-bold">Beat*</Text></View>
           <View className="w-4/6 items-center">
           <View className=" m-1  z-50">
               <SelectDropdown
-                data= {beats}
+                data = {[...new Set(offices && offices.map(x=>x.sector == officersector?x.beat:""))].filter(x=>x!="")}
                 value={officerbeat}
                 onSelect={(selectedItem, index) => {
                   setOfcrbeat(selectedItem);
@@ -500,7 +598,7 @@ return (
          {/* Buttons Save - Clear -Update */}
          <View className="flex-row items-center justify-center ">
               <View className=" ">
-                <TouchableOpacity onPress= {()=>navigation.navigate('Home')} className="bg-[#227935]  px-8 py-2 rounded-md m-2">
+                <TouchableOpacity onPress= {()=>saveUser()} className="bg-[#227935]  px-8 py-2 rounded-md m-2">
                   <Text className="text-white  text-lg">Save</Text>
                 </TouchableOpacity>
               </View>
@@ -514,6 +612,11 @@ return (
               <View className="">
                 <TouchableOpacity onPress={()=>clearAll()} className="bg-[#a54932] px-8 py-2 rounded-md m-2">
                   <Text className="text-white text-lg">Clear</Text>
+                </TouchableOpacity>
+              </View>
+              <View className="">
+                <TouchableOpacity onPress={()=>console.log(getOfficeId(posting,officerRegion,officerzone,officersector,officerbeat))} className="bg-[#a54932] px-8 py-2 rounded-md m-2">
+                  <Text className="text-white text-lg">getOffices</Text>
                 </TouchableOpacity>
               </View>
 

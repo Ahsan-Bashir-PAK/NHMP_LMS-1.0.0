@@ -8,6 +8,8 @@ global.BASE_URL="http://116.0.45.14:5000"
 //  global.BASE_URL="http://203.99.61.134:7077"
 global.KEY="A3166"
 
+global.KEY = 'A3166'
+
 global.currentUser
 
 // async function retrieveUserSession() {

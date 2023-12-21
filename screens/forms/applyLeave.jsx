@@ -9,6 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
 import axios from 'axios';
 import { retrieveUserSession } from '../../config/functions';
+import { applyLeave } from '../../config/leavefunctions';
+import { get_max_id } from '../../config/functions';
 
 
 const ApplyLeave = () => {
@@ -18,7 +20,7 @@ const ApplyLeave = () => {
 const [showReport, setReport] = useState(true)
 
 const [currentUser,setCurrentUser] = useState('')
-  //const time = new Date().toLocaleTimeString();
+
   
   // Start Date
 const [dobopen, setdobOpen] = useState(false)
@@ -30,47 +32,38 @@ const [enddate, setdDate] = useState(new Date())
  
 const leaveType = [ "Casual Leave" ,"Earned Leave"];  
 const [leave_type, setLeaveType] = useState(""); 
+const [reason,setReason] =useState()
 
 
-const startDate = dobdate.toLocaleDateString().split("/").reverse().join("-")
-const endDate = enddate.toLocaleDateString().split("/").reverse().join("-")
+const startDate = dobdate
+const endDate = enddate
+const today = new Date().toISOString()
 
-const getProgress = async()=>{ 
-
- // console.log(`${global.BASE_URL}/web/daily/officerwisedsr/${startDate}/${endDate}/${startTime}/${endTime}/${currentUser.userName}`)
-
- await axios.get(`${global.BASE_URL}/web/daily/officerwisedsr/${startDate}/${endDate}/${startTime}/${endTime}/${currentUser.userName}`)
-  .then(
-    (response) =>{
-      const result = response.data
-      if(result){
-      setDriverData(result.driver[0])
-      setvehicleData(result.vehicles[0])
-      setinspectionData(result.inspection[0])
-      // setinspectionData(result.inspections[0])
-        setReport(false)
-      // console.log('dvr',driverData["added"],'vhcle',vehicleData,'insp',inspectionData)
-      }
-      else {
-        Alert.alert("Not Record Found.")
-       
-        
-      }
-  })
-
-}
 useEffect(()=>{
   retrieveUserSession(setCurrentUser)
 })
 
-function submitleave(){
-        if(startDate  == endDate || endDate < startDate) {
+async function  submitleave(){
+        if(endDate < startDate) {
 
           Alert.alert("Please enter Correct dates")
           
-        } else if(leave_type == "") {Alert.alert(leaveType)}
+        } else if(leave_type == "") {  Alert.alert("Please Select leave Type")}
+        else if(reason == "") {  Alert.alert("Please mention Reason")}
  else {
-          Alert.alert("Submitted")
+  const leave_req={
+    date :today,
+    leaveId: await get_max_id("leaveStatus","leaveId"),
+    leaveType :4,
+    startDate :startDate,
+    endDate :endDate,
+    reason:reason,
+    userId :currentUser.id,
+    status:0
+
+}
+
+     applyLeave(leave_req)
  }}
 
 return (
@@ -162,15 +155,18 @@ return (
                     <View className="  w-4/6 items-center ">
                     <View className=" z-50">
                         <SelectDropdown
+                        // search ={true}
                           data= {leaveType}
                           onSelect={(selectedItem, index) => {
                             setLeaveType(selectedItem)            
                           }}
+                          
                           defaultButtonText='Select an option.'
                           buttonStyle={{
                             backgroundColor:'white',
                               
-                          }}                
+                          }}
+                                        
                           />
                         
                       </View>
@@ -183,16 +179,16 @@ return (
 {/* Report Form */}
            <View className=" p-4">
                 <TextInput
-                className="border rounded-lg  border-gray-400"
+                className="border rounded-lg items-start border-gray-400"
                 multiline
                 editable
                 numberOfLines={15}
                 maxLength={500}
-                // onChangeText={text => setFeedBack(text)}
-                // value={feedback}                            
-                >
+                onChangeText={text => setReason(text)}
+                value={reason}                            
+                />
                   
-                </TextInput>
+                
                 
             </View>
 

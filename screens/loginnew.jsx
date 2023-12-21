@@ -213,12 +213,12 @@ function clearAll(){
                     <Text className='text-white text-center font-bold text-lg'>Sign Up</Text>
 
                     </TouchableOpacity>
-                    <TouchableOpacity  
+                    {/* <TouchableOpacity  
                     onPress={() => navigation.navigate('Home')}
                     className='p-3 bg-blue-900 text-center ml-3 w-4/12  border-yellow-300' >
                     <Text className='text-white text-center font-bold text-lg'>Home</Text>
 
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     </View>    
             </View>
             {/* important NMHP social links */}

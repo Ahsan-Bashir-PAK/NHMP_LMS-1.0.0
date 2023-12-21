@@ -64,7 +64,17 @@ async function  submitleave(){
 }
 
      applyLeave(leave_req)
- }}
+    }
+    clearLeaveForm()
+
+}
+
+function clearLeaveForm() {
+    setLeaveType("")
+    setReason("")
+    setdobDate(new Date())
+    setdDate(new Date())
+  }
 
 return (
     <ScrollView className="">
@@ -149,9 +159,9 @@ return (
                   </View>
                     </View>
         </View>
-{/* {/* Start Time */}
+{/* {/* leave type */}
 <View className={styles.outerview}>
-                    <View className=" w-2/6 justify-center items-center rounded-md bg-slate-200" ><Text className="text-black">Leave Type</Text></View>
+                    <View className=" w-2/6 justify-center items-center rounded-md bg-green-500" ><Text className="text-black">Leave Type</Text></View>
                     <View className="  w-4/6 items-center ">
                     <View className=" z-50">
                         <SelectDropdown
@@ -193,16 +203,20 @@ return (
             </View>
 
             <View className=" flex flex-row w-full justify-evenly items-center p-4 ">
-              
+            <TouchableOpacity 
+              onPress={()=>clearLeaveForm()}
+              className="bg-red-600  rounded-md w-3/12 p-4 justify-center items-center">
+                    <Text className="text-white">Clear</Text>
+                </TouchableOpacity>
               <TouchableOpacity 
               onPress={()=>navigation.goBack()}
-              className="bg-red-600  rounded-md w-4/12 p-4 justify-center items-center">
+              className="bg-red-600  rounded-md w-3/12 p-4 justify-center items-center">
                     <Text className="text-white">Cancel</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity 
                 onPress={()=>submitleave()}
-                className="bg-green-600  rounded-md w-4/12 p-4 justify-center items-center">
+                className="bg-green-600  rounded-md w-3/12 p-4 justify-center items-center">
                     <Text className="text-white">Apply Leave</Text>
                 </TouchableOpacity>
             </View>     

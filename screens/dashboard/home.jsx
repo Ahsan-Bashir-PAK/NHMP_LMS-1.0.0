@@ -41,6 +41,7 @@ import LeaveModal from '../../components/leave_modal';
 function Home() {
 
 
+
   const [signUpRequests,setsignUpRequests] = useState()
   const [leaveRequests,setleaveRequests] = useState()
   const [currentUser, setCurrentUser] = useState({});
@@ -97,7 +98,7 @@ const  getSectorWiseLeaveRequests = async ()=>{
       Authorization:user.token
      }
   }).then(
-    // console.log(currentUser.sector)
+    
     response=>setleaveRequests(response.data)
   )
 }
@@ -110,6 +111,7 @@ const  getSectorWiseLeaveRequests = async ()=>{
   retrieveUserSession(setCurrentUser);
   getSectorAccountRequests()
   getSectorWiseLeaveRequests()
+
 
 
   const backAction = () => {
@@ -276,11 +278,11 @@ function showModal(x,datasetter,showsetter){
         
       </View>
 {/* ==================Account Aprpoval Requests for Sector OSI=============*/}
-
-      <View className="mt-2 ">
+      <View className={`${currentUser?currentUser.role == 3 ? "block":"hidden":"hidden" }  `}>   
+      <View >
         <TouchableOpacity
           
-          className="w-full   h-10 rounded-lg  justify-center items-center bg-[#257c25] ">
+          className="w-full   h-10 rounded-lg  justify-center items-center bg-[#db9335] ">
           <View className="justify-center flex flex-row items-center  w-full gap-2">
        
             <Text className="  font-white  text-lg text-white">
@@ -289,11 +291,12 @@ function showModal(x,datasetter,showsetter){
           </View>
         </TouchableOpacity>
       </View>
+
           { signUpRequests &&
 
             
             <View className=" bg-gray-100 justify-start items-start w-full">
-      <FlatList className="p-2 overflow-scroll h-1/5 w-full"
+      <FlatList className="p-2 overflow-scroll h-38 w-full"
         data={signUpRequests}
         renderItem={({ item, index }) => (
             
@@ -328,6 +331,8 @@ function showModal(x,datasetter,showsetter){
       />
       </View>
 }
+</View>  
+
 {/* ==================Leave Approval Request for CPO===========*/}
 
 <View className="mt-2  ">

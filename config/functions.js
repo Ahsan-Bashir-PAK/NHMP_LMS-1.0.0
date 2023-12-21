@@ -207,6 +207,15 @@ async function userApproval(user,id) {
 }
 
 
+///------------------------max id 
+
+const get_max_id = async (table,field)=>{
+
+  const response = await axios.get(`${global.BASE_URL}/gen/get_max_id/${table}/${field}`)
+ return response.data.maxId
+}
+
+
 
 
 
@@ -222,5 +231,6 @@ async function userApproval(user,id) {
     storeUserSession,
     getData,
     gettingUser,
-    userApproval
+    userApproval,
+    get_max_id
   }

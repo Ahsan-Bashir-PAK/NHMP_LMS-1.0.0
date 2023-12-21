@@ -614,11 +614,7 @@ return (
                   <Text className="text-white text-lg">Clear</Text>
                 </TouchableOpacity>
               </View>
-              <View className="">
-                <TouchableOpacity onPress={()=>console.log(getOfficeId(posting,officerRegion,officerzone,officersector,officerbeat))} className="bg-[#a54932] px-8 py-2 rounded-md m-2">
-                  <Text className="text-white text-lg">getOffices</Text>
-                </TouchableOpacity>
-              </View>
+             
 
 
             </View>

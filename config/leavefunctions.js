@@ -41,6 +41,33 @@ async function applyLeave(leave_req) {
     }
   }
 
+  async function updateLeaveStatus(data) {
+   
+    try {
+      const session = await EncryptedStorage.getItem('user_session');
+  
+      if (session !== undefined) {
+        const usertoken =JSON.parse(session)
+  
+        axios.post(`${global.BASE_URL}/leave/handleLeaveStatus`,
+        data,
+        {
+          headers:{
+            api_key:global.KEY,
+            authorization:usertoken.token
+          }          
+        }
+        ).then(
+
+            Alert.alert("✔️"," The application is forwarded")
+            
+        )
+       
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
 
@@ -49,5 +76,6 @@ async function applyLeave(leave_req) {
 
 
   export {
-  applyLeave
+  applyLeave,
+  updateLeaveStatus
   }

@@ -34,6 +34,8 @@ import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
 import { Building2Icon } from 'lucide-react-native';
 import ComponentModal from '../../components/modal';
 import LeaveModal from '../../components/leave_modal';
+import { getSectorWiseLeaveRequests } from '../../config/leavefunctions';
+import { getSectorAccountRequests } from '../../config/functions';
 
 
 
@@ -51,69 +53,18 @@ function Home() {
   const [leavemodalData, setleaveModalData] = useState();
 
   const isFocused = useIsFocused() 
-
+// const [isLoading,setIsLoading ] = useState(false)
 
   const navigation = useNavigation("");
 
-//---------------------------------------------getting account request 
-const  getSectorAccountRequests = async ()=>{
-  const session = await EncryptedStorage.getItem('user_session');
-
-  if (session !== undefined) {
-    const user =JSON.parse(session)
-
-  axios.post(`${global.BASE_URL}/sign/accountRequests`,
-  {
-    "officeType":"sector",
-    "office":currentUser.sector
-  },
-  { 
-    headers:{
-      api_key :global.KEY,
-      Authorization:user.token
-     }
-  }).then(
-    // console.log(currentUser.sector)
-    response=>setsignUpRequests(response.data)
-  )
-}
-}
-
-
-//---------------------------------------------getting account request 
-const  getSectorWiseLeaveRequests = async ()=>{
-  const session = await EncryptedStorage.getItem('user_session');
-
-  if (session !== undefined) {
-    const user =JSON.parse(session)
-
-  axios.post(`${global.BASE_URL}/leave/getLeaveRequests`,
-  {
-    "officeType":"sector",
-    "office":currentUser.sector
-  },
-  { 
-    headers:{
-      api_key :global.KEY,
-      Authorization:user.token
-     }
-  }).then(
-    
-    response=>setleaveRequests(response.data)
-  )
-}
-}
 
 
 
 
- useEffect(() => {
+
+ useEffect( () => {
   retrieveUserSession(setCurrentUser);
-  getSectorAccountRequests()
-  getSectorWiseLeaveRequests()
-
-
-
+  
   const backAction = () => {
     if(navigation.isFocused()){
      Alert.alert('Hold on!', 'Are you sure you want to Logout?', [
@@ -133,9 +84,15 @@ const  getSectorWiseLeaveRequests = async ()=>{
       );
       return () => backHandler.remove();
   
-}, [signUpRequests]);
+}, []);
 
-
+if(currentUser){
+  useEffect(()=>{
+      getSectorAccountRequests(currentUser,setsignUpRequests)
+      getSectorWiseLeaveRequests(currentUser,setleaveRequests)
+      
+    },[currentUser])
+  }
 
 
 
@@ -174,7 +131,7 @@ function showModal(x,datasetter,showsetter){
 
    {/* <ScrollView keyboardShouldPersistTaps='handled'> */}
    
-    <View className="p-2  w-full bg-white ">
+    <View className="p-2  w-full h-screen relative">
     
       <View className="  flex  border h-1/6 bg-[#151d4b]   justify-center items-center  w-full rounded-lg   overflow-visible ">
       
@@ -195,7 +152,7 @@ function showModal(x,datasetter,showsetter){
       </View>
 
 
-      <View className="mt-10 rounded-m    w-full   justify-evenly flex flex-row ">
+      <View className="mt-10  rounded-m    w-full   justify-evenly flex flex-row ">
         {/* Approved */}
         
           <TouchableOpacity
@@ -334,7 +291,7 @@ function showModal(x,datasetter,showsetter){
 </View>  
 
 {/* ==================Leave Approval Request for CPO===========*/}
-
+<View className={`${currentUser?currentUser.role == 2  ? "block":"hidden":"hidden" } mt-2  `}>  
 <View className="mt-2  ">
         <TouchableOpacity
           
@@ -347,8 +304,9 @@ function showModal(x,datasetter,showsetter){
           </View>
         </TouchableOpacity>
       </View>
-      <View className=" bg-gray-100 justify-startitems-start w-full">
-      <FlatList className="p-2 overflow-scroll h-1/5 w-full"
+      { leaveRequests &&
+      <View className=" bg-gray-100 justify-startitems-start h-auto w-full">
+      <FlatList className="p-2 overflow-scroll h-3/5 w-full"
         data={leaveRequests}
             renderItem={({ item, index }) => (
               
@@ -380,14 +338,15 @@ function showModal(x,datasetter,showsetter){
 
       />
       </View>
-
+}
+      </View>
       {/* Update Logout */}
 
-      <View className="mt-2 ">
+      <View className="m-2 w-full absolute flex items-center justify-center bottom-9">
         <TouchableOpacity
           onPress={() => logoutSesion()}
-          className="w-full   h-10 rounded-lg  justify-center items-center bg-[#a32d37] ">
-          <View className="justify-center flex flex-row items-center  w-full gap-2">
+          className="  h-10 rounded-lg  justify-center items-center w-full bg-[#a32d37] ">
+          <View className="justify-center flex flex-row items-center  ">
             <LogOutIcon stroke="white" size={25} strokeWidth={1}  />
             <Text className="  font-white  text-lg text-white">
               Logout

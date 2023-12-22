@@ -8,13 +8,14 @@ import { Alert } from "react-native";
 
 
 
+
 //============================user retriving session
 
 
 //----------------------------------------------------approve user request 
 
-async function applyLeave(leave_req) {
-   
+async function applyLeave(leave_req,fn) {
+
     try {
       const session = await EncryptedStorage.getItem('user_session');
   
@@ -31,7 +32,9 @@ async function applyLeave(leave_req) {
         }
         ).then(
 
-            Alert.alert("Submitted","Your leave application is under process")
+            Alert.alert("Submitted","Your leave application is under process",[
+              {text: 'ok', onPress:fn}
+            ])
             
         )
        
@@ -69,6 +72,32 @@ async function applyLeave(leave_req) {
     }
   }
 
+//---------------------------------------------getting account request 
+const  getSectorWiseLeaveRequests = async (user, setter)=>{
+  const session = await EncryptedStorage.getItem('user_session');
+
+  if (session !== undefined) {
+    const auth =JSON.parse(session)
+if(user){
+
+
+ await axios.post(`${global.BASE_URL}/leave/getLeaveRequests`,
+  {
+    "officeType":"sector",
+    "office":user.sector
+  },
+  { 
+    headers:{
+      api_key :global.KEY,
+      Authorization:auth.token
+     }
+  }).then(
+    response=>setter(response.data)
+  
+    
+  )
+}}
+}
 
 
 
@@ -77,5 +106,6 @@ async function applyLeave(leave_req) {
 
   export {
   applyLeave,
-  updateLeaveStatus
+  updateLeaveStatus,
+  getSectorWiseLeaveRequests
   }

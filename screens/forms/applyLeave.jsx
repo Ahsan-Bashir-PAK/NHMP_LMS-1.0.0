@@ -32,7 +32,7 @@ const [enddate, setdDate] = useState(new Date())
  
 const leaveType = [ "Casual Leave" ,"Earned Leave"];  
 const [leave_type, setLeaveType] = useState(""); 
-const [reason,setReason] =useState()
+const [reason,setReason] =useState("")
 
 
 const startDate = dobdate
@@ -43,6 +43,9 @@ useEffect(()=>{
   retrieveUserSession(setCurrentUser)
 })
 
+
+
+
 async function  submitleave(){
         if(endDate < startDate) {
 
@@ -51,9 +54,10 @@ async function  submitleave(){
         } else if(leave_type == "") {  Alert.alert("Please Select leave Type")}
         else if(reason == "") {  Alert.alert("Please mention Reason")}
  else {
+  leave_id = await get_max_id("leaveStatus","leaveId")
   const leave_req={
     date :today,
-    leaveId: await get_max_id("leaveStatus","leaveId"),
+    leaveId: leave_id == null? 1: leave_id + 1,
     leaveType :4,
     startDate :startDate,
     endDate :endDate,
@@ -63,7 +67,8 @@ async function  submitleave(){
 
 }
 
-     applyLeave(leave_req)
+     applyLeave(leave_req,()=>navigation.navigate("Home"))
+    
  }}
 
 return (
@@ -187,9 +192,6 @@ return (
                 onChangeText={text => setReason(text)}
                 value={reason}                            
                 />
-                  
-                
-                
             </View>
 
             <View className=" flex flex-row w-full justify-evenly items-center p-4 ">

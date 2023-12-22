@@ -215,6 +215,29 @@ const get_max_id = async (table,field)=>{
  return response.data.maxId
 }
 
+//---------------------------------------------getting account request 
+const  getSectorAccountRequests = async (currentUser,setter)=>{
+  const session = await EncryptedStorage.getItem('user_session');
+
+  if (session !== undefined) {
+    const auth =JSON.parse(session)
+
+  await axios.post(`${global.BASE_URL}/sign/accountRequests`,
+  {
+    "officeType":"sector",
+    "office":currentUser.sector
+  },
+  { 
+    headers:{
+      api_key :global.KEY,
+      Authorization:auth.token
+     }
+  }).then(
+    // console.log(currentUser.sector)
+    response=>setter(response.data)
+  )
+}
+}
 
 
 
@@ -230,6 +253,7 @@ const get_max_id = async (table,field)=>{
     verifyDuplicateUser,
     storeUserSession,
     getData,
+    getSectorAccountRequests,
     gettingUser,
     userApproval,
     get_max_id

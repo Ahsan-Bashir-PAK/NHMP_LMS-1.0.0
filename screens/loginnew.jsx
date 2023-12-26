@@ -168,7 +168,7 @@ function clearAll(){
                 
                {/* User name */}
                <View className="justify-start items-start w-full flex flex-row  ">
-               <View className='bg-gray-100  border-r border-gray-400 p-3 justify-center items-center flex '>
+               <View className='bg-gray-100  border-r  border-gray-400 p-3 justify-center items-center flex '>
                 <UserCog2 width={25} stroke='black' strokeWidth={1}  />
                 </View>
                     <TextInput
@@ -213,12 +213,12 @@ function clearAll(){
                     <Text className='text-white text-center font-bold text-lg'>Sign Up</Text>
 
                     </TouchableOpacity>
-                    {/* <TouchableOpacity  
+                    <TouchableOpacity  
                     onPress={() => navigation.navigate('Home')}
                     className='p-3 bg-blue-900 text-center ml-3 w-4/12  border-yellow-300' >
                     <Text className='text-white text-center font-bold text-lg'>Home</Text>
 
-                    </TouchableOpacity> */}
+                    </TouchableOpacity>
                     </View>    
             </View>
             {/* important NMHP social links */}

@@ -80,21 +80,21 @@ return (
 
 
    {/* Approved Days*/}
-   <View className={`${styles.outerview} m-2  justify-evenly` }>
-   <View className=" w-2/12 justify-center  items-center py-2 rounded-md bg-gray-500" >
-             <Text className="text-white">Leave ID</Text>
+   <View className={` flex-row m-2  justify-evenly` }>
+   <View className=" w-2/12 justify-center  items-center  rounded-md bg-gray-200 border-gray-400 border" >
+             <Text className="text-black text-xs">Leave ID</Text>
         </View>
-       <View className=" w-3/12 justify-center  items-center py-2 rounded-md bg-gray-500" >
-             <Text className="text-white">Requested days</Text>
+       <View className=" w-3/12 justify-center  items-center  rounded-md bg-gray-200 border-gray-400 border" >
+             <Text className="text-black text-xs">Requested days</Text>
         </View>
-        <View className=" w-2/12 justify-center items-center py-2 rounded-md bg-green-500" >
-             <Text className="text-white">Status</Text>
+        <View className=" w-2/12 justify-center items-center  rounded-md bg-gray-200 border-gray-400 border" >
+             <Text className="text-black text-xs">Status</Text>
         </View>   
-        <View className=" w-2/12 justify-center items-center py-2 rounded-md bg-green-500" >
-             <Text className="text-white">Leave Type</Text>
+        <View className=" w-2/12 justify-center items-center  rounded-md bg-gray-200 border-gray-400 border" >
+             <Text className="text-black text-xs text-center">Leave Type</Text>
         </View> 
-        <View className=" w-2/12 justify-center items-center py-2 rounded-md bg-green-500" >
-             <Text className="text-white">Approved By</Text>
+        <View className=" w-2/12 justify-center items-center  rounded-md  bg-gray-200 border-gray-400 border" >
+             <Text className="text-black text-xs text-center">Approved By</Text>
         </View> 
           </View>
       </KeyboardAvoidingView>

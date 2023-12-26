@@ -124,7 +124,7 @@ return (
               {dobdate.toLocaleDateString()}
             </Text>
             <TouchableOpacity onPress={() => setdobOpen(true)}>
-              <Calendar stroke="black" fill="white" size={30}></Calendar>
+              <Calendar stroke="black" fill="white" size={30} strokeWidth={1}></Calendar>
             </TouchableOpacity>
           </View>
             </View>
@@ -154,14 +154,14 @@ return (
                       {enddate.toLocaleDateString()}
                     </Text>
                     <TouchableOpacity onPress={() => setdOpen(true)}>
-                      <Calendar stroke="black" fill="white" size={30}></Calendar>
+                      <Calendar stroke="black" fill="white" size={30} strokeWidth={1}></Calendar>
                     </TouchableOpacity>
                   </View>
                     </View>
         </View>
 {/* {/* leave type */}
 <View className={styles.outerview}>
-                    <View className=" w-2/6 justify-center items-center rounded-md bg-green-500" ><Text className="text-black">Leave Type</Text></View>
+                    <View className=" w-2/6 justify-center items-center rounded-md bg-green-500" ><Text className="text-white">Leave Type</Text></View>
                     <View className="  w-4/6 items-center ">
                     <View className=" z-50">
                         <SelectDropdown
@@ -189,7 +189,7 @@ return (
 {/* Report Form */}
            <View className=" p-4">
                 <TextInput
-                className="border rounded-lg items-start border-gray-400"
+                className="border rounded-lg items-start border-gray-400 text-black"
                 multiline
                 editable
                 numberOfLines={15}
@@ -216,8 +216,8 @@ return (
                 
                 <TouchableOpacity 
                 onPress={()=>submitleave()}
-                className="bg-green-600  rounded-md w-3/12 p-4 justify-center items-center">
-                    <Text className="text-white">Apply Leave</Text>
+                className="bg-green-600  rounded-md w-4/12 p-4 justify-center items-center">
+                    <Text className="text-white text-sm">Apply Leave</Text>
                 </TouchableOpacity>
             </View>     
 

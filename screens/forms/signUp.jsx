@@ -632,9 +632,9 @@ return (
       
       <View className="bg-[#1c5685ee]  h-full w-full justify-center items-center flex">    
        
-       <View className="bg-white  w-8/12 h-2/6 rounded-md justify-center items-center align-middle shadow-black ">
+       <View className="bg-white  w-10/12 h-2/6 rounded-md justify-center items-center align-middle shadow-black ">
               
-                <Text className="text-black text-lg p-4"> Please confirm are you employee of NHMP</Text>
+                <Text className="text-black text-lg p-2"> Please confirm are you employee of NHMP</Text>
                 <TextInput
                     
                     placeholder=' Entery your CNIC'
@@ -649,13 +649,13 @@ return (
                 <View className=" flex flex-row gap-2 p-4 mt-5 ">
                 <TouchableOpacity
                         onPress={()=>navigation.navigate('Login')}
-                        className="bg-red-600 p-2 rounded-md w-32 justify-center items-center">
+                        className="bg-red-600 p-2 rounded-md w-4/12 justify-center items-center">
                                 <Text className="text-white">Cancel</Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
                         // onPress={()=>setModalVisible(!modalVisible)}
                         onPress={()=>verifyUser()}
-                        className="bg-green-600 p-2 rounded-md w-32 justify-center items-center">
+                        className="bg-green-600 p-2 rounded-md w-4/12 justify-center items-center">
                                 <Text className="text-white">Confirm</Text>
                         </TouchableOpacity>
 

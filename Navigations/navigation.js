@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../screens/loginnew';
 
 import Home from '../screens/dashboard/home';
-
+import LeaveRequests from '../screens/forms/leaveRequests';
 import MyTabs from './tabnavigation';
 
 import SignUp from '../screens/forms/signUp';
@@ -54,7 +54,11 @@ const MyStack = () => {
             unmountOnBlur:true,
             headerShown: false }}
          /> 
-        
+         <Stack.Screen name="Leave Requests" component={LeaveRequests} 
+          options={{ 
+            unmountOnBlur:true,
+            headerShown: false }}
+         /> 
         <Stack.Screen name="MyTabs" component={MyTabs} 
         options={{
           headerShown:false,

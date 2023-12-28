@@ -2,12 +2,13 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {Modal, View, Text, TouchableOpacity,TextInput} from 'react-native';
 import { retrieveUserSession } from '../config/functions';
 import { updateLeaveStatus } from '../config/leavefunctions';
+import { useNavigation } from '@react-navigation/native';
 
 function LeaveModal(props) {
   const [recDays,setRecDays] =useState()
 const [remarks,setRemarks] =useState("")
 const [currentUser,setCurrentUser] = useState('')
-
+const navigation = useNavigation();
 
 const today = new Date().toISOString()
 
@@ -21,6 +22,10 @@ const forwardLeave = async() =>{
     const leave_status= {
       "date" :today,
       "leaveId" :props.data.leaveId,
+      "leaveType":props.data.leaveType,
+      "startDate":props.data.startDate,
+      "endDate":props.data.endDate,
+      "reason":props.data.reason,
       "userId": props.data.userId,
       "authId" :currentUser.id,
       "days" :recDays,
@@ -28,7 +33,7 @@ const forwardLeave = async() =>{
       "status" :1
 }
 
-updateLeaveStatus(leave_status)
+updateLeaveStatus(leave_status,() => props.visibilitySetter(!props.visibility))
 
 
 
@@ -86,8 +91,9 @@ updateLeaveStatus(leave_status)
                         <Text className="text-black ">Leave Availed:</Text> 
                         <Text className=" ml-6 text-black text-sm"> C/L:10 E/L:20</Text>
                       </View> */}
-
+                      <View className = {`bg-blue-200 rounded-md p-2 m-1 ${currentUser?currentUser.role == 2?"hidden":"block":"hidden"}`}>
                       <View className="flex flex-row">
+                        <Text className='font-bold'> CPO Remarks</Text>
                         <Text className="text-black ">Forwarded Days :</Text> 
                         <Text className=" ml-2 text-black text-sm">05 Days</Text>
                       </View>
@@ -95,6 +101,7 @@ updateLeaveStatus(leave_status)
                       <View className="flex flex-row flex-wrap mt-2 bg-gray-100 rounded-md p-2">
                         <Text className="text-black ">Remarks:</Text> 
                         <Text className=" ml-2 text-grey-400 text-sm italic ">Sir, The beat is already facing acute shortage of strength it is requested that please provide subsitute provide subsiprovide subsiprovide subsiprovide subsiprovide subsiprovide subsiprovide subsi</Text>
+                      </View>
                       </View>
                        
                       

@@ -51,8 +51,8 @@ async function applyLeave(leave_req,fn) {
     }
   }
 
-  async function updateLeaveStatus(data) {
-   
+  async function updateLeaveStatus(data,fn) {
+  
     try {
       const session = await EncryptedStorage.getItem('user_session');
   
@@ -69,7 +69,16 @@ async function applyLeave(leave_req,fn) {
         }
         ).then(
 
-            Alert.alert("✔️"," The application is forwarded")
+          response=>{
+            if (response.data == "Leave status updated" ){
+              Alert.alert("✔️"," The application is forwarded",[
+                {text:"Ok", onPress:fn}
+              ])
+              
+            }else{
+              Alert.alert("Network Error")
+            }
+          }
             
         )
        

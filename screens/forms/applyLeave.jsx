@@ -1,4 +1,4 @@
-import React, { useEffect, useState  } from 'react';
+import React, { useEffect, useState, useRef  } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView,Alert, TextInput } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
@@ -15,6 +15,7 @@ import { get_max_id } from '../../config/functions';
 
 const ApplyLeave = () => {
   
+  const dropdownRef = useRef({});  
   const navigation = useNavigation();
 
 const [showReport, setReport] = useState(true)
@@ -66,11 +67,11 @@ async function  submitleave(){
      applyLeave(leave_req)
     }
     clearLeaveForm()
-
+    
 }
 
 function clearLeaveForm() {
-    setLeaveType("")
+  dropdownRef.current.reset()
     setReason("")
     setdobDate(new Date())
     setdDate(new Date())
@@ -166,6 +167,7 @@ return (
                     <View className=" z-50">
                         <SelectDropdown
                         // search ={true}
+                          ref={dropdownRef}
                           data= {leaveType}
                           onSelect={(selectedItem, index) => {
                             setLeaveType(selectedItem)            
@@ -176,6 +178,7 @@ return (
                             backgroundColor:'white',
                               
                           }}
+                          
                                         
                           />
                         
@@ -205,18 +208,18 @@ return (
             <View className=" flex flex-row w-full justify-evenly items-center p-4 ">
             <TouchableOpacity 
               onPress={()=>clearLeaveForm()}
-              className="bg-red-600  rounded-md w-3/12 p-4 justify-center items-center">
+              className="bg-red-600  rounded-md w-3/12 p-3 justify-center items-center">
                     <Text className="text-white">Clear</Text>
                 </TouchableOpacity>
               <TouchableOpacity 
               onPress={()=>navigation.goBack()}
-              className="bg-red-600  rounded-md w-3/12 p-4 justify-center items-center">
+              className="bg-red-600  rounded-md w-3/12 p-3 justify-center items-center">
                     <Text className="text-white">Cancel</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity 
                 onPress={()=>submitleave()}
-                className="bg-green-600  rounded-md w-4/12 p-4 justify-center items-center">
+                className="bg-green-600  rounded-md w-4/12 p-3 justify-center items-center">
                     <Text className="text-white text-sm">Apply Leave</Text>
                 </TouchableOpacity>
             </View>     

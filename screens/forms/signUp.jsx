@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, Switch, Alert, Modal } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { User, Calendar, Navigation } from 'lucide-react-native';
@@ -24,6 +24,13 @@ import { verifyDuplicateUser } from '../../config/functions';
 
 
 const SignUp = () => {
+
+  const dropdownposting = useRef({});  
+  const dropdownrank = useRef({});  
+  const dropdownregion = useRef({});  
+  const dropdownzone = useRef({});  
+  const dropdownsector = useRef({});  
+  const dropdownbeat = useRef({});  
 
   const navigation = useNavigation();
 
@@ -208,8 +215,13 @@ const saveUser = async () => {
 //==============================================================================================/>
  // Clear Data
 function  clearAll (){
-
-  setCnic("");
+  dropdownposting.current.reset()
+  dropdownrank.current.reset()
+  dropdownregion.current.reset()
+  dropdownzone.current.reset()
+  dropdownsector.current.reset()
+  dropdownbeat.current.reset()
+  setCnic("")
   setOfcrname("")
   setOfcrcnic("")
   setOfcrcell("")
@@ -363,6 +375,7 @@ return (
           <View className="w-4/6 items-center ">
           <View className="   z-50">
               <SelectDropdown
+                ref={dropdownrank}
                 data = {[...new Set(ranks && ranks.map(x=>x.bps < 17?x.title:""))].filter(x=>x!="")}
                 value={officerrank}
                 onSelect={(selectedItem, index) => {
@@ -478,6 +491,7 @@ return (
           <View className="w-4/6 items-center ">
           <View className="   z-50">
               <SelectDropdown
+               ref={dropdownposting}
                 // data= {postingPlaces}
                 data = {[...new Set(offices && offices.map(x=>x.officeType))].filter(x=>x!="")}
                 value={posting}
@@ -503,7 +517,7 @@ return (
           <View className="  z-50">
               <SelectDropdown
                 // data= {regions}
-
+                ref={dropdownregion}
                 data = {[...new Set(offices && offices.map(x=>x.region))].filter(x=>x!="")}
                 
                 
@@ -530,6 +544,7 @@ return (
           <View className="w-4/6 items-center">
           <View className="  z-50">
               <SelectDropdown
+               ref={dropdownzone}
                 data = {[...new Set(offices && offices.map(x=>x.region == officerRegion?x.zone:""))].filter(x=>x!="")}
                 value={officerzone}
                 onSelect={(selectedItem, index) => {
@@ -554,6 +569,7 @@ return (
           <View className="w-4/6 items-center">
           <View className=" z-50">
               <SelectDropdown
+               ref={dropdownsector}
                 data = {[...new Set(offices && offices.map(x=>x.zone == officerzone?x.sector:""))].filter(x=>x!="")}
                 value={officersector}
                 onSelect={(selectedItem, index) => {
@@ -576,6 +592,7 @@ return (
           <View className="w-4/6 items-center">
           <View className=" m-1  z-50">
               <SelectDropdown
+               ref={dropdownbeat}
                 data = {[...new Set(offices && offices.map(x=>x.sector == officersector?x.beat:""))].filter(x=>x!="")}
                 value={officerbeat}
                 onSelect={(selectedItem, index) => {

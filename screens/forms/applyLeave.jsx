@@ -57,8 +57,8 @@ async function  submitleave(){
   leave_id = await get_max_id("leaveStatus","leaveId")
   const leave_req={
     date :today,
-    leaveId: leave_id == null? 1: leave_id + 1,
-    leaveType :4,
+    leaveId: leave_id?leave_id + 1:1,
+    leaveType :leave_type,
     startDate :startDate,
     endDate :endDate,
     reason:reason,

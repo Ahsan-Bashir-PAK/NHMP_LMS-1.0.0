@@ -212,9 +212,9 @@ async function userApproval(user,id) {
 const get_max_id = async (table,field)=>{
 
   const response = await axios.get(`${global.BASE_URL}/gen/get_max_id/${table}/${field}`)
- return response.data.maxId
+ 
+ return parseInt(response.data.maxId)
 }
-
 //---------------------------------------------getting account request 
 const  getSectorAccountRequests = async (currentUser,setter)=>{
   const session = await EncryptedStorage.getItem('user_session');

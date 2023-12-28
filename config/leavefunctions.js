@@ -31,11 +31,18 @@ async function applyLeave(leave_req,fn) {
           }          
         }
         ).then(
-
-            Alert.alert("Submitted","Your leave application is under process",[
-              {text: 'ok', onPress:fn}
-            ])
-            
+     
+            respone=>{
+ 
+              if (respone.data == "Leave Applied (In Review)"){
+                Alert.alert("Submitted","Your leave application is under process",[
+                  {text: 'Ok', onPress:fn}
+                ])
+              }
+              else{
+                Alert.alert("Network Error")
+              }
+            }           
         )
        
       }

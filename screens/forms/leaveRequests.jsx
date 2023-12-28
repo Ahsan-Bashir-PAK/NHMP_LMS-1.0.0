@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef  } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView,Alert, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView,Alert, TextInput, FlatList } from 'react-native';
 import '../../config'
 import { useNavigation } from '@react-navigation/native';
+import EncryptedStorage from 'react-native-encrypted-storage';
 import axios from 'axios';
-import { retrieveUserSession } from '../../config/functions';
+import { retrieveUserSession,storeDriverSession,storeVehicleSession } from '../../config/functions';;
 import { applyLeave } from '../../config/leavefunctions';
 import { get_max_id } from '../../config/functions';
-
+import LeaveModal from '../../components/leave_modal';
 
 const LeaveRequests = () => {
   
@@ -25,23 +26,65 @@ const [leavemodalData, setleaveModalData] = useState();
 const today = new Date().toISOString()
 
 useEffect(()=>{
-  retrieveUserSession(setCurrentUser)
-})
+  retrieveUserSession(setCurrentUser);
+  // getSectorAccountRequests()
+  getSectorWiseLeaveRequests()
+}, [])
 
+//---------------------------------------------getting account request 
+const  getSectorWiseLeaveRequests = async ()=>{
+  const session = await EncryptedStorage.getItem('user_session');
 
+  if (session !== undefined) {
+    const user =JSON.parse(session)
+
+  axios.post(`${global.BASE_URL}/leave/getLeaveRequests`,
+  {
+    "officeType":"sector",
+    "office":currentUser.sector
+  },
+  { 
+    headers:{
+      api_key :global.KEY,
+      Authorization:user.token
+     }
+  }).then(
+    
+    response=>setleaveRequests(response.data)
+  )
+}
+}
+
+//---------------------------------------------getting account request 
+// const  getSectorAccountRequests = async ()=>{
+//   const session = await EncryptedStorage.getItem('user_session');
+
+//   if (session !== undefined) {
+//     const user =JSON.parse(session)
+
+//   axios.post(`${global.BASE_URL}/sign/accountRequests`,
+//   {
+//     "officeType":"sector",
+//     "office":currentUser.sector
+//   },
+//   { 
+//     headers:{
+//       api_key :global.KEY,
+//       Authorization:user.token
+//      }
+//   }).then(
+//     // console.log(currentUser.sector)
+//     response=>setsignUpRequests(response.data)
+//   )
+// }
+// }
 
 return (
-    <ScrollView className="">
+    // <ScrollView className="">
     <View className=" flex flex-col p-2  ">
       <KeyboardAvoidingView style={{ backgroundColor: 'white' }}>
 
-        {/* Apply Leave */}
-        <View className=" bg-blue-900 mt-1 w-full rounded-md  ">
-          <View className="  rounded-md p-1 m-1 w-fit items-center justify-center flex-col ">
-            <Text className="text-white text-lg rounded-md font-bold ">Apply Leave</Text>
-        
-          </View>
-        </View>
+
 
     {/* ==================Leave Approval Request for CPO===========*/}
 
@@ -52,13 +95,12 @@ return (
           <View className="justify-center flex flex-row items-center  w-full gap-2">
        
             <Text className="  font-white  text-lg text-white">
-              Leave Approval
-            </Text>
+             Employee Leaves Requests  </Text>
           </View>
         </TouchableOpacity>
       </View>
       <View className=" bg-gray-100 justify-startitems-start w-full">
-      <FlatList className="p-2 overflow-scroll h-1/5 w-full"
+      <FlatList className="p-2 overflow-scroll h-4/6 w-full"
         data={leaveRequests}
             renderItem={({ item, index }) => (
               
@@ -117,7 +159,7 @@ return (
       </KeyboardAvoidingView>
     </View>
     
-  </ScrollView>
+  // </ScrollView>
   );
 };
 

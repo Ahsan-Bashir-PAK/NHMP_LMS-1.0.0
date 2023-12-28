@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef  } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView,Alert, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView,Alert, TextInput, Modal } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
 import '../../config'
-import {Calendar, Clock2, Clock4  } from 'lucide-react-native';
+import {Calendar} from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import SelectDropdown from 'react-native-select-dropdown';
@@ -42,6 +42,7 @@ const today = new Date().toISOString()
 
 useEffect(()=>{
   retrieveUserSession(setCurrentUser)
+  getSectorWiseLeaveRequests()
 })
 
 async function  submitleave(){

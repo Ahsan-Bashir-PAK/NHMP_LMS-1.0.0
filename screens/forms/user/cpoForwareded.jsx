@@ -44,7 +44,10 @@ return (
         
           </View>
         </View>
-
+      
+        <View className="bg-red-300 ">
+            
+        </View>
   
       </KeyboardAvoidingView>
     </View>

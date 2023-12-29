@@ -28,10 +28,9 @@ import {
   
 } from 'react-native';
 import { LinearGradient } from 'react-native-svg';
-// import SignUp from './forms/signUp';
-import { BookOpenCheck } from 'lucide-react-native';
+
 import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
-import { Building2Icon } from 'lucide-react-native';
+
 import ComponentModal from '../../components/modal';
 import LeaveModal from '../../components/leave_modal';
 
@@ -149,13 +148,6 @@ const  getSectorWiseLeaveRequests = async ()=>{
 
   }  
 
-// ===========Verify Modal Box============
-
-function showModal(x,datasetter,showsetter){
-  if(x) {
-    datasetter(x)
-    showsetter(true)}
-}
 
 
 
@@ -276,8 +268,8 @@ function showModal(x,datasetter,showsetter){
 
         {/* Leave TABS 2nd row */}
         <View className="rounded-lg p-1">
-          <View className="bg-cyan-800 p-1 justify-center items-center rounded-md">
-            <Text className="text-white">Status of Employee</Text>
+          <View className="bg-cyan-600 p-2 justify-center items-center ">
+            <Text className="text-white">Leave Status of Employees</Text>
           </View>
         {/* Apply Leave */}
         <View className="flex-row justify-center gap-3 mt-2">
@@ -299,7 +291,7 @@ function showModal(x,datasetter,showsetter){
 
           {/*Add driver  */}
           <TouchableOpacity
-            
+            onPress={() => navigation.navigate('MyTabs')}
             className="shadow-md shadow-slate-950  w-4/12 flex-row  rounded-md  flex justify-center  pt-2  bg-gray-100">
             <View className=" gap-1 w-full items-center flex">
               <View className=' p-2 rounded-full w-8 h-8 '>

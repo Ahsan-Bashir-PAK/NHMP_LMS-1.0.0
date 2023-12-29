@@ -4,17 +4,12 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../screens/loginnew';
 
 import Home from '../screens/dashboard/home';
-import LeaveRequests from '../screens/forms/leaveRequests';
+import LeaveRequests from '../screens/forms/user/leaveRequests';
 import MyTabs from './tabnavigation';
-
 import SignUp from '../screens/forms/signUp';
+import StatusLeave from '../screens/forms/Personal/statusLeave';
+import ApplyLeave from '../screens/forms/Personal/userApplyLeave';
 
-import StatusLeave from '../screens/forms/statusLeave';
-
-
-import InspectionReport from '../screens/reports/inspectionHistory';
-import ApplyLeave from '../screens/forms/applyLeave';
-;
 
 
 const Stack = createNativeStackNavigator();
@@ -29,21 +24,12 @@ const MyStack = () => {
           headerShown:false
         }}
         />
-         <Stack.Screen name="Inspection History" component={InspectionReport}
-        options={{
-          headerShown:false
-        }}
-        />
-        <Stack.Screen name="Home" component={Home} 
-         options={{ 
-          unmountOnBlur:true,
-          headerShown: false 
-        }}
-        />
-      
-        
+      <Stack.Screen name="Home" component={Home}  
+          options={{ 
+            unmountOnBlur:true,
+            headerShown: false }}
+         /> 
        
-        
          <Stack.Screen name="SignUp" component={SignUp}  
           options={{ 
             unmountOnBlur:true,

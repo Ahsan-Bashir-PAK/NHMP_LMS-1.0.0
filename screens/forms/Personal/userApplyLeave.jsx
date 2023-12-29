@@ -2,15 +2,15 @@ import React, { useEffect, useState, useRef  } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView,Alert, TextInput, Modal } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
-import '../../config'
+import '../../../config'
 import {Calendar} from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import SelectDropdown from 'react-native-select-dropdown';
 import axios from 'axios';
-import { retrieveUserSession } from '../../config/functions';
-import { applyLeave } from '../../config/leavefunctions';
-import { get_max_id } from '../../config/functions';
+import { retrieveUserSession } from '../../../config/functions';
+import { applyLeave } from '../../../config/leavefunctions';
+import { get_max_id } from '../../../config/functions';
 
 
 const ApplyLeave = () => {
@@ -42,7 +42,7 @@ const today = new Date().toISOString()
 
 useEffect(()=>{
   retrieveUserSession(setCurrentUser)
-  getSectorWiseLeaveRequests()
+  // getSectorWiseLeaveRequests()
 })
 
 async function  submitleave(){

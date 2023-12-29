@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef  } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView,Alert, TextInput, FlatList } from 'react-native';
-import '../../config'
+import '../../../config'
 import { useNavigation } from '@react-navigation/native';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import axios from 'axios';
-import { retrieveUserSession,storeDriverSession,storeVehicleSession } from '../../config/functions';;
-import { applyLeave } from '../../config/leavefunctions';
-import { get_max_id } from '../../config/functions';
-import LeaveModal from '../../components/leave_modal';
+import { retrieveUserSession,storeDriverSession,storeVehicleSession } from '../../../config/functions';;
+import { applyLeave } from '../../../config/leavefunctions';
+import { get_max_id } from '../../../config/functions';
+import LeaveModal from '../../../components/leave_modal';
 
 const LeaveRequests = () => {
   
@@ -28,7 +28,7 @@ const today = new Date().toISOString()
 useEffect(()=>{
   retrieveUserSession(setCurrentUser);
   // getSectorAccountRequests()
-  getSectorWiseLeaveRequests()
+   getSectorWiseLeaveRequests()
 }, [])
 
 //---------------------------------------------getting account request 
@@ -78,33 +78,39 @@ const  getSectorWiseLeaveRequests = async ()=>{
 //   )
 // }
 // }
+// ===========Verify Modal Box============
+
+function showModal(x,datasetter,showsetter){
+  if(x) {
+    datasetter(x)
+    showsetter(true)}
+}
+
 
 return (
     // <ScrollView className="">
-    <View className=" flex flex-col p-2  ">
-      <KeyboardAvoidingView style={{ backgroundColor: 'white' }}>
+     
+   <View className=" flex flex-col p-2  ">
+      {leaveRequests &&
+      <KeyboardAvoidingView style={{ backgroundColor: '#efefef' }}>
 
 
 
     {/* ==================Leave Approval Request for CPO===========*/}
 
-<View className="mt-2  ">
+<View className=" ">
         <TouchableOpacity
-          
-          className="w-full   h-10 rounded-lg  justify-center items-center bg-[#257c25] ">
-          <View className="justify-center flex flex-row items-center  w-full gap-2">
-       
-            <Text className="  font-white  text-lg text-white">
+          className="w-full p-2 rounded-lg  justify-center items-center bg-[#257c25] ">   
+           <Text className="  font-white  text-lg text-white">
              Employee Leaves Requests  </Text>
-          </View>
         </TouchableOpacity>
       </View>
-      <View className=" bg-gray-100 justify-startitems-start w-full">
-      <FlatList className="p-2 overflow-scroll h-4/6 w-full"
-        data={leaveRequests}
+      
+      <View className=" bg-gray-100  justify-start items-start w-full">
+     
+      <FlatList className="p-2 overflow-scroll h-5/6 w-full"
+         data={leaveRequests}
             renderItem={({ item, index }) => (
-              
-              
               <View className="flex   flex-row  items-center">
                
                 <View className="flex p-2 w-9/12 border-b flex-row align-middle items-start">
@@ -125,38 +131,13 @@ return (
                
                 <LeaveModal  data = {leavemodalData} visibility ={leavemodalVisible} visibilitySetter ={setleaveModalVisible} />
                 </View>  
-                  
-              
-           
-           )}
+          )}
 
       />
+    
       </View>
-
-
-     
-
-
-
-       
-
-
-            <View className=" flex flex-row w-full justify-evenly items-center p-4 ">
-            <TouchableOpacity 
-             
-              className="bg-red-600  rounded-md w-3/12 p-3 justify-center items-center">
-                    <Text className="text-white">Clear</Text>
-                </TouchableOpacity>
-              <TouchableOpacity 
-              onPress={()=>navigation.goBack()}
-              className="bg-red-600  rounded-md w-3/12 p-3 justify-center items-center">
-                    <Text className="text-white">Cancel</Text>
-                </TouchableOpacity>
-                
-               
-            </View>     
-
       </KeyboardAvoidingView>
+    } 
     </View>
     
   // </ScrollView>

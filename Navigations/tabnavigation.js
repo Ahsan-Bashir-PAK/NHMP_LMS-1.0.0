@@ -9,11 +9,13 @@ import { getTabBarHeight } from '@react-navigation/bottom-tabs/lib/typescript/sr
 import {   BadgeInfo } from 'lucide-react-native';
 
 
-import StatusLeave from '../screens/forms/statusLeave';
-
+import StatusLeave from '../screens/forms/Personal/statusLeave';
+import CpoForwarededLeaves from '../screens/forms/user/cpoForwareded';
+import SectorCmdrApproved from '../screens/forms/user/sectorCmnderApproved';
+import SectorCmdrRejected from '../screens/forms/user/sectorCmnderRej';
 import { useNavigation } from '@react-navigation/native';
 
-import Home from '../screens/home';
+
 
 
 const Tab =  createBottomTabNavigator();
@@ -23,13 +25,18 @@ const MyTabs = () => {
   const navigation = useNavigation();
   return (
     // <NavigationContainer>
-    <Tab.Navigator>
-  
-      
-  
-   
+    <Tab.Navigator> 
 
-<Tab.Screen name="statusLeave"  component={StatusLeave}
+<Tab.Screen name="CPO Forwarded"  component={CpoForwarededLeaves}
+        options={{
+          headerShown:false,
+          unmountOnBlur:true,
+          tabBarIcon:()=>(
+            <BadgeInfo  stroke="#0332BB" size={25} fill='white' />
+          )
+      }}  />
+
+<Tab.Screen name="Approved"  component={SectorCmdrApproved}
         options={{
           headerShown:false,
           unmountOnBlur:true,
@@ -37,9 +44,18 @@ const MyTabs = () => {
             <BadgeInfo  stroke="#0332BB" size={25} fill='white' />
           )
       }}
-        
-        />
 
+        />
+<Tab.Screen name="Rejected"  component={SectorCmdrRejected}
+        options={{
+          headerShown:false,
+          unmountOnBlur:true,
+          tabBarIcon:()=>(
+            <BadgeInfo  stroke="#0332BB" size={25} fill='white' />
+          )
+      }}
+
+        />
         
       </Tab.Navigator>
       // </NavigationContainer>

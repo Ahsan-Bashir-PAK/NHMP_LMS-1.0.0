@@ -291,7 +291,7 @@ function showModal(x,datasetter,showsetter){
 </View>  
 
 {/* ==================Leave Approval Request for CPO===========*/}
-<View className={`${currentUser?currentUser.role == 2  ? "block":"hidden":"hidden" } mt-2  `}>  
+<View className={`${currentUser?currentUser.role > 1  ? "block":"hidden":"hidden" } mt-2  `}>  
 <View className="mt-2  ">
         <TouchableOpacity
           

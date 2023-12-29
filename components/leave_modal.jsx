@@ -8,6 +8,7 @@ function LeaveModal(props) {
   const [recDays,setRecDays] =useState()
 const [remarks,setRemarks] =useState("")
 const [currentUser,setCurrentUser] = useState('')
+const [status,setStatus] = useState('')
 const navigation = useNavigation();
 
 const today = new Date().toISOString()
@@ -18,6 +19,42 @@ useEffect(()=>{
 })
 
 const forwardLeave = async() =>{
+//  switch (currentUser.role) {
+//   case 2:
+//     setStatus(1)
+//     break;
+//     case 3:
+//       setStatus(2)
+//       break;
+//       case 4:
+//         setStatus(3)
+//         break;      
+//         case 5:
+//           setStatus(4)
+//           break;
+//           case 6:
+//             setStatus(5)
+//             break;
+//             case 7:
+//               setStatus(6)
+//               break;
+//               case 8:
+//                 setStatus(7)
+//                 break;
+//                 case 9:
+//                   setStatus(8)
+//                   break;
+//                   case 10:
+//                     setStatus(9)
+//                     break;
+//   default:
+//     break;
+//  }
+  
+
+
+
+
   if(props.data && recDays){
     const leave_status= {
       "date" :today,
@@ -30,7 +67,7 @@ const forwardLeave = async() =>{
       "authId" :currentUser.id,
       "days" :recDays,
       "remarks" :remarks,
-      "status" :1
+      "status" :parseInt(currentUser.role)-1
 }
 
 updateLeaveStatus(leave_status,() => props.visibilitySetter(!props.visibility))
@@ -91,16 +128,34 @@ updateLeaveStatus(leave_status,() => props.visibilitySetter(!props.visibility))
                         <Text className="text-black ">Leave Availed:</Text> 
                         <Text className=" ml-6 text-black text-sm"> C/L:10 E/L:20</Text>
                       </View> */}
-                      <View className = {`bg-blue-200 rounded-md p-2 m-1 ${currentUser?currentUser.role == 2?"hidden":"block":"hidden"}`}>
+                    <View className = {`bg-blue-200 rounded-md p-2 m-1  ${currentUser?currentUser.role == 2?"hidden":"block":"hidden"}`}>
+                        <View className='bg-green-400 rounded-r-full p-1 w-2/5 -left-2 '>
+                      <Text className='font-bold '> CPO Remarks</Text>
+
+                        </View>
                       <View className="flex flex-row">
-                        <Text className='font-bold'> CPO Remarks</Text>
                         <Text className="text-black ">Forwarded Days :</Text> 
                         <Text className=" ml-2 text-black text-sm">05 Days</Text>
                       </View>
 
                       <View className="flex flex-row flex-wrap mt-2 bg-gray-100 rounded-md p-2">
                         <Text className="text-black ">Remarks:</Text> 
-                        <Text className=" ml-2 text-grey-400 text-sm italic ">Sir, The beat is already facing acute shortage of strength it is requested that please provide subsitute provide subsiprovide subsiprovide subsiprovide subsiprovide subsiprovide subsiprovide subsi</Text>
+                        <Text className=" ml-2 text-grey-400 text-sm italic ">Sir, The beat is already facing acute shortage of strength it is requested that please provide subsitute </Text>
+                      </View>
+                      </View>
+
+
+                      {/* OSI */}
+                      <View className = {`bg-blue-200 rounded-md p-2 m-1  ${currentUser?currentUser.role == 2?"hidden":"block":"hidden"}`}>
+                        <View className='bg-yellow-300 rounded-r-full p-1 w-2/5 -left-2 '>
+                      <Text className='font-bold '> OSI Remarks</Text>
+
+                        </View>
+                   
+
+                      <View className="flex flex-row flex-wrap mt-2 bg-gray-100 rounded-md p-2">
+                        <Text className="text-black ">Remarks:</Text> 
+                        <Text className=" ml-2 text-grey-400 text-sm italic ">Sir, The beat is already facing acute shortage of strength it is requested that please provide subsitute </Text>
                       </View>
                       </View>
                        

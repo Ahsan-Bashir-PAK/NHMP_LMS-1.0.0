@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useRef  } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView,Alert, TextInput, Modal } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-
 import '../../../config'
 import {Calendar} from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
-
 import SelectDropdown from 'react-native-select-dropdown';
 import axios from 'axios';
 import { retrieveUserSession } from '../../../config/functions';

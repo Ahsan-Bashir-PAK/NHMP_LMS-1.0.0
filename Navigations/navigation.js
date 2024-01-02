@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Login from '../screens/loginnew';
+import Login from '../screens/login';
 
 import Home from '../screens/dashboard/home';
-import LeaveRequests from '../screens/forms/user/leaveRequests';
+import LeaveRequests from '../screens/forms/Admin/leaveRequests';
 import MyTabs from './tabnavigation';
+import UserTabs from './usertabnavigation';
 import SignUp from '../screens/forms/signUp';
 import StatusLeave from '../screens/forms/Personal/statusLeave';
 import ApplyLeave from '../screens/forms/Personal/userApplyLeave';
@@ -52,7 +53,13 @@ const MyStack = () => {
          
         }}
         />
+         <Stack.Screen name="UserTabs" component={UserTabs} 
+        options={{
+          headerShown:false,
+          
          
+        }}
+        />
        
         
 

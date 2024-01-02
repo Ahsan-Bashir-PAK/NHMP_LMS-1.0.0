@@ -247,7 +247,7 @@ const  getSectorWiseLeaveRequests = async ()=>{
 
           {/*Add driver  */}
           <TouchableOpacity
-            onPress={() => navigation.navigate('MyTabs', {screen: 'AddDrivernew'})}
+            onPress={() => navigation.navigate('UserTabs')}
             className="shadow-md shadow-slate-950  w-4/12 flex-row  rounded-md  flex justify-center  pt-2  bg-indigo-500">
             <View className=" gap-1 w-full items-center flex">
               <View className='bg-white p-2 rounded-full w-8 h-8 '>

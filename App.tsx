@@ -29,12 +29,12 @@ import {
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
-import Login from './screens/loginnew';
+
 import MyStack from './Navigations/navigation';
-import Main from './screens/main';
-import MyTabs from './Navigations/tabnavigation';
-import AddOtherInfo from './screens/forms/Personal/statusLeave';
-import SignUp from './screens/forms/signUp';
+// // import Main from './screens/main';
+// import MyTabs from './Navigations/tabnavigation';
+// import UserTabs from './Navigations/usertabnavigation';
+// import SignUp from './screens/forms/signUp';
 
 
 function App(): JSX.Element {

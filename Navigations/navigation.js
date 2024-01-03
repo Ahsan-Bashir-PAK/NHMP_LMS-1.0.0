@@ -9,7 +9,7 @@ import MyTabs from './tabnavigation';
 import UserTabs from './usertabnavigation';
 import SignUp from '../screens/forms/signUp';
 import StatusLeave from '../screens/forms/Personal/statusLeave';
-import ApplyLeave from '../screens/forms/Personal/userApplyLeaves';
+import ApplyLeave from '../screens/forms/Personal/userApplyLeave';
 
 
 import StatusLeave from '../screens/forms/Personal/statusLeave';

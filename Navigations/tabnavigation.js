@@ -6,7 +6,7 @@ import {View, Text} from 'react-native';
 
 // import AddVehicle from '../screens/forms/addVehicle';
 import { getTabBarHeight } from '@react-navigation/bottom-tabs/lib/typescript/src/views/BottomTabBar';
-import {   BadgeInfo } from 'lucide-react-native';
+import {   BadgeInfo, CheckCircle2, Forward, XSquare } from 'lucide-react-native';
 
 
 import StatusLeave from '../screens/forms/Personal/statusLeave';
@@ -25,14 +25,32 @@ const MyTabs = () => {
   const navigation = useNavigation();
   return (
     // <NavigationContainer>
-    <Tab.Navigator> 
+    <Tab.Navigator
+    screenOptions={{
+      tabBarStyle:{
+         borderColor:'#d7d8db',
+         borderTopWidth:1
+          
+      },
+      
+      tabBarInactiveBackgroundColor:'#ffffff',
+      tabBarActiveBackgroundColor:'#d9d9de',
+      tabBarActiveTintColor: '#051c4a',
+      tabBarInactiveTintColor: '#69696b',
+    
+      tabBarLabelStyle:{
+        fontSize:12,
+      },
+      
+    }}
+> 
 
 <Tab.Screen name="CPO Forwarded"  component={CpoForwarededLeaves}
         options={{
           headerShown:false,
           unmountOnBlur:true,
           tabBarIcon:()=>(
-            <BadgeInfo  stroke="#0332BB" size={25} fill='white' />
+            <Forward  stroke="#0332BB" size={25}  />
           )
       }}  />
 
@@ -41,7 +59,7 @@ const MyTabs = () => {
           headerShown:false,
           unmountOnBlur:true,
           tabBarIcon:()=>(
-            <BadgeInfo  stroke="#0332BB" size={25} fill='white' />
+            <CheckCircle2  stroke="green" size={25}  />
           )
       }}
 
@@ -51,7 +69,7 @@ const MyTabs = () => {
           headerShown:false,
           unmountOnBlur:true,
           tabBarIcon:()=>(
-            <BadgeInfo  stroke="#0332BB" size={25} fill='white' />
+            <XSquare  stroke="red" size={25}  />
           )
       }}
 

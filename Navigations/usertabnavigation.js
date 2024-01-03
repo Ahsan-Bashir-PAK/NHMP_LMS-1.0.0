@@ -6,7 +6,7 @@ import {View, Text} from 'react-native';
 
 // import AddVehicle from '../screens/forms/addVehicle';
 import { getTabBarHeight } from '@react-navigation/bottom-tabs/lib/typescript/src/views/BottomTabBar';
-import {   AlertOctagon, BadgeInfo, CheckCircle, Forward, MailCheck, Octagon, TabletsIcon, XOctagon } from 'lucide-react-native';
+import {   AlertOctagon, BadgeInfo, CheckCircle, CheckCircle2, Focus, Forward, MailCheck, Octagon, TabletsIcon, XOctagon } from 'lucide-react-native';
 import StatusLeave from '../screens/forms/Personal/statusLeave';
 import UserForwarededLeaves from '../screens/forms/Personal/userForwarededLeaves';
 import UserApprovedLeaves from '../screens/forms/Personal/userApprovedLeaves';
@@ -25,15 +25,21 @@ const UserTabs = () => {
     // <NavigationContainer>
     <Tabs.Navigator
       screenOptions={{
-        tabBarBackground:'#zzzzzzzzzzz',
-        tabBarActiveTintColor: '#000000',
-        tabBarInactiveTintColor: '#c0c0c0',
+        tabBarStyle:{
+           borderColor:'#d7d8db',
+           borderTopWidth:1
+            
+        },
+        
+        tabBarInactiveBackgroundColor:'#ffffff',
+        tabBarActiveBackgroundColor:'#d9d9de',
+        tabBarActiveTintColor: '#051c4a',
+        tabBarInactiveTintColor: '#69696b',
+       
         tabBarLabelStyle:{
           fontSize:12,
-          
-
         },
-       
+        
       }}
   >
 
@@ -43,7 +49,7 @@ const UserTabs = () => {
           headerShown:false,
           unmountOnBlur:true,
           tabBarIcon:()=>(
-            <Forward  stroke="blue" size={25} fill='white' />
+            <Forward  stroke="#002196" size={25}  />
           )
       }}  />
 
@@ -52,7 +58,7 @@ const UserTabs = () => {
           headerShown:false,
           unmountOnBlur:true,
           tabBarIcon:()=>(
-            <CheckCircle  stroke="green" size={25} fill='white' />
+            <CheckCircle2  stroke="green" size={25}  />
           )
       }}
 
@@ -63,7 +69,7 @@ const UserTabs = () => {
           unmountOnBlur:true,
           
           tabBarIcon:()=>(
-            <XOctagon  stroke="red" size={25} fill='white' />
+            <XOctagon  stroke="red" size={25}  />
           )
       }
     }

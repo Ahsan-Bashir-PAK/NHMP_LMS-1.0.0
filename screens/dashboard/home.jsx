@@ -91,7 +91,7 @@ if(currentUser){
       getSectorAccountRequests(currentUser,setsignUpRequests)
       getSectorWiseLeaveRequests(currentUser,setleaveRequests)
       
-    },[currentUser])
+    },[currentUser,leaveRequests])
   }
 
 
@@ -117,10 +117,6 @@ function showModal(x,datasetter,showsetter){
     datasetter(x)
     showsetter(true)}
 }
-
-
-
-
 
 
   return (

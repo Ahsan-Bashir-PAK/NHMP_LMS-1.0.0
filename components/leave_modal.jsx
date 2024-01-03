@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {Modal, View, Text, TouchableOpacity,TextInput} from 'react-native';
 import { retrieveUserSession } from '../config/functions';
-import { updateLeaveStatus } from '../config/leavefunctions';
+import { updateLeaveStatus, saveApproval } from '../config/leavefunctions';
 import { useNavigation } from '@react-navigation/native';
 
 function LeaveModal(props) {
@@ -16,45 +16,9 @@ const today = new Date().toISOString()
 
 useEffect(()=>{
   retrieveUserSession(setCurrentUser)
-})
+},[])
 
 const forwardLeave = async() =>{
-//  switch (currentUser.role) {
-//   case 2:
-//     setStatus(1)
-//     break;
-//     case 3:
-//       setStatus(2)
-//       break;
-//       case 4:
-//         setStatus(3)
-//         break;      
-//         case 5:
-//           setStatus(4)
-//           break;
-//           case 6:
-//             setStatus(5)
-//             break;
-//             case 7:
-//               setStatus(6)
-//               break;
-//               case 8:
-//                 setStatus(7)
-//                 break;
-//                 case 9:
-//                   setStatus(8)
-//                   break;
-//                   case 10:
-//                     setStatus(9)
-//                     break;
-//   default:
-//     break;
-//  }
-  
-
-
-
-
   if(props.data && recDays){
     const leave_status= {
       "date" :today,
@@ -76,6 +40,28 @@ updateLeaveStatus(leave_status,() => props.visibilitySetter(!props.visibility))
 
   }
 }
+
+const approveLeave = async() =>{
+  if(props.data && recDays){
+    const leave_status= {
+      "date" :today,
+      "leaveId" :props.data.leaveId,
+      "leaveType":props.data.leaveType,
+      "startDate":props.data.startDate,
+      "endDate":props.data.endDate,
+      "reason":props.data.reason,
+      "userId": props.data.userId,
+      "authId" :currentUser.id,
+      "days" :recDays,
+      "remarks" :remarks,
+      "status" :parseInt(currentUser.role)-1
+}
+
+await saveApproval(leave_status,() => props.visibilitySetter(!props.visibility))
+
+  }
+}
+
 
 
   return (
@@ -188,13 +174,18 @@ updateLeaveStatus(leave_status,() => props.visibilitySetter(!props.visibility))
               <View className=" flex flex-row gap-2 p-4 mt-5 justify-center ">
                 <TouchableOpacity
                   onPress={() => props.visibilitySetter(!props.visibility)}
-                  className="bg-red-600 p-2 rounded-md w-32 justify-center items-center">
+                  className="bg-red-600 p-2 rounded-md w-22 justify-center items-center">
                   <Text className="text-white">Cancel</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={()=>forwardLeave()}
-                  className="bg-green-600 p-2 rounded-md w-32 justify-center items-center">
+                  className="bg-blue-500 p-2 rounded-md w-22 justify-center items-center">
                   <Text className="text-white">Forward</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={()=>approveLeave()}
+                  className={`bg-green-600 p-2 rounded-md w-22 justify-center items-center ${currentUser?currentUser.role == 4?"block":"hidden":"hidden"}`}>
+                  <Text className="text-white">Approve</Text>
                 </TouchableOpacity>
               </View>
               </View>

@@ -8,7 +8,7 @@ import {View, Text} from 'react-native';
 import { getTabBarHeight } from '@react-navigation/bottom-tabs/lib/typescript/src/views/BottomTabBar';
 import {   AlertOctagon, BadgeInfo, CheckCircle, CheckCircle2, Focus, Forward, MailCheck, Octagon, TabletsIcon, XOctagon } from 'lucide-react-native';
 import StatusLeave from '../screens/forms/Personal/statusLeave';
-import UserForwarededLeaves from '../screens/forms/Personal/userForwarededLeaves';
+import UserForwarededLeaves from '../screens/forms/Personal/userForwardedLeaves';
 import UserApprovedLeaves from '../screens/forms/Personal/userApprovedLeaves';
 import UserRejectedLeaves from '../screens/forms/Personal/userRejectedLeaves';
 import { useNavigation } from '@react-navigation/native';

@@ -9,7 +9,7 @@ import { getTabBarHeight } from '@react-navigation/bottom-tabs/lib/typescript/sr
 import {   BadgeInfo, CheckCircle2, Forward, XSquare } from 'lucide-react-native';
 
 
-import StatusLeave from '../screens/forms/Personal/statusLeave';
+// import StatusLeave from '../screens/forms/Personal/statusLeave';
 import CpoForwarededLeaves from '../screens/forms/Admin/cpoForwarded';
 import SectorCmdrApproved from '../screens/forms/Admin/sectorCmnderApproved';
 import SectorCmdrRejected from '../screens/forms/Admin/sectorCmnderRej';

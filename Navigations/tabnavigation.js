@@ -9,7 +9,7 @@ import { getTabBarHeight } from '@react-navigation/bottom-tabs/lib/typescript/sr
 import {   BadgeInfo } from 'lucide-react-native';
 
 
-import StatusLeave from '../screens/forms/statusLeave';
+import StatusLeave from '../screens/forms/Personal/statusLeave';
 
 import { useNavigation } from '@react-navigation/native';
 

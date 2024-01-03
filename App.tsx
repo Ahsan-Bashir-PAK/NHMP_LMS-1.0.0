@@ -33,7 +33,7 @@ import Login from './screens/loginnew';
 import MyStack from './Navigations/navigation';
 import Main from './screens/main';
 import MyTabs from './Navigations/tabnavigation';
-import AddOtherInfo from './screens/forms/statusLeave';
+import AddOtherInfo from './screens/forms/Personal/statusLeave';
 import SignUp from './screens/forms/signUp';
 
 

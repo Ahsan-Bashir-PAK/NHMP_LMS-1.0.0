@@ -9,11 +9,11 @@ import MyTabs from './tabnavigation';
 
 import SignUp from '../screens/forms/signUp';
 
-import StatusLeave from '../screens/forms/statusLeave';
+import StatusLeave from '../screens/forms/Personal/statusLeave';
 
 
 import InspectionReport from '../screens/reports/inspectionHistory';
-import ApplyLeave from '../screens/forms/applyLeave';
+import ApplyLeave from '../screens/forms/Personal/userApplyLeave';
 ;
 
 

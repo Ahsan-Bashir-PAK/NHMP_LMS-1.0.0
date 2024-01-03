@@ -12,11 +12,13 @@ import { retrieveUserSession } from '../../../config/functions';
 import { getSectorWiseLeaveRequests } from '../../../config/leavefunctions';
 
 
+
 const StatusLeave = () => {
   
   const navigation = useNavigation();
 
 const [showReport, setReport] = useState(true)
+
 const [leaveRequests,setleaveRequests] = useState()
 
 const [currentUser,setCurrentUser] = useState('')
@@ -38,6 +40,7 @@ const startDate = dobdate.toLocaleDateString().split("/").reverse().join("-")
 const endDate = enddate.toLocaleDateString().split("/").reverse().join("-")
 
 
+
 useEffect( () => {
   retrieveUserSession(setCurrentUser);
   getSectorWiseLeaveRequests(currentUser,setleaveRequests)
@@ -45,6 +48,35 @@ useEffect( () => {
 }, [currentUser]);
 
 
+
+
+const getProgress = async()=>{ 
+
+ // console.log(`${global.BASE_URL}/web/daily/officerwisedsr/${startDate}/${endDate}/${startTime}/${endTime}/${currentUser.userName}`)
+
+ await axios.get(`${global.BASE_URL}/web/daily/officerwisedsr/${startDate}/${endDate}/${startTime}/${endTime}/${currentUser.userName}`)
+  .then(
+    (response) =>{
+      const result = response.data
+      if(result){
+      setDriverData(result.driver[0])
+      setvehicleData(result.vehicles[0])
+      setinspectionData(result.inspection[0])
+      // setinspectionData(result.inspections[0])
+        setReport(false)
+      // console.log('dvr',driverData["added"],'vhcle',vehicleData,'insp',inspectionData)
+      }
+      else {
+        Alert.alert("Not Record Found.")
+       
+        
+      }
+  })
+
+}
+useEffect(()=>{
+  retrieveUserSession(setCurrentUser)
+})
 
 
 
@@ -57,10 +89,11 @@ return (
         {/* Status  Of Leaves */}
         <View className=" bg-blue-900 mt-1 w-full rounded-md  ">
           <View className="  rounded-md p-1 m-1 w-fit items-center justify-center flex-col ">
-            <Text className="text-white text-lg rounded-md font-bold ">Status of leaves</Text>
+            <Text className="text-white text-lg rounded-md font-bold ">Forwarded Leaves</Text>
         
           </View>
         </View>
+
 
 
    {/* Approved Days*/}
@@ -69,19 +102,21 @@ return (
      <View className={`${styles.outerview} m-2  justify-evenly` }>
    <View className=" w-2/12 justify-center  items-center py-2 rounded-md bg-gray-500" >
              <Text className="text-white">Leave ID</Text>
+
+   {/* Forwarded Days*/}
+   <View className={` flex-row m-2  justify-evenly` }>
+   <View className=" w-3/12 justify-center  items-center  rounded-md bg-gray-200 border-gray-400 border" >
+             <Text className="text-black text-xs">Leaved ID</Text>
+
         </View>
-       <View className=" w-3/12 justify-center  items-center py-2 rounded-md bg-gray-500" >
-             <Text className="text-white">Requested days</Text>
+       <View className=" w-4/12 justify-center  items-center  rounded-md bg-gray-200 border-gray-400 border" >
+             <Text className="text-black text-xs">Requested days</Text>
         </View>
-        <View className=" w-2/12 justify-center items-center py-2 rounded-md bg-green-500" >
-             <Text className="text-white">Status</Text>
-        </View>   
-        <View className=" w-2/12 justify-center items-center py-2 rounded-md bg-green-500" >
-             <Text className="text-white">Leave Type</Text>
+         
+        <View className=" w-4/12 justify-center items-center  rounded-md bg-gray-200 border-gray-400 border" >
+             <Text className="text-black text-xs text-center">Leave Type</Text>
         </View> 
-        <View className=" w-2/12 justify-center items-center py-2 rounded-md bg-green-500" >
-             <Text className="text-white">Approved By</Text>
-        </View> 
+        
           </View>
    {leaveRequests &&
     leaveRequests.map((item,index)=>(
@@ -108,12 +143,31 @@ return (
   ))
  }
 
+   {/* Approved Days*/}
+   <View className={` flex-row m-2  justify-evenly` }>
+   <View className=" w-2/12 justify-center  items-center  rounded-md bg-gray-200 border-gray-400 border" >
+             <Text className="text-black text-xs">Leave ID</Text>
+        </View>
+       <View className=" w-3/12 justify-center  items-center  rounded-md bg-gray-200 border-gray-400 border" >
+             <Text className="text-black text-xs">Requested days</Text>
+        </View>
+        <View className=" w-2/12 justify-center items-center  rounded-md bg-gray-200 border-gray-400 border" >
+             <Text className="text-black text-xs">Status</Text>
+        </View>   
+        <View className=" w-2/12 justify-center items-center  rounded-md bg-gray-200 border-gray-400 border" >
+             <Text className="text-black text-xs text-center">Leave Type</Text>
+        </View> 
+        <View className=" w-2/12 justify-center items-center  rounded-md  bg-gray-200 border-gray-400 border" >
+             <Text className="text-black text-xs text-center">Approved By</Text>
+        </View> 
+          </View>
+
       </KeyboardAvoidingView>
     </View>
     
   </ScrollView>
-  );
-};
+      );
+  }
 
 
 export default StatusLeave;

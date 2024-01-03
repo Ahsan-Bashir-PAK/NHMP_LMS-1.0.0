@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, Switch, Alert, Modal } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { User, Calendar, Navigation } from 'lucide-react-native';
@@ -24,6 +24,13 @@ import { verifyDuplicateUser } from '../../config/functions';
 
 
 const SignUp = () => {
+
+  const dropdownposting = useRef({});  
+  const dropdownrank = useRef({});  
+  const dropdownregion = useRef({});  
+  const dropdownzone = useRef({});  
+  const dropdownsector = useRef({});  
+  const dropdownbeat = useRef({});  
 
   const navigation = useNavigation();
 
@@ -208,8 +215,13 @@ const saveUser = async () => {
 //==============================================================================================/>
  // Clear Data
 function  clearAll (){
-
-  setCnic("");
+  dropdownposting.current.reset()
+  dropdownrank.current.reset()
+  dropdownregion.current.reset()
+  dropdownzone.current.reset()
+  dropdownsector.current.reset()
+  dropdownbeat.current.reset()
+  setCnic("")
   setOfcrname("")
   setOfcrcnic("")
   setOfcrcell("")
@@ -363,7 +375,11 @@ return (
           <View className="w-4/6 items-center ">
           <View className="   z-50">
               <SelectDropdown
+
                 data = {[...new Set(ranks && ranks.map(x=>x.bps < 17?x.rank:""))].filter(x=>x!="")}
+
+                ref={dropdownrank}
+
                 value={officerrank}
                 onSelect={(selectedItem, index) => {
                   setOfcrrank(selectedItem);
@@ -478,6 +494,7 @@ return (
           <View className="w-4/6 items-center ">
           <View className="   z-50">
               <SelectDropdown
+               ref={dropdownposting}
                 // data= {postingPlaces}
                 data = {[...new Set(offices && offices.map(x=>x.officeType))].filter(x=>x!="")}
                 value={posting}
@@ -503,7 +520,7 @@ return (
           <View className="  z-50">
               <SelectDropdown
                 // data= {regions}
-
+                ref={dropdownregion}
                 data = {[...new Set(offices && offices.map(x=>x.region))].filter(x=>x!="")}
                 
                 
@@ -530,6 +547,7 @@ return (
           <View className="w-4/6 items-center">
           <View className="  z-50">
               <SelectDropdown
+               ref={dropdownzone}
                 data = {[...new Set(offices && offices.map(x=>x.region == officerRegion?x.zone:""))].filter(x=>x!="")}
                 value={officerzone}
                 onSelect={(selectedItem, index) => {
@@ -554,6 +572,7 @@ return (
           <View className="w-4/6 items-center">
           <View className=" z-50">
               <SelectDropdown
+               ref={dropdownsector}
                 data = {[...new Set(offices && offices.map(x=>x.zone == officerzone?x.sector:""))].filter(x=>x!="")}
                 value={officersector}
                 onSelect={(selectedItem, index) => {
@@ -576,6 +595,7 @@ return (
           <View className="w-4/6 items-center">
           <View className=" m-1  z-50">
               <SelectDropdown
+               ref={dropdownbeat}
                 data = {[...new Set(offices && offices.map(x=>x.sector == officersector?x.beat:""))].filter(x=>x!="")}
                 value={officerbeat}
                 onSelect={(selectedItem, index) => {
@@ -632,9 +652,9 @@ return (
       
       <View className="bg-[#1c5685ee]  h-full w-full justify-center items-center flex">    
        
-       <View className="bg-white  w-8/12 h-2/6 rounded-md justify-center items-center align-middle shadow-black ">
+       <View className="bg-white  w-10/12 h-2/6 rounded-md justify-center items-center align-middle shadow-black ">
               
-                <Text className="text-black text-lg p-4"> Please confirm are you employee of NHMP</Text>
+                <Text className="text-black text-lg p-2"> Please confirm are you employee of NHMP</Text>
                 <TextInput
                     
                     placeholder=' Entery your CNIC'
@@ -649,13 +669,13 @@ return (
                 <View className=" flex flex-row gap-2 p-4 mt-5 ">
                 <TouchableOpacity
                         onPress={()=>navigation.navigate('Login')}
-                        className="bg-red-600 p-2 rounded-md w-32 justify-center items-center">
+                        className="bg-red-600 p-2 rounded-md w-4/12 justify-center items-center">
                                 <Text className="text-white">Cancel</Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
                         // onPress={()=>setModalVisible(!modalVisible)}
                         onPress={()=>verifyUser()}
-                        className="bg-green-600 p-2 rounded-md w-32 justify-center items-center">
+                        className="bg-green-600 p-2 rounded-md w-4/12 justify-center items-center">
                                 <Text className="text-white">Confirm</Text>
                         </TouchableOpacity>
 

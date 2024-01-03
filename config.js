@@ -2,7 +2,9 @@
 
 import EncryptedStorage from "react-native-encrypted-storage";
 
-//  global.BASE_URL="http://localhost:5000"
+
+//  global.BASE_URL="http://cpo.nhmp.gov.pk:7077"
+
 // global.BASE_URL="http://116.0.45.14:5000"
 global.BASE_URL="http://192.168.1.103:5000"
 //  global.BASE_URL="http://203.99.61.134:7077"

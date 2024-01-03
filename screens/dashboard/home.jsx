@@ -1,6 +1,6 @@
 import React, { useEffect, useState,useCallback, } from 'react';
 import { useNavigation,useIsFocused,useFocusEffect } from '@react-navigation/native';
-import { UserPlus, BookCopy, LogOutIcon} from 'lucide-react-native';
+import { UserPlus, BookCopy, LogOutIcon, ArrowBigDownIcon, ArrowDown, Mail, BadgeAlert} from 'lucide-react-native';
 
 import EncryptedStorage from 'react-native-encrypted-storage';
 import axios from 'axios';
@@ -28,21 +28,16 @@ import {
   
 } from 'react-native';
 import { LinearGradient } from 'react-native-svg';
-// import SignUp from './forms/signUp';
-import { BookOpenCheck } from 'lucide-react-native';
+
 import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
-import { Building2Icon } from 'lucide-react-native';
+
 import ComponentModal from '../../components/modal';
 import LeaveModal from '../../components/leave_modal';
 import { getSectorWiseLeaveRequests } from '../../config/leavefunctions';
 import { getSectorAccountRequests } from '../../config/functions';
 
 
-
-
 function Home() {
-
-
 
   const [signUpRequests,setsignUpRequests] = useState()
   const [leaveRequests,setleaveRequests] = useState()
@@ -110,13 +105,6 @@ if(currentUser){
 
   }  
 
-// ===========Verify Modal Box============
-
-function showModal(x,datasetter,showsetter){
-  if(x) {
-    datasetter(x)
-    showsetter(true)}
-}
 
 
   return (
@@ -190,7 +178,7 @@ function showModal(x,datasetter,showsetter){
        
       </View>
 
-      {/* Leave TABS */}
+      {/* Leave TABS 1st row*/}
       <View className="rounded-lg  p-4">
         {/* Apply Leave */}
         <View className="flex-row justify-center gap-3">
@@ -212,15 +200,59 @@ function showModal(x,datasetter,showsetter){
 
           {/*Add driver  */}
           <TouchableOpacity
-            onPress={() => navigation.navigate('MyTabs', {screen: 'AddDrivernew'})}
+            onPress={() => navigation.navigate('UserTabs')}
             className="shadow-md shadow-slate-950  w-4/12 flex-row  rounded-md  flex justify-center  pt-2  bg-indigo-500">
             <View className=" gap-1 w-full items-center flex">
               <View className='bg-white p-2 rounded-full w-8 h-8 '>
-              <UserPlus stroke="indigo" size={16} strokeWidth={2} />
+              <Mail stroke="indigo" size={16} strokeWidth={2} />
               </View>
               <View className="flex justify-center items-center flex-row gap-1 ">
                 {/* <BadgePlus stroke="black" size={20} /> */}
                 <Text className=" font-semibold text-base text-white">
+                  Leave Status
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+        </View>
+        
+      </View>
+
+        {/* Leave TABS 2nd row */}
+        <View className="rounded-lg p-1">
+          <View className="bg-cyan-600 p-2 justify-center items-center ">
+            <Text className="text-white">Leave Status of Employees</Text>
+          </View>
+        {/* Apply Leave */}
+        <View className="flex-row justify-center gap-3 mt-2">
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Leave Requests')}
+            className="shadow-md shadow-slate-950  w-2/6 flex-row  rounded-md  flex justify-center items-center pt-2 bg-gray-100 ">
+            <View className=" gap-1 w-full  flex items-center ">
+              <View className='  p-2 rounded-full w-8 h-8  '>
+              <ArrowDown stroke="green" size={25} strokeWidth={2} />
+              </View>
+              <View className="flex w-full  justify-center items-center flex-row ">
+                {/* <BadgePlus stroke="black" size={20} /> */}
+                <Text className=" text-black  text-base ">
+                  Leave Requests
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          {/*Add driver  */}
+          <TouchableOpacity
+            onPress={() => navigation.navigate('MyTabs')}
+            className="shadow-md shadow-slate-950  w-4/12 flex-row  rounded-md  flex justify-center  pt-2  bg-gray-100">
+            <View className=" gap-1 w-full items-center flex">
+              <View className=' p-2 rounded-full w-8 h-8 '>
+              <BadgeAlert stroke="black" size={25} strokeWidth={2} />
+              </View>
+              <View className="flex justify-center items-center flex-row gap-1 ">
+                {/* <BadgePlus stroke="black" size={20} /> */}
+                <Text className="  text-base text-black">
                   Status
                 </Text>
               </View>
@@ -286,9 +318,9 @@ function showModal(x,datasetter,showsetter){
 }
 </View>  
 
+
 {/* ==================Leave Approval Request for CPO===========*/}
 <View className={`${currentUser?currentUser.role > 1  ? "block":"hidden":"hidden" } mt-2  `}>  
-<View className="mt-2  ">
         <TouchableOpacity
           
           className="w-full   h-10 rounded-lg  justify-center items-center bg-[#257c25] ">
@@ -335,7 +367,8 @@ function showModal(x,datasetter,showsetter){
       />
       </View>
 }
-      </View>
+    
+
       {/* Update Logout */}
 
       <View className="m-2 w-full absolute flex items-center justify-center bottom-9">

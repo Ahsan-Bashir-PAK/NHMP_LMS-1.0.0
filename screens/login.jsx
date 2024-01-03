@@ -156,9 +156,9 @@ function clearAll(){
 
             {/* Logo VIEW */}
             <View className="w-full  h-2/5 flex justify-center items-center p-2">
-                <Image source={require('../img/logo.png')}   className=' w-32 h-32 border flex ' />
-                <Text className='font-extrabold text-3xl  text-yellow-400 mt-2 '>E-Leave (NHMP)</Text>
-                <Text className=' sm:text-2xl text-md text-white font-bold m-2 border-b-2  border-yellow-400   px-2 rounded-sm '>National Highways & Motorway Police</Text>
+                <Image source={require('../img/logo1.png')}   className=' w-32 h-32 border flex ' />
+                {/* <Text className='font-extrabold text-3xl  text-yellow-400 mt-2 '>E-Leave (NHMP)</Text> */}
+                <Text className=' sm:text-2xl text-md text-white font-bold m-2 border-b-2  border-yellow-400   px-2 rounded-sm  text-xl'>National Highways & Motorway Police</Text>
                 <Text className="text-white font-light font-mono text-xs italic">Version: 1.0.0</Text>
             </View>
            
@@ -168,7 +168,7 @@ function clearAll(){
                 
                {/* User name */}
                <View className="justify-start items-start w-full flex flex-row  ">
-               <View className='bg-gray-100  border-r border-gray-400 p-3 justify-center items-center flex '>
+               <View className='bg-gray-100  border-r  border-gray-400 p-3 justify-center items-center flex '>
                 <UserCog2 width={25} stroke='black' strokeWidth={1}  />
                 </View>
                     <TextInput

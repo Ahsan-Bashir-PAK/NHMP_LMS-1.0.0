@@ -37,7 +37,7 @@ const MyTabs = () => {
       tabBarActiveBackgroundColor:'#d9d9de',
       tabBarActiveTintColor: '#051c4a',
       tabBarInactiveTintColor: '#69696b',
-    
+    // tabBarInactiveTintColor: '#69696b',
       tabBarLabelStyle:{
         fontSize:12,
       },

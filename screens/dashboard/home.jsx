@@ -33,6 +33,8 @@ import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
 
 import ComponentModal from '../../components/modal';
 import LeaveModal from '../../components/leave_modal';
+import { getSectorWiseLeaveRequests } from '../../config/leavefunctions';
+import { getSectorAccountRequests } from '../../config/functions';
 
 
 function Home() {
@@ -46,69 +48,18 @@ function Home() {
   const [leavemodalData, setleaveModalData] = useState();
 
   const isFocused = useIsFocused() 
-
+// const [isLoading,setIsLoading ] = useState(false)
 
   const navigation = useNavigation("");
 
-//---------------------------------------------getting account request 
-const  getSectorAccountRequests = async ()=>{
-  const session = await EncryptedStorage.getItem('user_session');
-
-  if (session !== undefined) {
-    const user =JSON.parse(session)
-
-  axios.post(`${global.BASE_URL}/sign/accountRequests`,
-  {
-    "officeType":"sector",
-    "office":currentUser.sector
-  },
-  { 
-    headers:{
-      api_key :global.KEY,
-      Authorization:user.token
-     }
-  }).then(
-    // console.log(currentUser.sector)
-    response=>setsignUpRequests(response.data)
-  )
-}
-}
-
-
-//---------------------------------------------getting account request 
-const  getSectorWiseLeaveRequests = async ()=>{
-  const session = await EncryptedStorage.getItem('user_session');
-
-  if (session !== undefined) {
-    const user =JSON.parse(session)
-
-  axios.post(`${global.BASE_URL}/leave/getLeaveRequests`,
-  {
-    "officeType":"sector",
-    "office":currentUser.sector
-  },
-  { 
-    headers:{
-      api_key :global.KEY,
-      Authorization:user.token
-     }
-  }).then(
-    
-    response=>setleaveRequests(response.data)
-  )
-}
-}
 
 
 
 
- useEffect(() => {
+
+ useEffect( () => {
   retrieveUserSession(setCurrentUser);
-  getSectorAccountRequests()
-  getSectorWiseLeaveRequests()
-
-
-
+  
   const backAction = () => {
     if(navigation.isFocused()){
      Alert.alert('Hold on!', 'Are you sure you want to Logout?', [
@@ -128,9 +79,15 @@ const  getSectorWiseLeaveRequests = async ()=>{
       );
       return () => backHandler.remove();
   
-}, [signUpRequests]);
+}, []);
 
-
+if(currentUser){
+  useEffect(()=>{
+      getSectorAccountRequests(currentUser,setsignUpRequests)
+      getSectorWiseLeaveRequests(currentUser,setleaveRequests)
+      
+    },[currentUser,leaveRequests])
+  }
 
 
 
@@ -150,10 +107,6 @@ const  getSectorWiseLeaveRequests = async ()=>{
 
 
 
-
-
-
-
   return (
     <KeyboardAvoidingView
     >
@@ -162,7 +115,7 @@ const  getSectorWiseLeaveRequests = async ()=>{
 
    {/* <ScrollView keyboardShouldPersistTaps='handled'> */}
    
-    <View className="p-2  w-full bg-white ">
+    <View className="p-2  w-full h-screen relative">
     
       <View className="  flex  border h-1/6 bg-[#151d4b]   justify-center items-center  w-full rounded-lg   overflow-visible ">
       
@@ -183,7 +136,7 @@ const  getSectorWiseLeaveRequests = async ()=>{
       </View>
 
 
-      <View className="mt-10 rounded-m    w-full   justify-evenly flex flex-row ">
+      <View className="mt-10  rounded-m    w-full   justify-evenly flex flex-row ">
         {/* Approved */}
         
           <TouchableOpacity
@@ -366,13 +319,63 @@ const  getSectorWiseLeaveRequests = async ()=>{
 </View>  
 
 
+{/* ==================Leave Approval Request for CPO===========*/}
+<View className={`${currentUser?currentUser.role > 1  ? "block":"hidden":"hidden" } mt-2  `}>  
+        <TouchableOpacity
+          
+          className="w-full   h-10 rounded-lg  justify-center items-center bg-[#257c25] ">
+          <View className="justify-center flex flex-row items-center  w-full gap-2">
+       
+            <Text className="  font-white  text-lg text-white">
+              Leave Approval
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      { leaveRequests &&
+      <View className=" bg-gray-100 justify-startitems-start h-auto w-full">
+      <FlatList className="p-2 overflow-scroll h-3/5 w-full"
+        data={leaveRequests}
+            renderItem={({ item, index }) => (
+              
+              
+              <View className="flex   flex-row  items-center">
+               
+                <View className="flex p-2 w-9/12 border-b flex-row align-middle items-start">
+                  <Text className="text-black ">{item.rank}</Text>
+                   <Text className="text-black ml-2">{item.name}</Text>
+                   <Text className="text-black ml-2">({item.beltNo})</Text>
+                </View>  
+                
+                <View className="flex p-2 w-4/12 flex-row  items-center">             
+                  <TouchableOpacity
+                  onPress={()=>showModal(item,setleaveModalData,setleaveModalVisible)}
+                  className="p-2 bg-green-800 rounded-md justify-between items-center"
+                  >
+                  <Text className="text-white">Detail</Text>    
+                  </TouchableOpacity>
+                  
+                </View>
+               
+                <LeaveModal  data = {leavemodalData} visibility ={leavemodalVisible} visibilitySetter ={setleaveModalVisible} />
+                </View>  
+                  
+              
+           
+           )}
+
+      />
+      </View>
+}
+    
+
       {/* Update Logout */}
 
-      <View className="mt-2 ">
+      <View className="m-2 w-full absolute flex items-center justify-center bottom-9">
         <TouchableOpacity
           onPress={() => logoutSesion()}
-          className="w-full   h-10 rounded-lg  justify-center items-center bg-[#a32d37] ">
-          <View className="justify-center flex flex-row items-center  w-full gap-2">
+          className="  h-10 rounded-lg  justify-center items-center w-full bg-[#a32d37] ">
+          <View className="justify-center flex flex-row items-center  ">
             <LogOutIcon stroke="white" size={25} strokeWidth={1}  />
             <Text className="  font-white  text-lg text-white">
               Logout

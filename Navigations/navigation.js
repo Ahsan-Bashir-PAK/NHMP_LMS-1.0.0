@@ -12,6 +12,12 @@ import StatusLeave from '../screens/forms/Personal/statusLeave';
 import ApplyLeave from '../screens/forms/Personal/userApplyLeave';
 
 
+import StatusLeave from '../screens/forms/Personal/statusLeave';
+
+
+
+import ApplyLeave from '../screens/forms/Personal/userApplyLeave';
+
 
 const Stack = createNativeStackNavigator();
 

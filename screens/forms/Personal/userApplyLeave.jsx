@@ -1,8 +1,14 @@
 import React, { useEffect, useState, useRef  } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView,Alert, TextInput, Modal } from 'react-native';
 import DatePicker from 'react-native-date-picker';
+<<<<<<<< HEAD:screens/forms/Personal/userApplyLeave.jsx
+
+import '../../../config'
+import {Calendar, Clock2, Clock4  } from 'lucide-react-native';
+========
 import '../../../config'
 import {Calendar} from 'lucide-react-native';
+>>>>>>>> master:screens/forms/Personal/userApplyLeaves.jsx
 import { useNavigation } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
 import axios from 'axios';
@@ -31,7 +37,7 @@ const [enddate, setdDate] = useState(new Date())
  
 const leaveType = [ "Casual Leave" ,"Earned Leave"];  
 const [leave_type, setLeaveType] = useState(""); 
-const [reason,setReason] =useState()
+const [reason,setReason] =useState("")
 
 
 const startDate = dobdate
@@ -43,6 +49,9 @@ useEffect(()=>{
   // getSectorWiseLeaveRequests()
 })
 
+
+
+
 async function  submitleave(){
         if(endDate < startDate) {
 
@@ -51,10 +60,11 @@ async function  submitleave(){
         } else if(leave_type == "") {  Alert.alert("Please Select leave Type")}
         else if(reason == "") {  Alert.alert("Please mention Reason")}
  else {
+  leave_id = await get_max_id("leaveStatus","leaveId")
   const leave_req={
     date :today,
-    leaveId: await get_max_id("leaveStatus","leaveId"),
-    leaveType :4,
+    leaveId: leave_id?leave_id + 1:1,
+    leaveType :leave_type,
     startDate :startDate,
     endDate :endDate,
     reason:reason,
@@ -63,6 +73,11 @@ async function  submitleave(){
 
 }
 
+<<<<<<<< HEAD:screens/forms/Personal/userApplyLeave.jsx
+     applyLeave(leave_req,()=>navigation.navigate("Home"))
+    
+ }}
+========
      applyLeave(leave_req)
     }
     clearLeaveForm()
@@ -75,6 +90,7 @@ function clearLeaveForm() {
     setdobDate(new Date())
     setdDate(new Date())
   }
+>>>>>>>> master:screens/forms/Personal/userApplyLeaves.jsx
 
 return (
     <ScrollView className="">
@@ -199,9 +215,6 @@ return (
                 onChangeText={text => setReason(text)}
                 value={reason}                            
                 />
-                  
-                
-                
             </View>
 
             <View className=" flex flex-row w-full justify-evenly items-center p-4 ">

@@ -9,6 +9,10 @@ import { useNavigation } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
 import axios from 'axios';
 import { retrieveUserSession } from '../../../config/functions';
+<<<<<<<< HEAD:screens/forms/Personal/statusLeave.jsx
+import { getSectorWiseLeaveRequests } from '../../../config/leavefunctions';
+========
+>>>>>>>> master:screens/forms/Admin/cpoForwarded.jsx
 
 
 const StatusLeave = () => {
@@ -16,6 +20,7 @@ const StatusLeave = () => {
   const navigation = useNavigation();
 
 const [showReport, setReport] = useState(true)
+const [leaveRequests,setleaveRequests] = useState()
 
 const [currentUser,setCurrentUser] = useState('')
   //const time = new Date().toLocaleTimeString();
@@ -35,33 +40,15 @@ const [leave_type, setLeaveType] = useState("");
 const startDate = dobdate.toLocaleDateString().split("/").reverse().join("-")
 const endDate = enddate.toLocaleDateString().split("/").reverse().join("-")
 
-const getProgress = async()=>{ 
 
- // console.log(`${global.BASE_URL}/web/daily/officerwisedsr/${startDate}/${endDate}/${startTime}/${endTime}/${currentUser.userName}`)
+useEffect( () => {
+  retrieveUserSession(setCurrentUser);
+  getSectorWiseLeaveRequests(currentUser,setleaveRequests)
 
- await axios.get(`${global.BASE_URL}/web/daily/officerwisedsr/${startDate}/${endDate}/${startTime}/${endTime}/${currentUser.userName}`)
-  .then(
-    (response) =>{
-      const result = response.data
-      if(result){
-      setDriverData(result.driver[0])
-      setvehicleData(result.vehicles[0])
-      setinspectionData(result.inspection[0])
-      // setinspectionData(result.inspections[0])
-        setReport(false)
-      // console.log('dvr',driverData["added"],'vhcle',vehicleData,'insp',inspectionData)
-      }
-      else {
-        Alert.alert("Not Record Found.")
-       
-        
-      }
-  })
+}, [currentUser]);
 
-}
-useEffect(()=>{
-  retrieveUserSession(setCurrentUser)
-})
+
+
 
 
 
@@ -79,10 +66,19 @@ return (
         </View>
 
 
+<<<<<<<< HEAD:screens/forms/Personal/statusLeave.jsx
+   {/* Approved Days*/}
+
+
+     <View className={`${styles.outerview} m-2  justify-evenly` }>
+   <View className=" w-2/12 justify-center  items-center py-2 rounded-md bg-gray-500" >
+             <Text className="text-white">Leave ID</Text>
+========
    {/* Forwarded Days*/}
    <View className={` flex-row m-2  justify-evenly` }>
    <View className=" w-3/12 justify-center  items-center  rounded-md bg-gray-200 border-gray-400 border" >
              <Text className="text-black text-xs">Leaved ID</Text>
+>>>>>>>> master:screens/forms/Admin/cpoForwarded.jsx
         </View>
        <View className=" w-4/12 justify-center  items-center  rounded-md bg-gray-200 border-gray-400 border" >
              <Text className="text-black text-xs">Requested days</Text>
@@ -93,6 +89,31 @@ return (
         </View> 
         
           </View>
+   {leaveRequests &&
+    leaveRequests.map((item,index)=>(
+
+   
+    <View className={`${styles.outerview} m-2  justify-evenly` } key ={index}>
+  <View className=" w-2/12 justify-center  items-center py-1 rounded-md" >
+            <Text className="text-black">{item.leaveId}</Text>
+       </View>
+      <View className=" w-3/12 justify-center  items-center py-1 rounded-md" >
+            <Text className="text-black">{item.recDays}</Text>
+       </View>
+       <View className=" w-2/12 justify-center items-center py-1 rounded-md " >
+            <Text className="text-black">{item.status == 0 ?"Pending":""}</Text>
+       </View>   
+       <View className=" w-2/12 justify-center items-center py-1 rounded-md " >
+            <Text className="text-black">{item.leaveType}</Text>
+       </View> 
+       <View className=" w-2/12 justify-center items-center py-1 rounded-md " >
+            <Text className="text-black">{item.authId==4?"S/C":item.authId==5?"Z/C":item.authId==6?"IGP":""}</Text>
+       </View> 
+         </View>
+  
+  ))
+ }
+
       </KeyboardAvoidingView>
     </View>
     

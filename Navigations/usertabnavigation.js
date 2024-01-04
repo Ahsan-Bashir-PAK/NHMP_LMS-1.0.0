@@ -4,16 +4,20 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {View, Text} from 'react-native';
 
-// import AddVehicle from '../screens/forms/addVehicle';
+
 import { getTabBarHeight } from '@react-navigation/bottom-tabs/lib/typescript/src/views/BottomTabBar';
-import {   AlertOctagon, BadgeInfo, CheckCircle, CheckCircle2, Focus, Forward, HomeIcon, Hourglass, MailCheck, Octagon, TabletsIcon, XOctagon } from 'lucide-react-native';
-// import StatusLeave from '../screens/forms/Personal/statusLeave';
+
+import {   AlertOctagon, BadgeInfo, CheckCircle, CheckCircle2, Focus, Forward, Hourglass, MailCheck, Octagon, TabletsIcon, XOctagon} from 'lucide-react-native';
+
+
 import UserForwarededLeaves from '../screens/forms/Personal/userForwardedLeaves';
 import UserApprovedLeaves from '../screens/forms/Personal/userApprovedLeaves';
 import UserRejectedLeaves from '../screens/forms/Personal/userRejectedLeaves';
 import { useNavigation } from '@react-navigation/native';
+
 import Home from '../screens/dashboard/home';
 import UserPendingLeaves from '../screens/forms/Personal/userPendingLeaves';
+
 
 
 const Tabs =  createBottomTabNavigator();
@@ -44,16 +48,19 @@ const UserTabs = () => {
   >
 
 <Tabs.Screen name="Pending"  component={UserPendingLeaves}
+
         options={{
           headerShown:false,
           unmountOnBlur:true,
           tabBarIcon:()=>(
             <Hourglass  stroke="orange" size={25}  />
+
           ),
           
       }}
 
         />
+
 <Tabs.Screen name="Forwarded"  component={UserForwarededLeaves}
         
         options={{

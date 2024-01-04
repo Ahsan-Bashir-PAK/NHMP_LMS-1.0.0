@@ -150,7 +150,7 @@ async function saveApproval(data,fn) {
 
 
 //---------------------------------------------getting account request 
-const  getSectorWiseLeaveRequests = async (user, setter)=>{
+const  getLeaveRequests = async (user, setter,data)=>{
   const session = await EncryptedStorage.getItem('user_session');
 
   if (session !== undefined) {
@@ -159,17 +159,49 @@ if(user){
 
 
  await axios.post(`${global.BASE_URL}/leave/getLeaveRequests`,
-  {
-    "officeType":"sector",
-    "office":user.sector
-  },
+  data,
   { 
     headers:{
       api_key :global.KEY,
       Authorization:auth.token
      }
   }).then(
-    response=>setter(response.data)
+    
+    response=>{
+    
+      setter(response.data)
+     
+    }
+  
+    
+  )
+}}
+}
+
+
+//-------------------------------------------------get personal leave status
+const PersonalLeaveStatus = async (user, setter,data)=>{
+  const session = await EncryptedStorage.getItem('user_session');
+
+  if (session !== undefined) {
+    const auth =JSON.parse(session)
+if(user){
+
+
+ await axios.post(`${global.BASE_URL}/leave/getPersonalLeaveStatus`,
+  data,
+  { 
+    headers:{
+      api_key :global.KEY,
+      Authorization:auth.token
+     }
+  }).then(
+    
+    response=>{
+    
+      setter(response.data)
+     
+    }
   
     
   )
@@ -180,10 +212,10 @@ if(user){
 
 
 
-
   export {
   applyLeave,
   updateLeaveStatus,
   saveApproval,
-  getSectorWiseLeaveRequests
+  getLeaveRequests,
+  PersonalLeaveStatus
   }

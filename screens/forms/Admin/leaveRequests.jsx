@@ -8,6 +8,7 @@ import { retrieveUserSession,storeDriverSession,storeVehicleSession } from '../.
 import { applyLeave } from '../../../config/leavefunctions';
 import { get_max_id } from '../../../config/functions';
 import LeaveModal from '../../../components/leave_modal';
+import { getLeaveRequests } from '../../../config/leavefunctions';
 
 const LeaveRequests = () => {
   
@@ -27,57 +28,49 @@ const today = new Date().toISOString()
 
 useEffect(()=>{
   retrieveUserSession(setCurrentUser);
-  // getSectorAccountRequests()
-   getSectorWiseLeaveRequests()
+
 }, [])
 
-//---------------------------------------------getting account request 
-const  getSectorWiseLeaveRequests = async ()=>{
-  const session = await EncryptedStorage.getItem('user_session');
+useEffect(()=>{
+if(currentUser){
+switch (currentUser.role) {
+  case 2:
+    getLeaveRequests(currentUser,setleaveRequests,{
+      "officeType":"officeId",
+      "office":currentUser.office,
+      "rank":"CPO",
+      "status1":0,
+      "status2":0
+    })
+    break;
+    case 3:
+      getLeaveRequests(currentUser,setleaveRequests,{
+        "officeType":"sector",
+        "office":currentUser.sector,
+        "rank":"SP"||"SSP",
+        "status1":1,
+        "status2":1
+      })
+      break;  
+      case 4:
+        getLeaveRequests(currentUser,setleaveRequests,{
+          "officeType":"sector",
+          "office":currentUser.sector,
+          "rank":"SP"||"SSP",
+          "status1":2,
+          "status2":2
+        })
+        break; 
 
-  if (session !== undefined) {
-    const user =JSON.parse(session)
-
-  axios.post(`${global.BASE_URL}/leave/getLeaveRequests`,
-  {
-    "officeType":"sector",
-    "office":currentUser.sector
-  },
-  { 
-    headers:{
-      api_key :global.KEY,
-      Authorization:user.token
-     }
-  }).then(
-    
-    response=>setleaveRequests(response.data)
-  )
+  default:
+    break;
 }
+
 }
+}, [currentUser,leaveRequests])
 
-//---------------------------------------------getting account request 
-// const  getSectorAccountRequests = async ()=>{
-//   const session = await EncryptedStorage.getItem('user_session');
 
-//   if (session !== undefined) {
-//     const user =JSON.parse(session)
 
-//   axios.post(`${global.BASE_URL}/sign/accountRequests`,
-//   {
-//     "officeType":"sector",
-//     "office":currentUser.sector
-//   },
-//   { 
-//     headers:{
-//       api_key :global.KEY,
-//       Authorization:user.token
-//      }
-//   }).then(
-//     // console.log(currentUser.sector)
-//     response=>setsignUpRequests(response.data)
-//   )
-// }
-// }
 // ===========Verify Modal Box============
 
 function showModal(x,datasetter,showsetter){
@@ -91,7 +84,6 @@ return (
     // <ScrollView className="">
      
    <View className=" flex flex-col p-2  ">
-      {leaveRequests &&
       <KeyboardAvoidingView style={{ backgroundColor: '#efefef' }}>
 
 
@@ -107,11 +99,12 @@ return (
       </View>
       
       <View className=" bg-gray-100  justify-start items-start w-full">
+        {leaveRequests &&
      
       <FlatList className="p-2 overflow-scroll h-5/6 w-full"
          data={leaveRequests}
-            renderItem={({ item, index }) => (
-              <View className="flex   flex-row  items-center">
+         renderItem={({ item, index }) => (
+           <View className="flex   flex-row  items-center">
                
                 <View className="flex p-2 w-9/12 border-b flex-row align-middle items-start">
                   <Text className="text-black ">{item.rank}</Text>
@@ -132,12 +125,14 @@ return (
                 <LeaveModal  data = {leavemodalData} visibility ={leavemodalVisible} visibilitySetter ={setleaveModalVisible} />
                 </View>  
           )}
+         
 
       />
+         }
     
       </View>
       </KeyboardAvoidingView>
-    } 
+    
     </View>
     
   // </ScrollView>

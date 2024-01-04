@@ -183,7 +183,7 @@ const saveUser = async () => {
  
   const user = {
     id:officercnic,
-    role:"User",
+    role:1,
     name:officername,
     pwd:officerpwd,
     cellNo :officercell ,

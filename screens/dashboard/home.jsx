@@ -84,9 +84,9 @@ function Home() {
 if(currentUser){
   useEffect(()=>{
       getSectorAccountRequests(currentUser,setsignUpRequests)
-      getSectorWiseLeaveRequests(currentUser,setleaveRequests)
+
       
-    },[currentUser,leaveRequests])
+    },[currentUser])
   }
 
 
@@ -320,7 +320,7 @@ if(currentUser){
 
 
 {/* ==================Leave Approval Request for CPO===========*/}
-<View className={`${currentUser?currentUser.role > 1  ? "block":"hidden":"hidden" } mt-2  `}>  
+{/* <View className={`${currentUser?currentUser.role > 1  ? "block":"hidden":"hidden" } mt-2  `}>  
         <TouchableOpacity
           
           className="w-full   h-10 rounded-lg  justify-center items-center bg-[#257c25] ">
@@ -366,7 +366,7 @@ if(currentUser){
 
       />
       </View>
-}
+} */}
     
 
       {/* Update Logout */}

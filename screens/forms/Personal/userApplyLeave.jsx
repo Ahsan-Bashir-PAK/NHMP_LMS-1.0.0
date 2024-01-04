@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useRef  } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView,Alert, TextInput, Modal } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-<<<<<<<< HEAD:screens/forms/Personal/userApplyLeave.jsx
+
 
 import '../../../config'
 import {Calendar, Clock2, Clock4  } from 'lucide-react-native';
-========
+
 import '../../../config'
-import {Calendar} from 'lucide-react-native';
->>>>>>>> master:screens/forms/Personal/userApplyLeaves.jsx
+
 import { useNavigation } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
 import axios from 'axios';
@@ -73,16 +72,10 @@ async function  submitleave(){
 
 }
 
-<<<<<<<< HEAD:screens/forms/Personal/userApplyLeave.jsx
      applyLeave(leave_req,()=>navigation.navigate("Home"))
-    
+     clearLeaveForm()   
  }}
-========
-     applyLeave(leave_req)
-    }
-    clearLeaveForm()
-    
-}
+
 
 function clearLeaveForm() {
   dropdownRef.current.reset()
@@ -90,7 +83,7 @@ function clearLeaveForm() {
     setdobDate(new Date())
     setdDate(new Date())
   }
->>>>>>>> master:screens/forms/Personal/userApplyLeaves.jsx
+
 
 return (
     <ScrollView className="">

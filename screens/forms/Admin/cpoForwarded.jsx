@@ -174,7 +174,6 @@ return (
   );
 };
 
-
 export default StatusLeave;
 
 const styles = {

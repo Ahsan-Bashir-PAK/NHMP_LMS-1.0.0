@@ -9,16 +9,14 @@ import { useNavigation } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
 import axios from 'axios';
 import { retrieveUserSession } from '../../../config/functions';
-
 import { getLeaveRequests } from '../../../config/leavefunctions';
-
 
 
 const StatusLeave = () => {
   
   const navigation = useNavigation();
 
-const [showReport, setReport] = useState(true)
+
 
 const [currentUser,setCurrentUser] = useState('')
   //const time = new Date().toLocaleTimeString();
@@ -84,11 +82,6 @@ switch (currentUser.role) {
 }, [currentUser,leaveRequests])
 
 
-useEffect(()=>{
-  retrieveUserSession(setCurrentUser)
-})
-
-
 
 
 return (
@@ -98,20 +91,12 @@ return (
       <KeyboardAvoidingView style={{ backgroundColor: 'transparent' }}>
 
         {/* Status  Of Leaves */}
-
         <View className=" bg-blue-600 mt-1 w-full rounded-md  ">
           <View className="  rounded-md p-1 m-1 w-fit items-center justify-center  ">
             <Text className="text-white text-lg rounded-md font-extrabold  ">Forwarded</Text>
             <Text className="text-white text-sm rounded-md   ">Total Applications  {leaveRequests?leaveRequests.length:""}</Text>
-
-        <View className=" bg-green-800 mt-1 w-full rounded-md  ">
-          <View className="  rounded-md p-1 m-1 w-fit items-center justify-center flex-col ">
-            <Text className="text-white text-lg rounded-md font-bold ">Approved Leaves</Text>
-        
-
           </View>
         </View>
-
 
 
 
@@ -119,12 +104,6 @@ return (
       <View className={` flex-row m-2  justify-between bg-slate-300 p-2` }>
    <View className=" w-6/12 justify-center  items-center  rounded-md " >
              <Text className="text-black text-xs">Applicant</Text>
-
-   {/* Forwarded Days*/}
-   <View className={` flex-row m-2  justify-evenly` }>
-   <View className=" w-3/12 justify-center  items-center  rounded-md bg-gray-200 border-gray-400 border" >
-             <Text className="text-black text-xs">Leaved ID</Text>
-
         </View>
        <View className=" w-2/12 justify-center text-center items-center  rounded-md " >
              <Text className="text-black text-center text-xs">Requested days</Text>
@@ -134,7 +113,6 @@ return (
         </View>
                  
           </View>
-
 {/* ======================== Heading   end   */}
 
 
@@ -162,7 +140,6 @@ return (
           </View>
           
           ))}
-
 
 
 

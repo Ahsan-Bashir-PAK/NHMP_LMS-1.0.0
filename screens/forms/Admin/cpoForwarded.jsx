@@ -83,30 +83,7 @@ switch (currentUser.role) {
 }
 }, [currentUser,leaveRequests])
 
-const getProgress = async()=>{ 
 
- // console.log(`${global.BASE_URL}/web/daily/officerwisedsr/${startDate}/${endDate}/${startTime}/${endTime}/${currentUser.userName}`)
-
- await axios.get(`${global.BASE_URL}/web/daily/officerwisedsr/${startDate}/${endDate}/${startTime}/${endTime}/${currentUser.userName}`)
-  .then(
-    (response) =>{
-      const result = response.data
-      if(result){
-      setDriverData(result.driver[0])
-      setvehicleData(result.vehicles[0])
-      setinspectionData(result.inspection[0])
-      // setinspectionData(result.inspections[0])
-        setReport(false)
-      // console.log('dvr',driverData["added"],'vhcle',vehicleData,'insp',inspectionData)
-      }
-      else {
-        Alert.alert("Not Record Found.")
-       
-        
-      }
-  })
-
-}
 useEffect(()=>{
   retrieveUserSession(setCurrentUser)
 })
@@ -115,8 +92,9 @@ useEffect(()=>{
 
 
 return (
+
     <ScrollView className="">
-    <View className=" flex flex-col p-2  ">
+    <View className="flex flex-col p-2">
       <KeyboardAvoidingView style={{ backgroundColor: 'transparent' }}>
 
         {/* Status  Of Leaves */}

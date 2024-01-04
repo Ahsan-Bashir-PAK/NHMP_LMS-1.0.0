@@ -65,14 +65,17 @@ const UserTabs = () => {
       }}  />
 
 <Tabs.Screen name="Home"  component={Home}
-        options={{
+       screenOptions={{}}
+       options={{
           headerShown:false,
           unmountOnBlur:true,
           tabBarIcon:()=>(
             <HomeIcon  stroke="green" size={25}  />
           )
       }}
-
+          listeners={{
+            
+          }}
         />
 
 <Tabs.Screen name="Approved"  component={UserApprovedLeaves}

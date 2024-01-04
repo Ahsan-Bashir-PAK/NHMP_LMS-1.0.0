@@ -375,8 +375,11 @@ return (
           <View className="w-4/6 items-center ">
           <View className="   z-50">
               <SelectDropdown
+
+                data = {[...new Set(ranks && ranks.map(x=>x.bps < 17?x.rank:""))].filter(x=>x!="")}
+
                 ref={dropdownrank}
-                data = {[...new Set(ranks && ranks.map(x=>x.bps < 17?x.title:""))].filter(x=>x!="")}
+
                 value={officerrank}
                 onSelect={(selectedItem, index) => {
                   setOfcrrank(selectedItem);

@@ -31,10 +31,17 @@ type SectionProps = PropsWithChildren<{
 }>;
 
 import MyStack from './Navigations/navigation';
+
+
+// import MyTabs from './Navigations/tabnavigation';
+
+// import SignUp from './screens/forms/signUp';
+
 // // import Main from './screens/main';
 // import MyTabs from './Navigations/tabnavigation';
 // import UserTabs from './Navigations/usertabnavigation';
 // import SignUp from './screens/forms/signUp';
+
 
 
 function App(): JSX.Element {

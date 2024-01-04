@@ -71,9 +71,9 @@ return (
       <KeyboardAvoidingView style={{ backgroundColor: 'white' }}>
 
         {/* Status  Of Leaves */}
-        <View className=" bg-blue-900 mt-1 w-full rounded-md  ">
+        <View className=" bg-green-800 mt-1 w-full rounded-md  ">
           <View className="  rounded-md p-1 m-1 w-fit items-center justify-center flex-col ">
-            <Text className="text-white text-lg rounded-md font-bold ">Forwarded Leaves</Text>
+            <Text className="text-white text-lg rounded-md font-bold ">Approved Leaves</Text>
         
           </View>
         </View>

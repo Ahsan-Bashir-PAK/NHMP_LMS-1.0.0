@@ -16,7 +16,7 @@ const StatusLeave = () => {
   
   const navigation = useNavigation();
 
-const [showReport, setReport] = useState(true)
+
 
 const [currentUser,setCurrentUser] = useState('')
   //const time = new Date().toLocaleTimeString();

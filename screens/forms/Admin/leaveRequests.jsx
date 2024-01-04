@@ -34,7 +34,7 @@ useEffect(()=>{
 useEffect(()=>{
 if(currentUser){
 switch (currentUser.role) {
-  case 1:
+  case 2:
     getLeaveRequests(currentUser,setleaveRequests,{
       "officeType":"officeId",
       "office":currentUser.office,
@@ -43,18 +43,29 @@ switch (currentUser.role) {
       "status2":0
     })
     break;
+    case 3:
+      getLeaveRequests(currentUser,setleaveRequests,{
+        "officeType":"sector",
+        "office":currentUser.sector,
+        "rank":"SP"||"SSP",
+        "status1":1,
+        "status2":1
+      })
+      break;  
+      case 4:
+        getLeaveRequests(currentUser,setleaveRequests,{
+          "officeType":"sector",
+          "office":currentUser.sector,
+          "rank":"SP"||"SSP",
+          "status1":2,
+          "status2":2
+        })
+        break; 
 
   default:
     break;
 }
 
-  getLeaveRequests(currentUser,setleaveRequests,{
-    "officeType":"officeId",
-    "office":currentUser.office,
-    "rank":"CPO",
-    "status1":0,
-    "status2":0
-  })
 }
 }, [currentUser,leaveRequests])
 

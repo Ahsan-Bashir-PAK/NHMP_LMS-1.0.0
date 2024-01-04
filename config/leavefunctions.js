@@ -179,6 +179,35 @@ if(user){
 }
 
 
+//-------------------------------------------------get personal leave status
+const PersonalLeaveStatus = async (user, setter,data)=>{
+  const session = await EncryptedStorage.getItem('user_session');
+
+  if (session !== undefined) {
+    const auth =JSON.parse(session)
+if(user){
+
+
+ await axios.post(`${global.BASE_URL}/leave/getPersonalLeaveStatus`,
+  data,
+  { 
+    headers:{
+      api_key :global.KEY,
+      Authorization:auth.token
+     }
+  }).then(
+    
+    response=>{
+    
+      setter(response.data)
+     
+    }
+  
+    
+  )
+}}
+}
+
 
 
 
@@ -187,5 +216,6 @@ if(user){
   applyLeave,
   updateLeaveStatus,
   saveApproval,
-  getLeaveRequests
+  getLeaveRequests,
+  PersonalLeaveStatus
   }

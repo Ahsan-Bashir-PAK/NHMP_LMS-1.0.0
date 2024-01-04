@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
 import axios from 'axios';
 import { retrieveUserSession } from '../../../config/functions';
-import { getSectorWiseLeaveRequests } from '../../../config/leavefunctions';
+import { PersonalLeaveStatus } from '../../../config/leavefunctions';
 
 
 const UserPendingLeaves = () => {
@@ -38,14 +38,18 @@ const startDate = dobdate.toLocaleDateString().split("/").reverse().join("-")
 const endDate = enddate.toLocaleDateString().split("/").reverse().join("-")
 
 
-const [leaveRequests,setleaveRequests] = useState()
+const [leaveStatus,setleaveStatus] = useState()
 
 
 
 
 useEffect( () => {
   retrieveUserSession(setCurrentUser);
-  getSectorWiseLeaveRequests(currentUser,setleaveRequests)
+  PersonalLeaveStatus(currentUser,setleaveStatus, {
+    "id":currentUser.id,
+     "status1":0,
+     "status2":0
+   })
 
 }, [currentUser]);
 
@@ -60,7 +64,7 @@ return (
         <View className=" bg-orange-400 mt-1 w-full rounded-md  ">
           <View className="  rounded-md p-1 m-1 w-fit items-center justify-center flex-col ">
             <Text className="text-white text-lg rounded-md font-bold ">Requested Leaves</Text>
-        
+            <Text className="text-white text-sm rounded-md   ">Total Applications  {leaveStatus?leaveStatus.length:""}</Text>        
           </View>
         </View>
 
@@ -68,7 +72,7 @@ return (
    {/* ======================== Heading====*/}
    <View className={` flex-row m-2  justify-evenly bg-slate-300 p-2` }>
    <View className=" w-2/12 justify-center  items-center  rounded-md " >
-             <Text className="text-black text-xs">Leaved ID</Text>
+             <Text className="text-black text-xs">E-Leave #</Text>
         </View>
        <View className=" w-3/12 justify-center  items-center  rounded-md " >
              <Text className="text-black text-xs">Requested days</Text>
@@ -87,8 +91,8 @@ return (
 
 {/* =================================Pending Leaves Record */}
 
-{leaveRequests &&
-    leaveRequests.map((item,index)=>(
+{leaveStatus &&
+    leaveStatus.map((item,index)=>(
 <View className={` flex-row m-2  justify-evenly items-center   bg-white p-1` } key={index}>
    <View className=" w-2/12 flex justify-center text-center items-center" >
              <Text className="text-black text-xs">{item.leaveId}</Text>

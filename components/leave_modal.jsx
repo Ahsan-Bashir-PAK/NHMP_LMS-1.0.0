@@ -121,27 +121,27 @@ await saveApproval(leave_status,() => props.visibilitySetter(!props.visibility))
                         </View>
                       <View className="flex flex-row">
                         <Text className="text-black ">Forwarded Days :</Text> 
-                        <Text className=" ml-2 text-black text-sm">05 Days</Text>
+                        <Text className=" ml-2 text-black text-sm font-bold">{props.data.recDays} Days</Text>
                       </View>
 
                       <View className="flex flex-row flex-wrap mt-2 bg-gray-100 rounded-md p-2">
-                        <Text className="text-black ">Remarks:</Text> 
-                        <Text className=" ml-2 text-grey-400 text-sm italic ">Sir, The beat is already facing acute shortage of strength it is requested that please provide subsitute </Text>
+                        <Text className="text-black font-semibold ">Remarks:</Text> 
+                        <Text className=" ml-2 text-grey-400 text-sm italic ">{props.data.remarks} </Text>
                       </View>
                       </View>
 
 
                       {/* OSI */}
-                      <View className = {`bg-blue-200 rounded-md p-2 m-1  ${currentUser?currentUser.role == 2?"hidden":"block":"hidden"}`}>
+                      <View className = {`bg-blue-200 rounded-md p-2 m-1  ${currentUser?currentUser.role == 3?"hidden":"block":"hidden"}`}>
                         <View className='bg-yellow-300 rounded-r-full p-1 w-2/5 -left-2 '>
                       <Text className='font-bold '> OSI Remarks</Text>
 
                         </View>
                    
 
-                      <View className="flex flex-row flex-wrap mt-2 bg-gray-100 rounded-md p-2">
+                      <View className={`flex flex-row flex-wrap mt-2 bg-gray-100 rounded-md p-2 ${currentUser?currentUser.role==3?"hidden":"block":"hidden"}`}>
                         <Text className="text-black ">Remarks:</Text> 
-                        <Text className=" ml-2 text-grey-400 text-sm italic ">Sir, The beat is already facing acute shortage of strength it is requested that please provide subsitute </Text>
+                        <Text className=" ml-2 text-grey-400 text-sm italic ">{props.data.remarks} </Text>
                       </View>
                       </View>
                        

@@ -55,7 +55,7 @@ useEffect( () => {
 
 return (
     <ScrollView className="">
-    <View className=" flex flex-col p-2  ">
+    <View className=" flex flex-col p-2 bg-white  h-screen  ">
       <KeyboardAvoidingView style={{ backgroundColor: 'white' }}>
 
         {/* Status  Of Leaves */}

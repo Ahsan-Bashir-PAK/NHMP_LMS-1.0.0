@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState  } from 'react';
+import React, { useEffect, useState, useRef  } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView,Alert, TextInput } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
@@ -69,8 +69,7 @@ useEffect( () => {
 const [reason,setReason] =useState()
 
 
-const startDate = dobdate
-const endDate = enddate
+
 const today = new Date().toISOString()
 
 useEffect(()=>{
@@ -113,9 +112,9 @@ function clearLeaveForm() {
 
 return (
     <ScrollView className="">
-    <View className=" flex flex-col p-2  ">
+    <View className=" flex flex-col p-2 bg-white  h-screen  ">
 
-      <KeyboardAvoidingView style={{ backgroundColor: 'transparent' }}>
+      
 
         {/* Status  Of Leaves */}
         <View className=" bg-orange-400 mt-1 w-full rounded-md  ">
@@ -164,155 +163,11 @@ return (
           </View>
           
           ))}
-      </KeyboardAvoidingView>
+     
     </View>
 
-      <KeyboardAvoidingView style={{ backgroundColor: 'white' }}>
 
-        {/* Apply Leave */}
-        <View className=" bg-blue-900 mt-1 w-full rounded-md  ">
-          <View className="  rounded-md p-1 m-1 w-fit items-center justify-center flex-col ">
-            <Text className="text-white text-lg rounded-md font-bold ">Apply Leave</Text>
-        
-          </View>
-        </View>
-
-        {/* <View className="   w-full  ">
-          <View className=" bg-[#7f9ab8] rounded-md p-1 m-1 w-fit items-center justify-center flex-col ">
-            <Text className="text-white  text-sm rounded-md font-bold ">
-              {/* {currentUser.rank}  {currentUser.name} */}
-            {/*  </Text>
-            <Text className="text-white text-xs rounded-md  ">
-              {/* {currentUser.beat} {currentUser.sector} {currentUser.zone} */}
-              {/*</Text>
-          </View>
-        </View> */}
-
-   {/* Start Date*/}
-   <View className={`${styles.outerview} m-2` }>
-   <View className=" w-2/6 justify-center items-center rounded-md bg-green-500" ><Text className="text-white">Start Date</Text></View>
-            <View className="w-4/6 items-center ">
-            <View className="flex flex-row gap-1">
-            
-            <DatePicker
-              modal
-              mode="date"
-              open={dobopen}
-              date={dobdate}
-              onConfirm={value => {
-                setdobOpen(false);
-                setdobDate(value);
-              }}
-              onCancel={() => {
-                setdobOpen(false);
-              }}
-            />
-
-            <Text className="rounded-md  w-4/6   text-black text-center font-bold p-2">
-              {dobdate.toLocaleDateString()}
-            </Text>
-            <TouchableOpacity onPress={() => setdobOpen(true)}>
-              <Calendar stroke="black" fill="white" size={30} strokeWidth={1}></Calendar>
-            </TouchableOpacity>
-          </View>
-            </View>
-          </View>
-
-{/* End Date*/}
-        <View className={styles.outerview}>
-                    <View className=" w-2/6 justify-center items-center rounded-md bg-green-500" ><Text className="text-white">End Date</Text></View>
-                    <View className="  w-4/6 items-center ">
-                    <View className="flex flex-row gap-1">
-
-                        <DatePicker
-                          modal
-                          mode="date"
-                          open={endopen}
-                          date={enddate}
-                          onConfirm={value => {
-                            setdOpen(false);
-                            setdDate(value);
-                          }}
-                          onCancel={() => {
-                            setdOpen(false);
-                          }}
-                        />
-
-                    <Text className="rounded-md  w-4/6   text-black text-center font-bold p-2">
-                      {enddate.toLocaleDateString()}
-                    </Text>
-                    <TouchableOpacity onPress={() => setdOpen(true)}>
-                      <Calendar stroke="black" fill="white" size={30} strokeWidth={1}></Calendar>
-                    </TouchableOpacity>
-                  </View>
-                    </View>
-        </View>
-{/* {/* leave type */}
-<View className={styles.outerview}>
-                    <View className=" w-2/6 justify-center items-center rounded-md bg-green-500" ><Text className="text-white">Leave Type</Text></View>
-                    <View className="  w-4/6 items-center ">
-                    <View className=" z-50">
-                        <SelectDropdown
-                        // search ={true}
-                          ref={dropdownRef}
-                          data= {leaveType}
-                          onSelect={(selectedItem, index) => {
-                            setLeaveType(selectedItem)            
-                          }}
-                          
-                          defaultButtonText='Select an option.'
-                          buttonStyle={{
-                            backgroundColor:'white',
-                              
-                          }}
-                          
-                                        
-                          />
-                        
-                      </View>
-</View>
-</View>
-
-
-       
-
-{/* Report Form */}
-           <View className=" p-4">
-                <TextInput
-                className="border rounded-lg items-start border-gray-400 text-black"
-                multiline
-                editable
-                numberOfLines={15}
-                maxLength={500}
-                onChangeText={text => setReason(text)}
-                value={reason}                            
-                />
-                  
-                
-                
-            </View>
-
-            <View className=" flex flex-row w-full justify-evenly items-center p-4 ">
-            <TouchableOpacity 
-              onPress={()=>clearLeaveForm()}
-              className="bg-red-600  rounded-md w-3/12 p-3 justify-center items-center">
-                    <Text className="text-white">Clear</Text>
-                </TouchableOpacity>
-              <TouchableOpacity 
-              onPress={()=>navigation.goBack()}
-              className="bg-red-600  rounded-md w-3/12 p-3 justify-center items-center">
-                    <Text className="text-white">Cancel</Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity 
-                onPress={()=>submitleave()}
-                className="bg-green-600  rounded-md w-4/12 p-3 justify-center items-center">
-                    <Text className="text-white text-sm">Apply Leave</Text>
-                </TouchableOpacity>
-            </View>     
-
-      </KeyboardAvoidingView>
-    </View>
+  
 
   </ScrollView>
   );

@@ -38,7 +38,7 @@ const leaveType = [ "Casual Leave" ,"Earned Leave"];
 const [leave_type, setLeaveType] = useState(""); 
 const [reason,setReason] =useState("")
 
-const [days, setDays] = useState(0)
+const [days, setDays] = useState(1)
 const startDate = dobdate
 const endDate = enddate
 const today = new Date().toISOString()
@@ -48,16 +48,24 @@ useEffect(()=>{
   // getSectorWiseLeaveRequests()
 })
 
+function getDays () {
+  let Difference_In_Days = endDate-startDate
+  let b = Math.round(Difference_In_Days / (1000 * 3600 * 24) +1);
+  
+  setDays(b)
+  
+
+}
 
 
 
 async function  submitleave(){
-  setDays(endDate-startDate)
-  Alert.alert(new Date(days))
-        if(endDate < startDate) {
-              
+
+  
+  if(endDate < startDate) {    
           Alert.alert("Please enter Correct dates")
-          
+                 
+
         } else if(leave_type == "") {  Alert.alert("Please Select leave Type")}
         else if(reason == "") {  Alert.alert("Please mention Reason")}
  else {
@@ -84,12 +92,13 @@ function clearLeaveForm() {
     setReason("")
     setdobDate(new Date())
     setdDate(new Date())
+    setDays(1)
   }
 
 
 return (
     <ScrollView className="">
-    <View className=" flex flex-col p-2  ">
+    <View className=" flex flex-col p-2 bg-white  h-screen  ">
       <KeyboardAvoidingView style={{ backgroundColor: 'white' }}>
 
         {/* Apply Leave */}
@@ -155,6 +164,10 @@ return (
                           onConfirm={value => {
                             setdOpen(false);
                             setdDate(value);
+                            getDays()
+                            // console.log(r + "_____")
+                            
+    
                           }}
                           onCancel={() => {
                             setdOpen(false);
@@ -172,9 +185,9 @@ return (
         </View>
 {/* Total Days*/}
 <View className={styles.outerview}>
-                    <View className=" w-2/6 justify-center items-center rounded-md bg-green-500" ><Text className="text-white">Total Days</Text></View>
-                    <View className="  w-4/6 items-center ">
-                          <Text className="text-black font-bold">{days} (Days) </Text>
+                    <View className=" w-2/6 justify-center items-center p-2 rounded-md bg-green-500" ><Text className="text-white">Total Days</Text></View>
+                    <View className="  w-4/6 items-center  justify-center ">
+                          <Text className="text-black font-bold">{days>1? days +" Days": days +" Day"}  </Text>
                     </View>
         </View>
 {/* {/* leave type */}

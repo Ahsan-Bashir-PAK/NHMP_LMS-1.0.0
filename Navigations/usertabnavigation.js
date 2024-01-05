@@ -7,7 +7,7 @@ import {View, Text} from 'react-native';
 
 import { getTabBarHeight } from '@react-navigation/bottom-tabs/lib/typescript/src/views/BottomTabBar';
 
-import {   AlertOctagon, BadgeInfo, CheckCircle, CheckCircle2, Focus, Forward, Hourglass, MailCheck, Octagon, TabletsIcon, XOctagon} from 'lucide-react-native';
+import {   AlertOctagon, BadgeInfo, CheckCircle, CheckCircle2, Focus, Forward, Hourglass, MailCheck, Octagon, TabletsIcon, XOctagon, HomeIcon} from 'lucide-react-native';
 
 
 import UserForwarededLeaves from '../screens/forms/Personal/userForwardedLeaves';

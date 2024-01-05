@@ -10,19 +10,6 @@ import SelectDropdown from 'react-native-select-dropdown';
 import axios from 'axios';
 import { verifyDuplicateUser } from '../../config/functions';
 
-
-
-
-
-// let ranks = ["CPO" ,"SPO" ,"PO", "APO", "JPO", "ACP","UDC","LDC","PG"];  
-
-
- 
-
-
-
-
-
 const SignUp = () => {
 
   const dropdownposting = useRef({});  
@@ -262,14 +249,15 @@ useEffect(()=>{
 
 return (
     <ScrollView className=" ">
+      <KeyboardAvoidingView style={{ backgroundColor: 'transparent ' }}>
+
     <View className=" relative flex flex-col p-6 pt-1 bg-slate-100   ">
 
       <View  className='w-40 h-40  -right-20  top-6  rotate-45  bg-green-400 absolute'></View>
       <View  className='w-80 h-80  -left-60  top-10 rotate-45   bg-yellow-300 absolute'></View>
       <View  className='w-40 h-40  -left-20  -top-10 rotate-45  bg-red-400 absolute'></View>
       <View  className='w-40 h-40  -right-20  bottom-2 rotate-45  bg-red-400 absolute'></View>
-      <KeyboardAvoidingView style={{ backgroundColor: 'transparent ' }}>
-
+      
         {/* Sign Up page */}
         <View className="   w-full p-1  ">
 
@@ -464,6 +452,7 @@ return (
             <View className="flex flex-row gap-1">
             
             <DatePicker
+              
               modal
               mode="date"
               open={doaopen}
@@ -652,9 +641,9 @@ return (
       
       <View className="bg-[#1c5685ee]  h-full w-full justify-center items-center flex">    
        
-       <View className="bg-white  w-10/12 h-2/6 rounded-md justify-center items-center align-middle shadow-black ">
+       <View className="bg-white  w-10/12 h-3/6 rounded-md justify-center items-center align-top shadow-black ">
               
-                <Text className="text-black text-lg p-2"> Please confirm are you employee of NHMP</Text>
+                <Text className="text-black text-lg p-2 text-center"> Please Enter Your CNIC for Account Creation</Text>
                 <TextInput
                     
                     placeholder=' Entery your CNIC'
@@ -686,8 +675,9 @@ return (
       </Modal>  
     </View>      
 
-      </KeyboardAvoidingView>
+     
     </View>
+    </KeyboardAvoidingView>
   </ScrollView>
   );
 };

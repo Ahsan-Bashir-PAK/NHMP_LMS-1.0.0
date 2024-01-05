@@ -39,6 +39,7 @@ const [leave_type, setLeaveType] = useState("");
 const [reason,setReason] =useState("")
 
 const [days, setDays] = useState(1)
+
 const startDate = dobdate
 const endDate = enddate
 const today = new Date().toISOString()
@@ -60,9 +61,8 @@ function getDays () {
 
 
 async function  submitleave(){
+        if(endDate < startDate) {
 
-  
-  if(endDate < startDate) {    
           Alert.alert("Please enter Correct dates")
                  
 

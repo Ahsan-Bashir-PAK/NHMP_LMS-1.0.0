@@ -62,7 +62,7 @@ return (
         {/* Status  Of Leaves */}
         <View className=" bg-blue-900 mt-1 w-full rounded-md  ">
           <View className="  rounded-md p-1 m-1 w-fit items-center justify-center flex-col ">
-            <Text className="text-white text-lg rounded-md font-extrabold  "> Forwarded By Beat Commander</Text>
+            <Text className="text-white text-lg rounded-md font-extrabold  "> Forwarded</Text>
             <Text className="text-white text-sm rounded-md   ">Total Applications  {leaveStatus?leaveStatus.length:""}</Text>        
           </View>
         </View>

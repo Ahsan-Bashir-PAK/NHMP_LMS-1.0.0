@@ -95,7 +95,7 @@ return (
 
 {leaveStatus &&
     leaveStatus.map((item,index)=>(
-<View className={` flex-row m-2  justify-evenly items-center   bg-white p-1` } key={index}>
+<View className={` flex-row m-2  justify-evenly items-center   bg-white p-1 py-2` } key={index}>
    <View className=" w-2/12 flex justify-center text-center items-center" >
              <Text className="text-red-500 text-xs">{item.leaveId}</Text>
         </View>

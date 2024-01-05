@@ -1,10 +1,10 @@
 
-import React, { useEffect, useState, useRef  } from 'react';
+import React, { useEffect, useState, useRef,useRef  } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView,Alert, TextInput } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
 import '../../../config'
-import {Calendar, Clock2, Clock4  } from 'lucide-react-native';
+import {Calendar, Clock2, Clock4 ,HomeIcon } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import SelectDropdown from 'react-native-select-dropdown';
@@ -61,7 +61,7 @@ useEffect( () => {
     "id":currentUser.id,
      "status1":0,
      "status2":0
-   })
+   },[])
 
 }, [currentUser]);
 
@@ -75,7 +75,7 @@ const today = new Date().toISOString()
 useEffect(()=>{
   retrieveUserSession(setCurrentUser)
   // getSectorWiseLeaveRequests()
-})
+},[])
 
 async function  submitleave(){
         if(endDate < startDate) {
@@ -149,7 +149,7 @@ return (
 
 {leaveStatus &&
     leaveStatus.map((item,index)=>(
-<View className={` flex-row m-2  justify-evenly items-center   bg-white p-1` } key={index}>
+<View className={` flex-row m-2  justify-evenly items-center   bg-white p-1 py-2 ` } key={index}>
    <View className=" w-2/12 flex justify-center text-center items-center" >
              <Text className="text-black text-xs">{item.leaveId}</Text>
         </View>

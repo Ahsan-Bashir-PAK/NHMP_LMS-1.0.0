@@ -3,12 +3,13 @@ import {Modal, View, Text, TouchableOpacity,TextInput} from 'react-native';
 import { retrieveUserSession } from '../config/functions';
 import { updateLeaveStatus, saveApproval } from '../config/leavefunctions';
 import { useNavigation } from '@react-navigation/native';
+import { PersonalLeaveStatus } from '../config/leavefunctions';
 
 function LeaveModal(props) {
   const [recDays,setRecDays] =useState()
 const [remarks,setRemarks] =useState("")
 const [currentUser,setCurrentUser] = useState('')
-const [status,setStatus] = useState('')
+const [forwardedLeaves,setforwardedLeaves] = useState('')
 const navigation = useNavigation();
 
 const today = new Date().toISOString()
@@ -62,7 +63,44 @@ await saveApproval(leave_status,() => props.visibilitySetter(!props.visibility))
   }
 }
 
+const RejectLeave = async() =>{
+  if(props.data && recDays){
+    const leave_status= {
+      "date" :today,
+      "leaveId" :props.data.leaveId,
+      "leaveType":props.data.leaveType,
+      "startDate":props.data.startDate,
+      "endDate":props.data.endDate,
+      "reason":props.data.reason,
+      "userId": props.data.userId,
+      "authId" :currentUser.id,
+      "days" :recDays,
+      "remarks" :remarks,
+      "status" :99
+}
 
+updateLeaveStatus(leave_status,() => props.visibilitySetter(!props.visibility))
+
+  }
+}
+
+
+
+
+//=========getting cpo status 
+useEffect(()=>{
+    if(currentUser.role == 4 ){
+
+    PersonalLeaveStatus(currentUser, setforwardedLeaves, {
+      id: props.data.userId,
+      status1: 1,
+      status2:3,
+    });
+  }
+
+   const x = forwardedLeaves && forwardedLeaves.filter((item)=>item.leaveId == props.data.leaveId)
+ 
+  },[forwardedLeaves])
 
   return (
     <>
@@ -121,18 +159,18 @@ await saveApproval(leave_status,() => props.visibilitySetter(!props.visibility))
                         </View>
                       <View className="flex flex-row">
                         <Text className="text-black ">Forwarded Days :</Text> 
-                        <Text className=" ml-2 text-black text-sm font-bold">{props.data.recDays} Days</Text>
+                        <Text className=" ml-2 text-black text-sm font-bold">{forwardedLeaves && forwardedLeaves.filter((item)=>item.leaveId == props.data.leaveId)[0].recDays} Days</Text>
                       </View>
 
                       <View className="flex flex-row flex-wrap mt-2 bg-gray-100 rounded-md p-2">
                         <Text className="text-black font-semibold ">Remarks:</Text> 
-                        <Text className=" ml-2 text-grey-400 text-sm italic ">{props.data.remarks} </Text>
+                        <Text className=" ml-2 text-grey-400 text-sm italic ">{forwardedLeaves && forwardedLeaves.filter((item)=>item.leaveId == props.data.leaveId)[0].remarks} </Text>
                       </View>
                       </View>
 
 
                       {/* OSI */}
-                      <View className = {`bg-blue-200 rounded-md p-2 m-1  ${currentUser?currentUser.role == 3?"hidden":"block":"hidden"}`}>
+                      <View className = {`bg-blue-200 rounded-md p-2 m-1  ${currentUser?currentUser.role < 4?"hidden":"block":"hidden"}`}>
                         <View className='bg-yellow-300 rounded-r-full p-1 w-2/5 -left-2 '>
                       <Text className='font-bold '> OSI Remarks</Text>
 
@@ -174,7 +212,7 @@ await saveApproval(leave_status,() => props.visibilitySetter(!props.visibility))
               <View className=" flex flex-row gap-2 p-4 mt-5 justify-center ">
                 <TouchableOpacity
                   onPress={() => props.visibilitySetter(!props.visibility)}
-                  className="bg-red-600 p-2 rounded-md w-22 justify-center items-center">
+                  className="bg-orange-600 p-2 rounded-md w-22 justify-center items-center">
                   <Text className="text-white">Cancel</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -186,6 +224,11 @@ await saveApproval(leave_status,() => props.visibilitySetter(!props.visibility))
                   onPress={()=>approveLeave()}
                   className={`bg-green-600 p-2 rounded-md w-22 justify-center items-center ${currentUser?currentUser.role == 4?"block":"hidden":"hidden"}`}>
                   <Text className="text-white">Approve</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={()=>RejectLeave()}
+                  className={`bg-red-600 p-2 rounded-md w-22 justify-center items-center ${currentUser?currentUser.role == 4?"block":"hidden":"hidden"}`}>
+                  <Text className="text-white">Reject</Text>
                 </TouchableOpacity>
               </View>
               </View>
@@ -199,3 +242,5 @@ await saveApproval(leave_status,() => props.visibilitySetter(!props.visibility))
 }
 
 export default LeaveModal;
+
+

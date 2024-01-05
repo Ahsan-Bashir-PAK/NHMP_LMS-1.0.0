@@ -38,7 +38,7 @@ const leaveType = [ "Casual Leave" ,"Earned Leave"];
 const [leave_type, setLeaveType] = useState(""); 
 const [reason,setReason] =useState("")
 
-const [days, setDays] = useState(0)
+
 const startDate = dobdate
 const endDate = enddate
 const today = new Date().toISOString()
@@ -52,10 +52,8 @@ useEffect(()=>{
 
 
 async function  submitleave(){
-  setDays(endDate-startDate)
-  Alert.alert(new Date(days))
         if(endDate < startDate) {
-              
+
           Alert.alert("Please enter Correct dates")
           
         } else if(leave_type == "") {  Alert.alert("Please Select leave Type")}
@@ -168,13 +166,6 @@ return (
                       <Calendar stroke="black" fill="white" size={30} strokeWidth={1}></Calendar>
                     </TouchableOpacity>
                   </View>
-                    </View>
-        </View>
-{/* Total Days*/}
-<View className={styles.outerview}>
-                    <View className=" w-2/6 justify-center items-center rounded-md bg-green-500" ><Text className="text-white">Total Days</Text></View>
-                    <View className="  w-4/6 items-center ">
-                          <Text className="text-black font-bold">{days} (Days) </Text>
                     </View>
         </View>
 {/* {/* leave type */}

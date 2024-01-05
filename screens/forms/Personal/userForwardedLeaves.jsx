@@ -57,7 +57,7 @@ useEffect( () => {
 return (
     <ScrollView className="">
     <View className=" flex flex-col p-2  ">
-      <KeyboardAvoidingView style={{ backgroundColor: 'white' }}>
+      <KeyboardAvoidingView style={{ backgroundColor: 'transparent' }}>
 
         {/* Status  Of Leaves */}
         <View className=" bg-blue-900 mt-1 w-full rounded-md  ">
@@ -96,7 +96,7 @@ return (
 
 {leaveStatus &&
     leaveStatus.map((item,index)=>(
-<View className={` flex-row m-2  justify-evenly items-center   bg-white p-1` } key={index}>
+<View className={` flex-row m-2  justify-evenly items-center   bg-white p-2` } key={index}>
    <View className=" w-2/12 flex justify-center text-center items-center" >
              <Text className="text-black text-xs">{item.leaveId}</Text>
         </View>

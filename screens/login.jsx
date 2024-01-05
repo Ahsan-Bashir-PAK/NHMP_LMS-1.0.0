@@ -1,7 +1,7 @@
 import React, { useState, Linking,useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import EncryptedStorage from 'react-native-encrypted-storage';
-import { UserPlus, UserCog2, Lock  } from 'lucide-react-native';
+import { UserPlus, UserCog2, Lock, User, UserCircle, KeyRound  } from 'lucide-react-native';
 
 
 
@@ -32,6 +32,7 @@ import { Facebook, Twitter } from 'lucide-react-native';
 import { storeUserSession } from '../config/functions';
 
 import myimage from '../img/login.jpg'
+import { User2 } from 'lucide-react-native';
 function Login() {
 
 
@@ -108,36 +109,6 @@ function clearAll(){
         setPwd("")
         
 }
-     //---------------------------------------
-
-    
-
-    //  async function storeUserSession(user,role,officer,rank,pwd,region, zone, sector, beat) {
-      
-    //     try {
-    //          await EncryptedStorage.setItem(
-    //              "user_session",
-    //              JSON.stringify({
-    //                  userName : user,
-    //                  role:role,
-    //                  location:location+userbound,
-    //                  name:officer,
-    //                  rank:rank,
-    //                  pwd:pwd,
-    //                  region:region,
-    //                  zone:zone,
-    //                  sector:sector,
-    //                  beat:beat,
-                    
-                     
-                    
-    //              })
-    //          );
-           
-    //      } catch (error) {
-    //          console.log(error)
-    //      }
-    //  }
 
     
     
@@ -162,15 +133,16 @@ function clearAll(){
                 <Text className="text-white font-light font-mono text-xs italic">Version: 1.0.0</Text>
             </View>
            
-                       {/* Login Panel  bg-[#2b6379] */}
+                       {/* Login Panel  bg-[#2b6379]  bg-[#17162560] */}
                        
-            <View className='w-full bg-[#17162560]  p-10   shadow-lg border border-gray-700  flex justify-center items-center h-2/5  '>
-                
+            <View className='w-11/12  px-5  py-8  flex justify-center items-center border border-white rounded-sm  bg-[#05050c6c] shadow-md  '>
+
+             
                {/* User name */}
-               <View className="justify-start items-start w-full flex flex-row  ">
-               <View className='bg-gray-100  border-r  border-gray-400 p-3 justify-center items-center flex '>
-                <UserCog2 width={25} stroke='black' strokeWidth={1}  />
-                </View>
+               <View className="justify-start items-start w-full flex flex-row relative ">
+              
+                <User2 width={25} stroke='#151E40' strokeWidth={2} className='absolute z-50 flex items-center justify-center py-6 ml-3'  />
+             
                     <TextInput
                     placeholder='User CNIC'
                     value={user}
@@ -178,15 +150,14 @@ function clearAll(){
                     placeholderTextColor='grey'
                     keyboardType='number-pad'
                     maxLength={13}
-                    className='   text-lg  w-10/12  bg-white border-blue-400 text-black' />
+                    className='   text-lg  w-full  bg-white border-blue-400 text-black pl-12' />
                 
                 </View>
 
                 {/* Password  */}
-                <View className="  justify-start items-start w-full flex flex-row mt-5 ">
-                <View className='bg-gray-100  border-r border-gray-400 p-3  justify-center items-center flex '>
-                <Lock width={25} stroke='black' strokeWidth={1}  />
-                </View>
+                <View className="justify-start items-start w-full flex flex-row mt-5 relative ">
+              
+              <KeyRound width={25} stroke='#151E40' strokeWidth={2} className='absolute z-50 flex items-center justify-center py-6 ml-3'  />
 
                 <TextInput
                     secureTextEntry={true}
@@ -195,30 +166,26 @@ function clearAll(){
                     onChangeText={e => setPwd(e)}
                     placeholderTextColor='grey'
                     
-                    className='  text-lg  w-10/12  bg-white border-blue-400 text-black   ' />
+                    className='   text-lg  w-full  bg-white border-blue-400 text-black pl-12' />
                 
                 </View>
                 
 
-                <View className=" justify-center items-center   flex flex-row mt-5">    
+                <View className=" justify-center items-center   flex flex-row  gap-4 mt-5">    
 
-                    <TouchableOpacity onPress={()=>signIn()} 
-                    className='p-3 bg-yellow-400 text-center  w-6/12  border-yellow-500' >
-                    <Text className='text-white  text-center font-bold text-lg'>Login</Text>
-
-                    </TouchableOpacity>
+                    
                     <TouchableOpacity  
                     onPress={() => navigation.navigate('SignUp')}
-                    className='p-3 bg-blue-900 text-center ml-3 w-4/12  border-yellow-300' >
+                    className='p-3 bg-blue-900 text-center ml-3 w-5/12 shadow-md shadow-black' >
                     <Text className='text-white text-center font-bold text-lg'>Sign Up</Text>
 
                     </TouchableOpacity>
-                    {/* <TouchableOpacity  
-                    onPress={() => navigation.navigate('Home')}
-                    className='p-3 bg-blue-900 text-center ml-3 w-4/12  border-yellow-300' >
-                    <Text className='text-white text-center font-bold text-lg'>Home</Text>
+                    <TouchableOpacity onPress={()=>signIn()} 
+                    className='p-3 bg-yellow-500 text-center  w-5/12  border-yellow-500 shadow-md shadow-black' >
+                    <Text className='text-white  text-center font-bold text-lg'>Login</Text>
 
-                    </TouchableOpacity> */}
+                    </TouchableOpacity>
+                   
                     </View>    
             </View>
             {/* important NMHP social links */}

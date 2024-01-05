@@ -70,7 +70,7 @@ return (
 
    {/* Forwarded Days*/}
       {/* ======================== Heading====*/}
-      <View className={` flex-row m-2  justify-evenly bg-slate-300 p-2 ` }>
+      <View className={` flex-row m-2  justify-evenly bg-slate-200 p-2 ` }>
    <View className=" w-2/12 justify-center  items-center  rounded-md " >
              <Text className="text-black text-xs">E-Leave #</Text>
         </View>

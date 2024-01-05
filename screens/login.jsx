@@ -129,13 +129,13 @@ function clearAll(){
             <View className="w-full  h-2/5 flex justify-center items-center p-2">
                 <Image source={require('../img/logo.png')}   className=' w-32 h-32 border flex ' />
                 {/* <Text className='font-extrabold text-3xl  text-yellow-400 mt-2 '>E-Leave (NHMP)</Text> */}
-                <Text className=' sm:text-2xl text-md text-white font-bold m-2 border-b-2  border-yellow-400   px-2 rounded-sm  text-xl'>National Highways & Motorway Police</Text>
+                <Text className=' sm:text-2xl text-md text-white font-bold m-2 border-b-2  border-yellow-400   px-2 rounded-sm  text-lg'>National Highways & Motorway Police</Text>
                 <Text className="text-white font-light font-mono text-xs italic">Version: 1.0.0</Text>
             </View>
            
                        {/* Login Panel  bg-[#2b6379]  bg-[#17162560] */}
                        
-            <View className='w-11/12  px-5  py-8  flex justify-center items-center border border-white rounded-sm  bg-[#05050c6c] shadow-md  '>
+            <View className='w-11/12  px-5  py-8  flex justify-center items-center border border-slate-100 rounded-sm  bg-[#05050c6c] shadow-md  '>
 
              
                {/* User name */}

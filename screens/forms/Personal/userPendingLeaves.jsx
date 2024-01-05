@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useRef,useRef  } from 'react';
+import React, { useEffect, useState,useRef  } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView,Alert, TextInput } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
@@ -126,7 +126,7 @@ return (
 
 
    {/* ======================== Heading====*/}
-   <View className={` flex-row m-2  justify-evenly bg-slate-300 p-2` }>
+   <View className={` flex-row m-2  justify-evenly bg-slate-200 p-2` }>
    <View className=" w-2/12 justify-center  items-center  rounded-md " >
              <Text className="text-black text-xs">E-Leave #</Text>
         </View>
@@ -149,8 +149,8 @@ return (
 
 {leaveStatus &&
     leaveStatus.map((item,index)=>(
-<View className={` flex-row m-2  justify-evenly items-center   bg-white p-1 py-2 ` } key={index}>
-   <View className=" w-2/12 flex justify-center text-center items-center" >
+<View className={` flex-row m-2  justify-evenly items-center    p-1 border-b border-dotted border-gray-400 ` } key={index}>
+   <View className=" w-2/12 flex justify-center text-center items-center " >
              <Text className="text-black text-xs">{item.leaveId}</Text>
         </View>
        <View className=" w-3/12 flex justify-center  items-center" >

@@ -23,6 +23,7 @@
     "react-native-document-picker": "^9.0.1",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-encrypted-storage": "^4.0.3",
+    "react-native-rename": "^3.2.13",
     "react-native-safe-area-context": "^4.7.1",
     "react-native-screens": "^3.24.0",
     "react-native-searchable-dropdown-kj": "^1.9.0",

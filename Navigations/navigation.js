@@ -40,7 +40,7 @@ const MyStack = () => {
             unmountOnBlur:true,
             headerShown: false }}
          /> 
-         <Stack.Screen name="Daily Progress" component={ApplyLeave} 
+         <Stack.Screen name="Apply Leave" component={ApplyLeave} 
           options={{ 
             unmountOnBlur:true,
             headerShown: false }}

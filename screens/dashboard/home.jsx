@@ -91,9 +91,6 @@ function Home() {
   if (currentUser) {
     useEffect(() => {
       getSectorAccountRequests(currentUser, setsignUpRequests);
-
-
-
       //=============leave request
       switch (currentUser.role) {
         case 2:
@@ -131,6 +128,8 @@ function Home() {
     }, [currentUser]);
   }
 
+
+
   if (currentUser) {
     useEffect(() => {
       //=======get pending requests
@@ -163,21 +162,20 @@ function Home() {
     } catch (error) {}
   }
 
+
+
+
   return (
     <KeyboardAvoidingView>
-      {/* behavior={Platform.OS === 'android' ? 'Padding' : null}
-     enabled */}
-
-      {/* <ScrollView keyboardShouldPersistTaps='handled'> */}
-
-      <View className="p-2  w-full h-screen relative">
+ 
+       <View className="p-2  w-full h-screen relative">
         <View className="  flex  border h-1/6 bg-[#151d4b]   justify-center items-center  w-full rounded-lg   overflow-visible ">
           {currentUser && (
             <View className=" bg-white rounded-xl w-11/12  border-x h-36 shadow-md shadow-black   mt-32 items-center">
               <Text className="text-black font-bold mt-4">
                 {currentUser.rank} {currentUser.name} ({currentUser.beltNo})
               </Text>
-              {/* <Text className="text-black">{currentUser.zone} {currentUser.sector} {currentUser.sector} {currentUser.beat}</Text> */}
+           
 
               <TouchableOpacity className=" bg-slate-200 p-2  items-center mt-2 border border-slate-400 shadow-md shadow-black w-4/12 rounded-md">
                 <Text className="text-black font-semibold">View Profile</Text>
@@ -226,7 +224,7 @@ function Home() {
           {/* Apply Leave */}
           <View className="flex-row justify-center gap-3">
             <TouchableOpacity
-              onPress={() => navigation.navigate('Daily Progress')}
+              onPress={() => navigation.navigate('Apply Leave')}
               className="shadow-md shadow-slate-950  w-2/6 flex-row  rounded-md  flex justify-center items-center pt-2 bg-green-600 ">
               <View className=" gap-1 w-full  flex items-center ">
                 <View className="bg-white p-2 rounded-full w-8 h-8  ">

@@ -165,6 +165,13 @@ function Home() {
 
 
 
+  function showModal(x,datasetter,showsetter){
+    if(x) {
+      datasetter(x)
+      showsetter(true)}
+  }
+
+
   return (
     <KeyboardAvoidingView>
  
@@ -335,12 +342,12 @@ function Home() {
                       <Text className="text-black ml-2">({item.beltNo})</Text>
                     </View>
 
-                    <View className="flex p-2 w-4/12 flex-row  items-center">
+                    <View className="flex   w-4/12 flex-row  items-center">
                       <TouchableOpacity
                         onPress={() =>
                           showModal(item, setModalData, setModalVisible)
                         }
-                        className="p-2 bg-green-800 rounded-md justify-between items-center">
+                        className="p-2  bg-green-800 rounded-md justify-between items-center">
                         <Text className="text-white">Verify User</Text>
                       </TouchableOpacity>
                     </View>

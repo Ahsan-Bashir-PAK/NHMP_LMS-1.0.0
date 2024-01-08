@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.psvnhmp"
+    namespace "com.eLeaveNHMP"
     defaultConfig {
-        applicationId "com.psvnhmp"
+        applicationId "com.eLeaveNHMP"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

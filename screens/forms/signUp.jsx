@@ -12,6 +12,8 @@ import { verifyDuplicateUser } from '../../config/functions';
 
 const SignUp = () => {
 
+  const navigation = useNavigation();
+
   const dropdownposting = useRef({});  
   const dropdownrank = useRef({});  
   const dropdownregion = useRef({});  
@@ -19,7 +21,7 @@ const SignUp = () => {
   const dropdownsector = useRef({});  
   const dropdownbeat = useRef({});  
 
-  const navigation = useNavigation();
+  
 
   const [modalVisible, setModalVisible] = useState(true);
 
@@ -184,8 +186,9 @@ const saveUser = async () => {
   }
 
     axios.post(`${global.BASE_URL}/sign/saveRequest`,user).then( response =>{
-      Alert.alert("Request Submitted",'Your Request has been forwarded to concerned office for acount activation ')
+      Alert.alert("Request Submitted",'Your Request has been forwarded to concerned office for account activation ')
 
+      navigation.navigate("Login")
     }
     )
       } else { Alert.alert("Note: Please Fill All Fields");}

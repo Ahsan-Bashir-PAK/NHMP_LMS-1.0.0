@@ -187,7 +187,14 @@ return (
 <View className={styles.outerview}>
                     <View className=" w-2/6 justify-center items-center p-2 rounded-md bg-green-500" ><Text className="text-white">Total Days</Text></View>
                     <View className="  w-4/6 items-center  justify-center ">
-                          <Text className="text-black font-bold">{days>1? days +" Days": days +" Day"}  </Text>
+                          <Text className="text-black font-bold">
+                            {(Math.round((endDate -startDate) / (1000 * 3600 * 24) +1))==1?
+                          (Math.round((endDate -startDate) / (1000 * 3600 * 24) +1)) + " Day":
+                          (Math.round((endDate -startDate) / (1000 * 3600 * 24) +1)) + " Days" 
+                          
+                          } 
+                            {/* {days>1? days +" Days": days +" Day"}  */}
+                             </Text>
                     </View>
         </View>
 {/* {/* leave type */}

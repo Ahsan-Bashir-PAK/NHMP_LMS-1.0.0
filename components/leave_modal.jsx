@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {Modal, View, Text, TouchableOpacity,TextInput} from 'react-native';
+import {Modal, View, Text, TouchableOpacity,TextInput, ScrollView} from 'react-native';
 import { retrieveUserSession } from '../config/functions';
 import { updateLeaveStatus, saveApproval } from '../config/leavefunctions';
 import { useNavigation } from '@react-navigation/native';
@@ -89,18 +89,21 @@ updateLeaveStatus(leave_status,() => props.visibilitySetter(!props.visibility))
 
 //=========getting cpo status 
 useEffect(()=>{
-    if(currentUser.role == 4 ){
+ if(props.data){
 
-    PersonalLeaveStatus(currentUser, setforwardedLeaves, {
-      id: props.data.userId,
-      status1: 1,
-      status2:3,
-    });
+   if(currentUser.role == 4 || currentUser.role == 3 ){
+     
+     PersonalLeaveStatus(currentUser, setforwardedLeaves, {
+       id: props.data.userId,
+       status1: 1,
+       status2:3,
+      });
+    }
+    
+   
+    
   }
-
-   const x = forwardedLeaves && forwardedLeaves.filter((item)=>item.leaveId == props.data.leaveId)
- 
-  },[forwardedLeaves])
+  },[props])
 
   return (
     <>
@@ -112,6 +115,7 @@ useEffect(()=>{
           props.visibilitySetter(!props.visibility);
         }}>
         <View className="bg-[#d9d0f35e]  h-full w-full justify-center items-center flex">
+          
           {props.data && (
             <View className=" w-11/12  bg-white border shadow  rounded-lg justify-center px-2 align-middle shadow-black ">
                 <View className="mt-2  w-full justify-end items-center flex-row">   
@@ -138,12 +142,23 @@ useEffect(()=>{
                         <Text className="  text-black text-sm">{props.data.beat}, {props.data.sector}, {props.data.zone}</Text>
                       </View>
 {/* ------------------------------------requested days */}
-                      <View className="flex flex-row ">
+                    {/* Reason */}
+                    <View className="flex flex-row  h-16 ">
                      
-                        <Text className="text-black ">Requested Days:</Text>
+                     <Text className="text-black items-center   ">Reason:</Text>
+                      <ScrollView>
+                     <Text className="font-bold mb-1 px-2 rounded-md text-black text-sm italic bg-slate-100    "> 
+                     {props.data.reason}
+                     </Text>
+                    </ScrollView> 
+                   </View>
+
+                      <View className="flex flex-row  flex-wrap">
+                     
+                        <Text className="text-black items-center ">Requested Days:</Text>
                 
                         <Text className="font-bold mx-2 text-black text-sm bg-slate-200 rounded-sm px-2"> {props.data.Days}</Text>
-                        <Text className="text-black text-sm">({props.data.startDate.split("T")[0].split("-").reverse().join("-")} - to - {props.data.endDate.split("T")[0].split("-").reverse().join("-")})</Text>
+                        <Text className="text-black text-sm ">({props.data.startDate.split("T")[0].split("-").reverse().join("-")} - to - {props.data.endDate.split("T")[0].split("-").reverse().join("-")})</Text>
                       </View>
                     
 
@@ -152,9 +167,9 @@ useEffect(()=>{
                         <Text className="text-black ">Leave Availed:</Text> 
                         <Text className=" ml-6 text-black text-sm"> C/L:10 E/L:20</Text>
                       </View> */}
-                    <View className = {`bg-blue-200 rounded-md p-2 m-1  ${currentUser?currentUser.role == 2?"hidden":"block":"hidden"}`}>
-                        <View className='bg-green-400 rounded-r-full p-1 w-2/5 -left-2 '>
-                      <Text className='font-bold '> CPO Remarks</Text>
+                    <View className = {`bg-slate-200 rounded-md p-2 m-1  ${currentUser?currentUser.role == 2?"hidden":"block":"hidden"}`}>
+                        <View className='bg-blue-400 rounded-r-full p-1 w-2/5 -left-2 '>
+                      <Text className=' text-white '> CPO Remarks</Text>
 
                         </View>
                       <View className="flex flex-row">
@@ -163,47 +178,46 @@ useEffect(()=>{
                       </View>
 
                       <View className="flex flex-row flex-wrap mt-2 bg-gray-100 rounded-md p-2">
-                        <Text className="text-black font-semibold ">Remarks:</Text> 
-                        <Text className=" ml-2 text-grey-400 text-sm italic ">{forwardedLeaves && forwardedLeaves.filter((item)=>item.leaveId == props.data.leaveId)[0].remarks} </Text>
+                        <Text className="text-gray-500 font-semibold ">Remarks:</Text> 
+                        <Text className=" ml-2 text-black text-sm italic ">{forwardedLeaves && forwardedLeaves.filter((item)=>item.leaveId == props.data.leaveId)[0].remarks} </Text>
                       </View>
                       </View>
 
 
                       {/* OSI */}
-                      <View className = {`bg-blue-200 rounded-md p-2 m-1  ${currentUser?currentUser.role < 4?"hidden":"block":"hidden"}`}>
-                        <View className='bg-yellow-300 rounded-r-full p-1 w-2/5 -left-2 '>
-                      <Text className='font-bold '> OSI Remarks</Text>
+                      <View className = {`bg-blue-100 rounded-md p-2 m-1  ${currentUser?currentUser.role < 4?"hidden":"block":"hidden"}`}>
+                        <View className='bg-slate-300 rounded-r-full p-1 w-2/5 -left-2 '>
+                      <Text className='font-bold text-gray-600'> OSI Remarks</Text>
 
                         </View>
                    
 
                       <View className={`flex flex-row flex-wrap mt-2 bg-gray-100 rounded-md p-2 ${currentUser?currentUser.role==3?"hidden":"block":"hidden"}`}>
-                        <Text className="text-black ">Remarks:</Text> 
-                        <Text className=" ml-2 text-grey-400 text-sm italic ">{props.data.remarks} </Text>
+                        <Text className="text-gray-600">Remarks:</Text> 
+                        <Text className=" ml-2 text-grey-400 text-sm italic text-black ">{props.data.remarks}</Text>
                       </View>
                       </View>
                        
                       
               <TextInput 
-              className='border rounded-lg w-full mt-2 border-gray-400' 
+              className='border rounded-lg w-full mt-2 border-gray-400 text-black' 
               placeholder ="Recommanded Days" 
               keyboardType='numeric'
               maxLength={3}
               value ={recDays}
               onChangeText={txt=>setRecDays(txt)}
-
+              placeholderTextColor={'gray'}        
               />
               <TextInput
 
-                className="border rounded-lg w-full text-center mt-2 border-gray-400 "
-
-
+                className="border align-text-top rounded-lg w-full  mt-2 border-gray-400 text-black "
                 multiline
                 editable
                 numberOfLines={8}
                 maxLength={500}
-                placeholder='Remarks'
+                placeholder='Enter Remarks'
                 value ={remarks}
+                placeholderTextColor={'gray'}
                 onChangeText={txt=>setRemarks(txt)}                          
                 />
                   
@@ -235,6 +249,7 @@ useEffect(()=>{
               </View> 
             </View>
           )}
+     
         </View>
       </Modal>
     </>

@@ -72,7 +72,7 @@ async function applyLeave(leave_req,fn) {
 
           response=>{
             if (response.data == "Leave status updated" ){
-              Alert.alert("✔️"," The application is forwarded",[
+              Alert.alert("✔️"," The application is process is completed",[
                 {text:"Ok", onPress:fn}
               ])
               

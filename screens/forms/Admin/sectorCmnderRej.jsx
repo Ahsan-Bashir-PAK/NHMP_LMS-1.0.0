@@ -85,8 +85,8 @@ switch (currentUser.role) {
 
 return (
     <ScrollView className="">
-    <View className=" flex flex-col p-2  ">
-      <KeyboardAvoidingView style={{ backgroundColor: 'transparent' }}>
+    <View className=" flex flex-col p-2  bg-white h-screen overflow-scroll">
+      <KeyboardAvoidingView style={{ backgroundColor: 'white' }}>
 
         {/* Status  Of Leaves */}
         <View className=" bg-red-500 mt-1 w-full rounded-md  ">

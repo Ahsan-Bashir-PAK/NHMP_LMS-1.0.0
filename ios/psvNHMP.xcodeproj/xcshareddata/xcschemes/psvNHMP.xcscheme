@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "psvNHMP.app"
-               BlueprintName = "psvNHMP"
-               ReferencedContainer = "container:psvNHMP.xcodeproj">
+               BuildableName = "eLeaveNHMP.app"
+               BlueprintName = "eLeaveNHMP"
+               ReferencedContainer = "container:eLeaveNHMP.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "psvNHMPTests.xctest"
-               BlueprintName = "psvNHMPTests"
-               ReferencedContainer = "container:psvNHMP.xcodeproj">
+               BuildableName = "eLeaveNHMPTests.xctest"
+               BlueprintName = "eLeaveNHMPTests"
+               ReferencedContainer = "container:eLeaveNHMP.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "psvNHMP.app"
-            BlueprintName = "psvNHMP"
-            ReferencedContainer = "container:psvNHMP.xcodeproj">
+            BuildableName = "eLeaveNHMP.app"
+            BlueprintName = "eLeaveNHMP"
+            ReferencedContainer = "container:eLeaveNHMP.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "psvNHMP.app"
-            BlueprintName = "psvNHMP"
-            ReferencedContainer = "container:psvNHMP.xcodeproj">
+            BuildableName = "eLeaveNHMP.app"
+            BlueprintName = "eLeaveNHMP"
+            ReferencedContainer = "container:eLeaveNHMP.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

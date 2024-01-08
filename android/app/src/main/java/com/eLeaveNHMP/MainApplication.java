@@ -1,4 +1,4 @@
-package com.psvnhmp;
+package com.eLeaveNHMP;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
